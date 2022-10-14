@@ -117,8 +117,8 @@ $(function() {
         }
     });
         
-////El JSON que viene desde php , lo decodifica y obtengo los datos del artículo
-function tomarIdArticulo(idaction,idarticulo) {
+    ////El JSON que viene desde php , lo decodifica y obtengo los datos del artículo
+    function tomarIdArticulo(idaction,idarticulo) {
               
     
                 
@@ -327,4 +327,38 @@ function tomarIdArticulo(idaction,idarticulo) {
     });
     ////////////////////////////////////////////////////////////////
 
+    //MODAL FORMULARIO MODIFICAR
+    $('.modificar__Articulo').click(function(e){
+        
+        let art_id = $(this).attr('art_id');
+        
+        console.log(art_id);
+
+        let action = 'modificarArticulo';
+       
+        $.ajax({
+            url: 'ajax.php',
+            type: "POST",
+            async: true,
+            data: {action:action,modificar__Articulo:art_id},
+            
+            
+            success: function(response){
+                
+                
+                if(response == 0){
+                    console.log(response);
+                }
+                console.log("esta es la respuesta"+response);
+                
+               
+
+            },
+            error: function(error){
+    
+            }
+        });  
+
+    });
+    
 });

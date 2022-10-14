@@ -30,15 +30,24 @@
             $i = 1;
             while ($fila =mysqli_fetch_array($datos)){
               //<th scope="col-1">'.$i++.'</th>
+              
                 echo'
                 <tr>
+                  <th scope="col-1">
+                    
+                    <button type="button" class="modificar__Articulo btn btn-primary" data-bs-toggle="modal" art_id='.$fila ['art_id'].' data-bs-target="#staticBackdrop">
+                    Modificar
+                    </button>
+                    <button type="button" class="btn btn-outline-danger mt-2" >Eliminar</button>
+                  </th>
                     <th scope="col-1">'.$fila ["art_id"].'</th>
                     <th scope="col-1">'.$fila ["art_cod"].'</th>
                     <th scope="col-1">'.$fila ["art_nom"].'</th>
                     <th scope="col-1">$'.$fila ["art_precio"].'</th>
                     <th scope="col-1">'.$fila ["art_stock"].'</th>
-                    <th scope="col-1">'.$fila ["art_costo"].'</th>
+                    <th scope="col-1">$'.$fila ["art_costo"].'</th>
                     <th scope="col-1">'.$fila ["art_vendible"].'</th>
+                    <th scope="col-1">'.$fila ["art_deshabilitado"].'</th>
                     <th scope="col-1">'.$fila ["cat_nom"].'</th>
                     <th scope="col-1">'.$fila ["cat_obs"].'</th>
                     <th scope="col-1">'.$fila ["art_materiales"].'</th>
@@ -67,7 +76,6 @@
               //<th scope="col">'.$i++.'</th>
                 echo'
                 <tr>
-                    
                     <th scope="col">'.$fila ["id_cliente"].'</th>
                     <th scope="col">'.$fila ["nombre"].'</th>
                     <th scope="col">'.$fila ["direccion"].'</th>
@@ -90,7 +98,6 @@
               echo '<option value="'.$valores[0].'">'.$valores[1].'</option>';
             }
 
-            
           }
           desconectarBD($conexion);
 
@@ -99,31 +106,31 @@
 
         }
 
-        function nuevoArticulo($conexion,$descripcion,$precio,$cantidad){
-            if(strlen($descripcion) >=1 && strlen($precio) >=1 && strlen($cantidad) >=1){
+        function nuevoArticulo($conexion,$codArticulo,$nombreArticulo,$precioArticulo,$cantidadArticulo,$costoArticulo,$categoriaArticulo,$materialesArticulo,$descripcionArticulo){
+            if(strlen($codArticulo) >=1 && strlen($nombreArticulo) >=1 && strlen($precioArticulo) >=1 && strlen($costoArticulo) >=1 && strlen($categoriaArticulo) >=1 && strlen($descripcionArticulo) >=1 ){
 
-                $consulta= "INSERT INTO `articulos`( `descripcion`, `precio`, `cantidad`) VALUES ('$descripcion','$precio','$cantidad')";
+                $consulta= "INSERT INTO `articulos`(`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_habilitado`, `art_categoria`, `art_materiales`) VALUES ('null','$codArticulo','$nombreArticulo','$descripcionArticulo',$precioArticulo,$cantidadArticulo,$costoArticulo,'S','S','$categoriaArticulo','$materialesArticulo')";
                 
-                $db = mysqli_select_db( $conexion, $nombreBD) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
-    
+               try {
+                //code...
+                $query = mysqli_query ($conexion ,"INSERT INTO `articulos`(`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_habilitado`, `art_categoria`, `art_materiales`) VALUES ('','$codArticulo','$nombreArticulo','$descripcionArticulo',$precioArticulo,$cantidadArticulo,$costoArticulo,'S','S','$categoriaArticulo','$materialesArticulo')") or die ( "Database connection failed: " . mysqli_error());
                 
-                try {
-                    $datos= mysqli_query ($conexion,$consulta);
-                  } catch (\Throwable $th) {
-                    //throw $th;
-                  }
-                  
-    
-                  if($datos){
+                if($query){
                    
-                    echo '
-                    <div class="alert alert-success text-center" role="alert">
-                    Guardado exitoso!..
+                  echo '
+                  <div class="alert alert-success text-center" role="alert">
+                  Guardado exitoso!..
+                  </div>';
+                  
+                }
+               } catch (\Throwable $th) {
+                echo '
+                    <div class="alert alert-danger text-center" role="alert">
+                    Hubo un error!!..
                     </div>';
-                    
-                  }else{
-                    echo "no se guardo";
-                  }
+               }
+                
+             
                 
                 desconectarBD($conexion);
             }else{
@@ -139,7 +146,7 @@
             
                 $consulta= "INSERT INTO `clientes`(`nombre`, `direccion`, `telefono`) VALUES ('$nombre','$direccion','$telefono')";
                 
-                $db = mysqli_select_db( $conexion, $nombreBD ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
+                //$db = mysqli_select_db( $conexion, $nombreBD ) or die ("Database connection failed: " . mysqli_error());
     
                 try {
                     $datos= mysqli_query ($conexion,$consulta);
@@ -227,7 +234,7 @@
 
           if(isset($_POST['idAction']) && $_POST['idAction'] == 'searchIdArticulo'){
             if(!empty($_POST['idArticulo'])){
-              include('bd.php');
+            include('bd.php');
             $consulta = "SELECT * FROM `articulos` WHERE id_articulo=".$_POST['idArticulo']."";
             $db = mysqli_select_db( $conexion, $nombreBD ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
             

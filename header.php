@@ -4,6 +4,8 @@
     </a>
     
     <form class="d-flex">
-      <a href='inicio.php' class="btn btn-outline-danger">INICIO</a>
+      <a href='index.php' class="btn btn-outline-danger">INICIO</a>
     </form>
   </div>
+
+  
