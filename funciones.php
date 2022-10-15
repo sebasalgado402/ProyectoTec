@@ -33,13 +33,7 @@
               
                 echo'
                 <tr>
-                  <th scope="col-1">
-                    
-                    <button type="button" class="modificar__Articulo btn btn-primary" data-bs-toggle="modal" art_id='.$fila ['art_id'].' data-bs-target="#staticBackdrop">
-                    Modificar
-                    </button>
-                    <button type="button" class="btn btn-outline-danger mt-2" >Eliminar</button>
-                  </th>
+                  
                     <th scope="col-1">'.$fila ["art_id"].'</th>
                     <th scope="col-1">'.$fila ["art_cod"].'</th>
                     <th scope="col-1">'.$fila ["art_nom"].'</th>
@@ -51,6 +45,13 @@
                     <th scope="col-1">'.$fila ["cat_nom"].'</th>
                     <th scope="col-1">'.$fila ["cat_obs"].'</th>
                     <th scope="col-1">'.$fila ["art_materiales"].'</th>
+                    <th scope="col-1">
+                    
+                    <button type="button" id="modificar__Articulo'.$fila ["art_id"].'" class="btn btn-primary" data-bs-toggle="modal" data-art_id='.$fila ['art_id'].' data-bs-target="#staticBackdrop">
+                    Modificar
+                    </button>
+                    <button type="button" class="btn btn-outline-danger mt-2" >Eliminar</button>
+                  </th>
                 </tr>';
             }
               

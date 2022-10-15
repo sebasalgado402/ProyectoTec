@@ -15,80 +15,7 @@
     <title>Document</title>
 </head>
 <body>
-    <!-- MODAL -->
-        
-        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Modificar Articulo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            <form action="articulos.php" method="post" class="offset-2 col-9">
-            
-            <div class="row">
     
-                <div class="col-10">
-                    <label for="modalArt__modificarNombre" class="form-label" >Nombre:</label>
-                    <input type="text" class="form-control" name="modalArt__modificarNombre" id="modalArt__modificarNombre" required>
-                </div>
-            </div>
-            <div class="row">
-
-                <div class="col-4">
-                    <label for="precioArticulo" class="form-label">Precio:</label>
-                    <input type="number" class="form-control" name="precioArticulo" id="" required>
-                </div>
-                <div class="col-4">
-                    <label for="cantidadArticulo">Stock:</label>
-                    <input type="number" class="form-control" class="form-label" name="cantidadArticulo" id="" required>
-                </div>
-                <div class="col-4">
-                    <label for="costoCreacionArticulo">Costo de creación:</label>
-                    <input type="number" class="form-control" class="form-label" name="costoCreacionArticulo" id="">
-                </div>
-                
-            </div>
-            <div class="row">
-
-                <div class="col-6">
-                    <label for="categoria">Elija la categoria:</label>
-                    <select name="categoria" id="categoria" class="form-control">
-                    <option value="0">---</option>'
-                    <?php 
-                   
-                        include('bd.php');
-                        cargarCategorias($conexion,$nombreBD); 
-                   
-                    ?>
-                    </select>
-                </div>
-                <div class="col-6">
-                    <button type="button" class="btn btn-primary form-control mt-4 agregar__Categoria">Ingresar categoría nueva</button>
-                </div>
-            </div>
-            
-            <label for="descripcionArticulo">descripcion:</label>
-            <input type="text" class="form-control" class="form-label" name="descripcionArticulo" id="">
-
-            <label for="MaterialesArticulo">Materiales:</label>
-            <input type="text" class="form-control" class="form-label" name="MaterialesArticulo" id="">
-            
-            
-
-            <button type="submit" class="btn btn-outline-danger mt-2">Ingresar articulo nuevo</button>
-        </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
-            </div>
-            </div>
-        </div>
-        </div>
-        
-    <!-- MODAL -->
     <section>
         <?php
         include('header.php');
@@ -171,7 +98,7 @@
         <thead>
             <tr class="table-dark">
             <!-- <th scope="col-1">#</th> -->
-            <th scope="col-1">Acción</th>
+            
             <th scope="col-1">Id Articulo</th>
             <th scope="col-1">Código Articulo</th>
             <th scope="col-1">Nombre</th>
@@ -183,6 +110,7 @@
             <th scope="col-1">Categoria</th>
             <th scope="col-1">Observacion</th>
             <th scope="col-1">Materiales</th>
+            <th scope="col-1">Acción</th>
             </tr>
         </thead>
         <tbody>

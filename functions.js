@@ -326,11 +326,12 @@ $(function() {
         location.reload() ;
     });
     ////////////////////////////////////////////////////////////////
-
+    
     //MODAL FORMULARIO MODIFICAR
-    $('.modificar__Articulo').click(function(e){
-        
-        let art_id = $(this).attr('art_id');
+    /* $("[id^='modificar__Articulo']").click(function(e){ */
+    $("[id^='modificar__Articulo']").click(function(e){
+        e.preventDefault();
+        let art_id = $(this).attr('data-art_id');
         
         console.log(art_id);
 
@@ -347,9 +348,75 @@ $(function() {
                 
                 
                 if(response == 0){
-                    console.log(response);
+                    console.log("error " + response);
                 }
-                console.log("esta es la respuesta"+response);
+                let data =$.parseJSON(response);
+                console.log(data.art_nom);
+                let innerHTML = `
+                <form action="articulos.php" method="post" class="offset-2 col-9">
+            
+            <div class="row">
+    
+                <div class="col-10">
+                    <label for="modalArt__modificarNombre" class="form-label" >Nombre:</label>
+                    <input type="text" class="form-control" name="modalArt__modificarNombre" id="modalArt__modificarNombre" value="${data.art_nom}">
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-4">
+                    <label for="precioArticulo" class="form-label">Precio:</label>
+                    <input type="number" class="form-control" name="precioArticulo" id="modalArt__modificarPrecio" value="${data.art_precio}" required>
+                </div>
+                <div class="col-4">
+                    <label for="cantidadArticulo">Stock:</label>
+                    <input type="number" class="form-control" class="form-label" name="cantidadArticulo" id="" required>
+                </div>
+                <div class="col-4">
+                    <label for="costoCreacionArticulo">Costo de creación:</label>
+                    <input type="number" class="form-control" class="form-label" name="costoCreacionArticulo" id="">
+                </div>
+                
+            </div>
+            <div class="row">
+
+                <div class="col-6">
+                    <label for="categoria">Elija la categoria:</label>
+                    <select name="categoria" id="categoria" class="form-control">
+                    <option value="0">---</option>'
+                    <?php 
+                   
+                        include('bd.php');
+                        cargarCategorias($conexion,$nombreBD); 
+                   
+                    ?>
+                    </select>
+                </div>
+                <div class="col-6">
+                    <button type="button" class="btn btn-primary form-control mt-4 agregar__Categoria">Ingresar categoría nueva</button>
+                </div>
+            </div>
+            
+            <label for="descripcionArticulo">descripcion:</label>
+            <input type="text" class="form-control" class="form-label" name="descripcionArticulo" id="">
+
+            <label for="MaterialesArticulo">Materiales:</label>
+            <input type="text" class="form-control" class="form-label" name="MaterialesArticulo" id="">
+            
+            
+
+            <button type="submit" class="btn btn-outline-danger mt-2">Ingresar articulo nuevo</button>
+        </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Understood</button>
+            </div>
+            </div>
+                `;
+                    $('.modal-body').html(innerHTML);
+                    $('#modalArt__modificarPrecio').html(data.art_precio);
+                
                 
                
 

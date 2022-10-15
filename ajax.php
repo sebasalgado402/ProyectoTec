@@ -1,18 +1,24 @@
 <?php 
-    
+     
+     function desconectarBD($conexion){
+      mysqli_close($conexion);
+     }
 
     //Modificar Producto
         if(isset($_POST['action']) && $_POST['action'] == 'modificarArticulo'){
-            if(!empty($_POST['modificar__articulo'])){
-                //include('bd.php');
+            if(!empty($_POST['modificar__Articulo'])){
+              $nombreBD = 'barredadb';
+              
+              $conexion = mysqli_connect("localhost", "root", "","$nombreBD");
 
-                $consulta = "SELECT * FROM `articulos` WHERE art_id = '1'";
+                $consulta = "SELECT * FROM `articulos` WHERE art_id = ".$_POST['modificar__Articulo']."";
                 $db = mysqli_select_db( $conexion, 'barredadb' ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
                 
                 $datos= mysqli_query ($conexion,$consulta);
                 
                 $articulo = new stdClass();
                 
+                desconectarBD($conexion);
                 // 4) Ir Imprimiendo las filas resultantes
                 while ($fila =mysqli_fetch_array($datos)){
                   $art_nom = $fila['art_nom'];
@@ -38,8 +44,7 @@
                   
                 }
 
-                $prueba = ['asdas','sadasd',212];
-                desconectarBD($conexion);
+                
 
                 if($articulo){
                       $data = $articulo;
@@ -47,11 +52,11 @@
                       $data = 0;
                     }
   
-                    echo json_encode($prueba,JSON_UNESCAPED_UNICODE);
-                
+                    echo json_encode($data,JSON_UNESCAPED_UNICODE);
+                    exit;
                 }
               
-                exit;
+               
     
                 
               }
