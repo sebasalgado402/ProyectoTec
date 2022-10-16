@@ -13,6 +13,7 @@ let subTotal_detalle;
 let contadorBotonFactura = 0;
 let arrayArticulos =[];
 
+let art_id;
 let i=1;
 ///////////////////////////////////////////////////////
 $(function() {
@@ -326,17 +327,66 @@ $(function() {
         location.reload() ;
     });
     ////////////////////////////////////////////////////////////////
+
+
+    //Boton que modifica el articulo en modal
+    $("#modalModificar").click(function(e){
+        e.preventDefault();
+        let arrModificar = [];
+        let id = art_id;
+        let categoria = $('#modal_modificiarArticulo__Categoria').val();
+        let nombre = $('#modalArt__modificarNombre').val();
+        let precio = $('#modalArt__modificarPrecio').val();
+        let stock = $('#modalArt__modificarStock').val();
+        let costo = $('#modalArt__modificarCosto').val();
+        let descripcion = $('#modalArt__modificarDescripcion').val();
+        let materiales = $('#modalArt__modificarMateriales').val();
+
+        arrModificar.push(id,categoria,nombre,precio,stock,costo,descripcion,materiales);
+
+        console.log("este es el array a modificar"+arrModificar);
+
+        let action = 'modalModificar_Articulo'
+
+        $.ajax({
+            url: 'ajax.php',
+            type: "POST",
+            async: true,
+            data: {action:action,modalModificar_Articulo:arrModificar},
+            
+            
+            success: function(response){
+                
+                
+                if(response == 0){
+                    alert('Húbo un error al modificar');
+                }
+                data = $.parseJSON(response);
+                console.log(data);
+                if(data== 1){
+                    location.reload();
+                }
+
+
+            },
+            error: function(error){
+                
+            }
+        });  
+
+    });
+    
+    //Termina---Boton que modifica el articulo en modal
     
     //MODAL FORMULARIO MODIFICAR
-    /* $("[id^='modificar__Articulo']").click(function(e){ */
     $("[id^='modificar__Articulo']").click(function(e){
         e.preventDefault();
-        let art_id = $(this).attr('data-art_id');
+        art_id = $(this).attr('data-art_id');
         
         console.log(art_id);
-
+        
         let action = 'modificarArticulo';
-       
+        
         $.ajax({
             url: 'ajax.php',
             type: "POST",
@@ -351,81 +401,113 @@ $(function() {
                     console.log("error " + response);
                 }
                 let data =$.parseJSON(response);
-                console.log(data.art_nom);
+                console.log(data);
                 let innerHTML = `
-                <form action="articulos.php" method="post" class="offset-2 col-9">
-            
-            <div class="row">
-    
-                <div class="col-10">
-                    <label for="modalArt__modificarNombre" class="form-label" >Nombre:</label>
-                    <input type="text" class="form-control" name="modalArt__modificarNombre" id="modalArt__modificarNombre" value="${data.art_nom}">
+                <form action="articulos.php" method="post" class="col-12">
+                
+                <div class="row">
+                
+                <div class="col-12">
+                <label for="modalArt__modificarNombre" class="form-label" >Nombre:</label>
+                <input type="text" class="form-control" name="modalArt__modificarNombre" id="modalArt__modificarNombre" value="${data.art_nom}">
                 </div>
-            </div>
-            <div class="row">
+                </div>
+                <div class="row pt-2">
 
-                <div class="col-4">
-                    <label for="precioArticulo" class="form-label">Precio:</label>
-                    <input type="number" class="form-control" name="precioArticulo" id="modalArt__modificarPrecio" value="${data.art_precio}" required>
+                <div class="col-3">
+                <label for="precioArticulo" class="form-label">Precio:</label>
+                <input type="number" class="form-control" name="precioArticulo" id="modalArt__modificarPrecio" value="${data.art_precio}" required>
                 </div>
-                <div class="col-4">
-                    <label for="cantidadArticulo">Stock:</label>
-                    <input type="number" class="form-control" class="form-label" name="cantidadArticulo" id="" required>
-                </div>
-                <div class="col-4">
-                    <label for="costoCreacionArticulo">Costo de creación:</label>
-                    <input type="number" class="form-control" class="form-label" name="costoCreacionArticulo" id="">
+                <div class="col-3">
+                <label for="cantidadArticulo" class="form-label">Stock:</label>
+                <input type="number" class="form-control" name="cantidadArticulo" id="modalArt__modificarStock" value="${data.art_stock}" required>
                 </div>
                 
-            </div>
-            <div class="row">
-
                 <div class="col-6">
-                    <label for="categoria">Elija la categoria:</label>
-                    <select name="categoria" id="categoria" class="form-control">
-                    <option value="0">---</option>'
-                    <?php 
-                   
-                        include('bd.php');
-                        cargarCategorias($conexion,$nombreBD); 
-                   
-                    ?>
-                    </select>
+                <label for="costoCreacionArticulo" class="form-label">Costo de creación:</label>
+                <input type="number" class="form-control" name="costoCreacionArticulo" id="modalArt__modificarCosto" value="${data.art_costo}">
+                
                 </div>
-                <div class="col-6">
-                    <button type="button" class="btn btn-primary form-control mt-4 agregar__Categoria">Ingresar categoría nueva</button>
                 </div>
-            </div>
-            
-            <label for="descripcionArticulo">descripcion:</label>
-            <input type="text" class="form-control" class="form-label" name="descripcionArticulo" id="">
-
-            <label for="MaterialesArticulo">Materiales:</label>
-            <input type="text" class="form-control" class="form-label" name="MaterialesArticulo" id="">
-            
-            
-
-            <button type="submit" class="btn btn-outline-danger mt-2">Ingresar articulo nuevo</button>
-        </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Understood</button>
-            </div>
-            </div>
+                
+                
+                
+                <div class="row p-2">
+                
+                
+                
+                <label class="form-label" for="descripcionArticulo" >Descripcion:</label>
+                <textarea class="form-control" name="descripcionArticulo" rows="4" cols="50" id="modalArt__modificarDescripcion">${data.art_desc}</textarea>
+                <label class="form-label" for="MaterialesArticulo">Materiales:</label>
+                <textarea class="form-control" name="MaterialesArticulo" rows="4" cols="50" id="modalArt__modificarMateriales">${data.art_materiales}</textarea>
+                
+                
+                </div>
+                </form>
+                
+                </div>
                 `;
-                    $('.modal-body').html(innerHTML);
-                    $('#modalArt__modificarPrecio').html(data.art_precio);
+                $('.cargaModal').html(innerHTML);
+                $('#categoria').html(data.cat_nom);
+                $('select option[value="'+data.categoria+'"]').attr("selected", true);
                 
                 
-               
+                
+                
+            },
+            error: function(error){
+                
+            }
+        });  
+        
+    });
+    //Termina - MODAL FORMULARIO MODIFICAR
+
+    //Botón de ingresar nuevo Artículo
+    $("#btn__ingresarArticulo").click(function(e){
+        e.preventDefault();
+        let producto = [];
+        let codigo = $('#txt__codArticulo').val();
+        let nombre = $('#txt__nombreArticulo').val();
+        let categoria = $('#select__categoria').val();
+        let precio = $('#txt__precioArticulo').val();
+        let stock = $('#txt__cantidadArticulo').val();
+        let costo = $('#txt__costoCreacionArticulo').val();
+        let descripcion = $('#txt__descripcionArticulo').val();
+        let materiales = $('#txt__materialesArticulo').val();
+
+        producto.push(codigo,nombre,descripcion,precio,stock,costo,categoria,materiales);
+
+
+        let action = 'nuevoArticulo'
+
+        $.ajax({
+            url: 'ajax.php',
+            type: "POST",
+            async: true,
+            data: {action:action,nuevoArticulo:producto},
+            
+            
+            success: function(response){
+                
+                
+                if(response == 0){
+                    alert('Húbo un error al ingresar nuevo producto');
+                }
+                data = $.parseJSON(response);
+                console.log(data);
+                if(data== 'correcto'){
+                    location.reload();
+                }
+                
+
 
             },
             error: function(error){
-    
+                
             }
         });  
 
     });
-    
+    //Termina - Botón de nuevo Artículo
 });
