@@ -38,7 +38,7 @@ $(function() {
     
             success: function(response)
             {
-               console.log(response);
+               ////console.log(response);
                if(response == 0){
                    $('#txt_id_cliente').val('');
                    $('#txt_nombre_cliente').val('');
@@ -57,7 +57,7 @@ $(function() {
                }
             },
             error: function(error){
-                console.log(response);
+                ////console.log(response);
             }
         }); 
     }); 
@@ -85,7 +85,7 @@ $(function() {
                 
                
                if(response == 0){
-                  console.log(response);
+                  //console.log(response);
                   
                 }else{ 
                     var data = $.parseJSON(response);
@@ -138,7 +138,7 @@ $(function() {
             }
             objetoCargar = $.parseJSON(response);
             
-            console.log("este es el json"+response);
+            //console.log("este es el json"+response);
             
             $('#th_id_articulo').html(objetoCargar.id);
             $('#th_precio').html(objetoCargar.precio);
@@ -189,10 +189,10 @@ $(function() {
 ////Calcular precioTotal
     function calcularPrecioTotal(){
         let num = $('#txt_Cantidad').val();
-        console.log("numero de input cantidad: "+num);
-        console.log("numero del precio total recibido : "+precioTotal);
+        //console.log("numero de input cantidad: "+num);
+        //console.log("numero del precio total recibido : "+precioTotal);
         resultadoPrecioTotal = parseInt(precioTotal) * parseInt(num);
-        console.log("resultado va a ser igual = "+resultadoPrecioTotal);
+        //console.log("resultado va a ser igual = "+resultadoPrecioTotal);
         $('#th_precioTotal').html("$ "+resultadoPrecioTotal);
     }
     ///////////////////////////////////////////////////////
@@ -204,7 +204,7 @@ $(function() {
         let cantidad = $('#txt_Cantidad').val();
         //let precioTotal = $('#th_precioTotal').val();
         
-        console.log("Este es el id"+idArticulo);
+        //console.log("Este es el id"+idArticulo);
         textoInsertado = `
         <tr>
         <th scope="col-1" id="${contadorBotonFactura}idArticulo_detalle">
@@ -241,7 +241,7 @@ $(function() {
 ////Al dar click al boton agregar factura.. se ejecuta el bloque de codigo..    
     $('#btnAgregarFactura').click(function(){
         contadorBotonFactura+=1;
-        console.log("Articulos en factura : "+contadorBotonFactura);
+        //console.log("Articulos en factura : "+contadorBotonFactura);
         event.preventDefault();
         agregarProducto();
         limpiarCamposArt();
@@ -253,7 +253,7 @@ $(function() {
     $('#btnProcesarCompra').click(function(){
          event.preventDefault();
         
-        console.log(arrayArticulos); 
+        //console.log(arrayArticulos); 
         
 
         
@@ -272,7 +272,7 @@ $(function() {
                 if(response == 0){
                     
                 }
-                console.log(response);
+                //console.log(response);
                 //objetoCargar = $.parseJSON(response);
                 
                
@@ -289,7 +289,7 @@ $(function() {
     $('#btnGenerarFactura').click(function(){
         event.preventDefault();
         
-        console.log(arrayArticulos); 
+        //console.log(arrayArticulos); 
         
 
         
@@ -308,7 +308,7 @@ $(function() {
                 if(response == 0){
                     
                 }
-                console.log(response);
+                //console.log(response);
                 //objetoCargar = $.parseJSON(response);
                 
                
@@ -344,7 +344,7 @@ $(function() {
 
         arrModificar.push(id,categoria,nombre,precio,stock,costo,descripcion,materiales);
 
-        console.log("este es el array a modificar"+arrModificar);
+        //console.log("este es el array a modificar"+arrModificar);
 
         let action = 'modalModificar_Articulo'
 
@@ -362,7 +362,7 @@ $(function() {
                     alert('Húbo un error al modificar');
                 }
                 data = $.parseJSON(response);
-                console.log(data);
+                //console.log(data);
                 if(data== 1){
                     location.reload();
                 }
@@ -383,7 +383,7 @@ $(function() {
         e.preventDefault();
         art_id = $(this).attr('data-art_id');
         
-        console.log(art_id);
+        //console.log(art_id);
         
         let action = 'modificarArticulo';
         
@@ -398,10 +398,10 @@ $(function() {
                 
                 
                 if(response == 0){
-                    console.log("error " + response);
+                    //console.log("error " + response);
                 }
                 let data =$.parseJSON(response);
-                console.log(data);
+                //console.log(data);
                 let innerHTML = `
                 <form action="articulos.php" method="post" class="col-12">
                 
@@ -495,10 +495,15 @@ $(function() {
                     alert('Húbo un error al ingresar nuevo producto');
                 }
                 data = $.parseJSON(response);
-                console.log(data);
-                if(data== 'correcto'){
+                ////console.log(data);
+                if(data== true){
                     location.reload();
+                }else if(data == 'dato duplicado'){
+                    alert('Ya existe un articulo con ese ID');
+                }else if(data == 'Faltan datos'){
+                    alert('Complete campos obligatorios');
                 }
+                
                 
 
 
@@ -515,7 +520,7 @@ $(function() {
     $("[id^='eliminar__Articulo']").click(function(e){
         e.preventDefault();
         art_id = $(this).attr('data-art_id');
-        console.log(art_id);
+        //console.log(art_id);
         
         let action = 'eliminarArticulo';
         
@@ -530,10 +535,10 @@ $(function() {
                 
                 
                 if(response == 0){
-                    console.log("error " + response);
+                    //console.log("error " + response);
                 }
                 let data =$.parseJSON(response);
-                console.log("entro a eliminar el articulo: "+response);
+                //console.log("entro a eliminar el articulo: "+response);
                 let innerHTML = `
                 <h4 class="text-center m-5"> ¿Seguro desea eliminar ${data}? </h4> 
                 `
@@ -570,7 +575,7 @@ $(function() {
                     alert('Húbo un error al Eliminar');
                 }
                 data = $.parseJSON(response);
-                console.log(data);
+                //console.log(data);
                    if(data== true){
                     location.reload();
                 }else{
