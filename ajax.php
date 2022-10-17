@@ -145,4 +145,73 @@
 
     //Termina - ingresar nuevo articulo
 
+    //Carga id para ELIMINAR en MODAL
+    if(isset($_POST['action']) && $_POST['action'] == 'eliminarArticulo'){
+      $eliminarArticulo = $_POST['eliminar__Articulo'];
+        if(!empty($eliminarArticulo)){
+          
+          include('bd.php');
+            $consulta = "SELECT * FROM `articulos` WHERE art_id = ".$eliminarArticulo."";
+        
+            $datos= mysqli_query ($conexion,$consulta);
+            
+            $articulo = new stdClass();
+            
+            mysqli_close($conexion);
+            // 4) Ir Imprimiendo las filas resultantes
+            while ($fila =mysqli_fetch_array($datos)){
+              $art_nom = $fila['art_nom'];
+              
+              $articulo->art_nom =$art_nom;
+              
+            }
+
+            
+
+            if($articulo){
+                  $data = $articulo->art_nom;
+                }else{
+                  $data = 0;
+                }
+
+                echo json_encode($data,JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+          
+           
+
+            
+          }        
+
+//Termina Carga id para ELIMINAR en MODAL
+
+//Modifica el articulo del modal
+    
+if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
+  $eliminarArticulo = $_POST['modalEliminar_Articulo'];
+    if(!empty($eliminarArticulo)){  
+              include('bd.php');
+              
+              $id = $eliminarArticulo;
+              
+                $consulta = "DELETE FROM `articulos` WHERE `articulos`.`art_id` = $id";
+                //$db = mysqli_select_db( $conexion, $nombreBD ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
+                $datos= mysqli_query ($conexion,$consulta) or die(mysqli_error());
+
+                mysqli_close($conexion);
+
+            if($datos){
+              $data = $datos;
+            }else{
+              $data= 0 ;
+            }
+            
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+            exit; 
+        
+    }
+  }
+
+//Termina- Modifica el articulo modal
+
 ?>

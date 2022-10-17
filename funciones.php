@@ -38,13 +38,12 @@
                     <th scope="col-1" class="align-middle">'.$fila ["cat_nom"].'</th>
                     <th scope="col-1" class="align-middle col-2">'.$fila ["art_desc"].'</th>
                     <th scope="col-1" class="align-middle">'.$fila ["art_materiales"].'</th>
-                    <th scope="col-1" >
+                    <th scope="col-1" class="align-middle">
                     
-                    <button type="button" id="modificar__Articulo'.$fila ["art_id"].'" class="m-1 btn btn-outline-primary form-control" data-bs-toggle="modal" data-art_id='.$fila ['art_id'].' data-bs-target="#modal_modificarArticulo">
+                    <button type="button" id="modificar__Articulo'.$fila ["art_id"].'" class="m-1 btn btn-outline-primary form-control" data-bs-toggle="modal" data-bs-target="#modal_modificarArticulo" data-art_id='.$fila ['art_id'].' >
                     <i class="bi bi-pencil-fill"></i>
                     
-                    </button>
-                    <button type="button" class="m-1 btn btn-outline-danger form-control" >
+                    <button type="button" id="eliminar__Articulo'.$fila ["art_id"].'" class="m-1 btn btn-outline-danger form-control" data-bs-toggle="modal" data-bs-target="#modal_eliminarArticulo" data-art_id='.$fila ['art_id'].'>
                     <i class="bi bi-x-square"></i>
                     </button>
                   </th>

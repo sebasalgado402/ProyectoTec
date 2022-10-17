@@ -17,6 +17,8 @@ let art_id;
 let i=1;
 ///////////////////////////////////////////////////////
 $(function() {
+
+    
     
     //Búsqueda de cliente
     $('#txt_id_cliente').keyup(function(){
@@ -378,7 +380,7 @@ $(function() {
     
     //Termina---Boton que modifica el articulo en modal
     
-    //MODAL FORMULARIO MODIFICAR
+    //MODAL FORMULARIO MODIFICAR POR ID
     $("[id^='modificar__Articulo']").click(function(e){
         e.preventDefault();
         art_id = $(this).attr('data-art_id');
@@ -461,7 +463,7 @@ $(function() {
         });  
         
     });
-    //Termina - MODAL FORMULARIO MODIFICAR
+    //Termina - MODAL FORMULARIO MODIFICAR POR ID
 
     //Botón de ingresar nuevo Artículo
     $("#btn__ingresarArticulo").click(function(e){
@@ -510,4 +512,81 @@ $(function() {
 
     });
     //Termina - Botón de nuevo Artículo
+
+    //MODAL FORMULARIO MODIFICAR POR ID
+    $("[id^='eliminar__Articulo']").click(function(e){
+        e.preventDefault();
+        art_id = $(this).attr('data-art_id');
+        console.log(art_id);
+        
+        let action = 'eliminarArticulo';
+        
+        $.ajax({
+            url: 'ajax.php',
+            type: "POST",
+            async: true,
+            data: {action:action,eliminar__Articulo:art_id},
+            
+            
+            success: function(response){
+                
+                
+                if(response == 0){
+                    console.log("error " + response);
+                }
+                let data =$.parseJSON(response);
+                console.log("entro a eliminar el articulo: "+response);
+                let innerHTML = `
+                <h4 class="text-center m-5"> ¿Seguro desea eliminar ${data}? </h4> 
+                `
+                $('#datos_modalEliminar').html(innerHTML);
+               
+                
+                
+            },
+            error: function(error){
+                
+            }
+        });  
+        
+    });
+    //Termina - MODAL FORMULARIO MODIFICAR POR ID
+
+    //Boton que ELIMINA ARTICULO EN MODAL
+    $("#modalEliminar").click(function(e){
+        e.preventDefault();
+        
+        let action = 'modalEliminar_Articulo'
+
+        $.ajax({
+            url: 'ajax.php',
+            type: "POST",
+            async: true,
+            data: {action:action,modalEliminar_Articulo:art_id},
+            
+            
+            success: function(response){
+                
+                
+                if(response == 0){
+                    alert('Húbo un error al Eliminar');
+                }
+                data = $.parseJSON(response);
+                console.log(data);
+                   if(data== true){
+                    location.reload();
+                }else{
+                    alert('Húbo un error al Eliminar');
+                }
+
+
+            },
+            error: function(error){
+                
+            }
+        });  
+
+    });
+    
+    //Termina---Boton que ELIMINA ARTICULO EN MODAL
 });

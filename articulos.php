@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="functions.js"></script>
-    <title>Document</title>
+    <title>Articulos</title>
 </head>
 <body>
 
@@ -72,10 +72,10 @@
                     ?>
                     </select>
                 </div>
-                <div class="row">
+                <div class="row" id="container__btnCategoria">
 
                     <div class="col-12">
-                    <button type="button" id="modal_nuevaCategoria" class="btn btn-primary form-control" data-bs-toggle="modal" data-art_id='.$fila ['art_id'].' data-bs-target="#modal_nuevaCategoria">
+                    <button type="button" id="btnModal_nuevaCategoria" class="btn btn-primary form-control" data-bs-toggle="modal" data-bs-target="#modal_nuevaCategoria">
                     Nueva Categoría
                     </button>
                     </div>
@@ -133,8 +133,8 @@
 <!-- MODAL MODIFICAR ARTICULO-->
         
 <div class="modal fade" id="modal_modificarArticulo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-            <div class="modal-content">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="staticBackdropLabel">Modificar Articulo</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -158,12 +158,61 @@
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary" id="modalModificar">Modificar articulo</button>
             </div>
+        </div>
+            
+      </div>
+    </div>
+    </div>
+    
+    <!-- Termina MODAL MODIFICAR ARTICULO -->
+
+<!-- MODAL ELIMINAR ARTICULO-->
+        
+<div class="modal fade" id="modal_eliminarArticulo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Eliminar Articulo</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-5 pt-1 pb-1" id="datos_modalEliminar">
+            
+            </div>
+            
+                <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger" id="modalEliminar">Eliminar articulo</button>
+            </div>
+            </div>
+            
+        </div>
+    </div>
+    </div>
+         
+    <!-- Termina MODAL ELIMINAR ARTICULO -->
+
+<!-- MODAL Nueva Categoría-->
+        
+<div class="modal fade" id="modal_nuevaCategoria" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_nuevaCategoria" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_nuevaCategoria">Insertar nueva categoria</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-5 pt-1 pb-1">
+                
+            
+                <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" id="modalCategoria">Modificar articulo</button>
+            </div>
             </div>
             
         </div>
     </div>
          
-    <!-- Termina MODAL MODIFICAR ARTICULO -->
+    <!-- Termina MODAL ELIMINAR ARTICULO -->
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
