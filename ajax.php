@@ -119,13 +119,13 @@
               $insertarArticulo = "INSERT INTO `articulos`(`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_deshabilitado`, `art_categoria`, `art_materiales`) VALUES ('','".$articulo->codigo."','".$articulo->nombre."','".$articulo->descripcion."',".$articulo->precio.",".$articulo->stock.",".$articulo->costo.",'S','S','".$articulo->categoria."','".$articulo->materiales."')";
   
              
-              $datos= mysqli_query ($conexion,$insertarArticulo);
+              $datos= mysqli_query ($conexion,$insertarArticulo) or die(mysqli_error());
               
 
                 if($datos){
-                  $data = 'correcto';
+                  $data = $datos;
                 }else{
-                  $data = $articulo;
+                  $data = 0;
                 }
                 mysqli_close($conexion);
             }else{
@@ -142,7 +142,6 @@
           
         }
     }
-
     //Termina - ingresar nuevo articulo
 
     //Carga id para ELIMINAR en MODAL
@@ -183,10 +182,9 @@
             
           }        
 
-//Termina Carga id para ELIMINAR en MODAL
+    //Termina Carga id para ELIMINAR en MODAL
 
-//Modifica el articulo del modal
-    
+    //Elimina el articulo seleccionado
 if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
   $eliminarArticulo = $_POST['modalEliminar_Articulo'];
     if(!empty($eliminarArticulo)){  
@@ -212,6 +210,6 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
     }
   }
 
-//Termina- Modifica el articulo modal
+    //Termina - //Elimina el articulo seleccionado
 
 ?>

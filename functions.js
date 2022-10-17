@@ -63,8 +63,6 @@ $(function() {
     }); 
 
     //Autocompletar
-    
-
     //Búsqueda de producto
 
     $('#txt_descripcion').keyup(function(){

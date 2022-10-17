@@ -40,12 +40,12 @@
                     <th scope="col-1" class="align-middle">'.$fila ["art_materiales"].'</th>
                     <th scope="col-1" class="align-middle">
                     
-                    <button type="button" id="modificar__Articulo'.$fila ["art_id"].'" class="m-1 btn btn-outline-primary form-control" data-bs-toggle="modal" data-bs-target="#modal_modificarArticulo" data-art_id='.$fila ['art_id'].' >
+                    <a role="button" id="modificar__Articulo'.$fila ["art_id"].'" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_modificarArticulo" data-art_id='.$fila ['art_id'].' >
                     <i class="bi bi-pencil-fill"></i>
-                    
-                    <button type="button" id="eliminar__Articulo'.$fila ["art_id"].'" class="m-1 btn btn-outline-danger form-control" data-bs-toggle="modal" data-bs-target="#modal_eliminarArticulo" data-art_id='.$fila ['art_id'].'>
+                    </a>
+                    <a role="button" id="eliminar__Articulo'.$fila ["art_id"].'" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_eliminarArticulo" data-art_id='.$fila ['art_id'].'>
                     <i class="bi bi-x-square"></i>
-                    </button>
+                    </a>
                   </th>
                 </tr>';
             }
