@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 20-10-2022 a las 10:10:26
+-- Tiempo de generación: 21-10-2022 a las 15:30:59
 -- Versión del servidor: 10.5.16-MariaDB
 -- Versión de PHP: 7.3.32
 
@@ -40,25 +40,26 @@ CREATE TABLE `articulos` (
   `art_deshabilitado` varchar(1) DEFAULT NULL,
   `art_categoria` int(20) NOT NULL,
   `art_materiales` varchar(20) NOT NULL,
-  `art_notas` text NOT NULL
+  `art_notas` text NOT NULL,
+  `art_imagen` text NOT NULL DEFAULT './../images/default.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `articulos`
 --
 
-INSERT INTO `articulos` (`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_deshabilitado`, `art_categoria`, `art_materiales`, `art_notas`) VALUES
-(2, 'SC2', 'Silla Comunidad', '', 1200, 2, 600, 'S', NULL, 1, '', ''),
-(3, 'SRP3', 'Silla rústica pino', '', 1400, 0, 500, 'S', NULL, 1, '', ''),
-(4, 'MV4', 'Matera Vivi', '', 500, 1, 150, 'S', NULL, 2, '', ''),
-(5, 'SSC5', 'Soporte simple celular', 'Una ranura', 150, 10, 30, 'S', NULL, 13, '', ''),
-(6, 'SI6', 'Soporte incienso', '', 150, 6, 30, 'S', NULL, 13, '', ''),
-(7, 'CM15', 'Caja Multiuso', '15x15cm, altura 7cm', 200, 2, 80, 'S', NULL, 10, '', ''),
-(9, 'SCC9', 'Soporte clásico celular', 'Dos ranuras', 150, 0, 30, 'S', NULL, 13, '', ''),
-(10, 'LA10', 'Llavero Aruera', 'Llavero Aruera con colgadores simples (pitones)', 300, 1, 120, 'S', NULL, 7, '', ''),
-(11, 'PA11', 'Perchero Aruera', 'Perchero Aruera con colgadores fuertes, soporta prendas de ropa', 500, 2, 300, '', '', 11, '', ''),
-(12, 'LJ12', 'Llavero Jane', 'Forma de casa de pajaritos, 3 colgadores, techo en colores varios.', 200, 3, 80, 'S', NULL, 7, '', ''),
-(13, 'PPM13', 'Perchero de pie \"Mora\"', '4 colgadores dobles, 1.60 de altura', 1200, 1, 300, 'S', NULL, 4, '', '');
+INSERT INTO `articulos` (`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_deshabilitado`, `art_categoria`, `art_materiales`, `art_notas`, `art_imagen`) VALUES
+(2, 'SC2', 'Silla Comunidad', '', 1200, 2, 600, 'S', NULL, 1, '', '', './../images/default.png'),
+(3, 'SRP3', 'Silla rústica pino', '', 1400, 0, 500, 'S', NULL, 1, '', '', './../images/default.png'),
+(4, 'MV4', 'Matera Vivi', '', 500, 1, 150, 'S', NULL, 2, '', '', './../images/default.png'),
+(5, 'SSC5', 'Soporte simple celular', 'Una ranura', 150, 10, 30, 'S', NULL, 13, '', '', './../images/default.png'),
+(6, 'SI6', 'Soporte incienso', '', 150, 6, 30, 'S', NULL, 13, '', '', './../images/default.png'),
+(7, 'CM15', 'Caja Multiuso', '15x15cm, altura 7cm', 200, 2, 80, 'S', NULL, 10, '', '', './../images/default.png'),
+(9, 'SCC9', 'Soporte clásico celular', 'Dos ranuras', 150, 0, 30, 'S', NULL, 13, '', '', './../images/default.png'),
+(10, 'LA10', 'Llavero Aruera', 'Llavero Aruera con colgadores simples (pitones)', 300, 1, 120, 'S', NULL, 7, '', '', './../images/default.png'),
+(11, 'PA11', 'Perchero Aruera', 'Perchero Aruera con colgadores fuertes, soporta prendas de ropa', 500, 2, 300, '', '', 11, '', '', './../images/default.png'),
+(12, 'LJ12', 'Llavero Jane', 'Forma de casa de pajaritos, 3 colgadores, techo en colores varios.', 200, 3, 80, 'S', NULL, 7, '', '', './../images/default.png'),
+(13, 'PPM13', 'Perchero de pie \"Mora\"', '4 colgadores dobles, 1.60 de altura', 1200, 1, 300, 'S', NULL, 4, '', '', './../images/default.png');
 
 -- --------------------------------------------------------
 
@@ -103,6 +104,26 @@ CREATE TABLE `gastos` (
   `gas_total` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
+--
+
+CREATE TABLE `usuarios` (
+  `usu_id` int(11) NOT NULL,
+  `usu_nombre` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `usu_contraseña` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `usu_rol` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`usu_id`, `usu_nombre`, `usu_contraseña`, `usu_rol`) VALUES
+(1, 'id19677335_admin', 'admin', 1);
+
 --
 -- Índices para tablas volcadas
 --
@@ -130,6 +151,12 @@ ALTER TABLE `gastos`
   ADD PRIMARY KEY (`gas_id`);
 
 --
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`usu_id`);
+
+--
 -- AUTO_INCREMENT de las tablas volcadas
 --
 
@@ -150,6 +177,12 @@ ALTER TABLE `categorias`
 --
 ALTER TABLE `gastos`
   MODIFY `gas_id` int(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `usu_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restricciones para tablas volcadas
