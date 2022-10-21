@@ -33,6 +33,7 @@
                 echo'
                 <tr>
                   
+                    <th scope="col-1" class="align-middle" ><img src="'.$fila ["art_imagen"].'" alt="Girl in a jacket" width="150" height="100"></th>
                     <th scope="col-1" class="align-middle" >'.$fila ["art_id"].'</th>
                     <th scope="col-1" class="align-middle">'.$fila ["art_cod"].'</th>
                     <th scope="col-1" class="align-middle">'.$fila ["art_nom"].'</th>

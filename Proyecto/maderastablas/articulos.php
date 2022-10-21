@@ -114,6 +114,7 @@
             <tr >
             <!-- <th scope="col-1">#</th> -->
             
+            <th scope="col-1">Foto</th>
             <th scope="col-1">Id Articulo</th>
             <th scope="col-1">Código Articulo</th>
             <th scope="col-1">Nombre</th>
