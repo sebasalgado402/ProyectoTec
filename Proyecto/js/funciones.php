@@ -33,15 +33,19 @@
                 echo'
                 <tr>
                   
-                    <th scope="col-1" class="align-middle" ><img src="'.$fila ["art_imagen"].'" alt="Girl in a jacket" width="150" height="100"></th>
+                    <th scope="col-1" class="align-middle" >
+                      <a role="button" id="imgProducto" data-art_id='.$fila ['art_id'].' data-bs-toggle="modal" data-bs-target="#modal_cambiarIMG">
+                        <img src="'.$fila ["art_imagen"].'" alt="Error cargar imagen" height="150" data-art_id='.$fila ['art_id'].'>
+                      </a>
+                    </th>
                     <th scope="col-1" class="align-middle" >'.$fila ["art_id"].'</th>
                     <th scope="col-1" class="align-middle">'.$fila ["art_cod"].'</th>
                     <th scope="col-1" class="align-middle">'.$fila ["art_nom"].'</th>
                     <th scope="col-1" class="align-middle">$'.$fila ["art_precio"].'</th>
                     <th scope="col-1" class="align-middle">'.$fila ["art_stock"].'</th>
                     <th scope="col-1" class="align-middle">$'.$fila ["art_costo"].'</th>
-                    <th scope="col-1" class="align-middle">'.$fila ["art_vendible"].'</th>
-                    <th scope="col-1" class="align-middle">'.$fila ["art_deshabilitado"].'</th>
+                    
+                    
                     <th scope="col-1" class="align-middle">'.$fila ["cat_nom"].'</th>
                     <th scope="col-1" class="align-middle col-2">'.$fila ["art_desc"].'</th>
                     <th scope="col-1" class="align-middle">'.$fila ["art_materiales"].'</th>

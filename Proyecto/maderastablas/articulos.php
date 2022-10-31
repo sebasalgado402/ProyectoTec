@@ -114,15 +114,15 @@
             <tr >
             <!-- <th scope="col-1">#</th> -->
             
-            <th scope="col-1">Foto</th>
+            <th scope="col-1" class="align-middle">Foto</th>
             <th scope="col-1">Id Articulo</th>
             <th scope="col-1">Código Articulo</th>
             <th scope="col-1">Nombre</th>
             <th scope="col-1">Precio</th>
             <th scope="col-1">Stock</th>
             <th scope="col-1">Costo creacion</th>
-            <th scope="col-1">Vendible</th>
-            <th scope="col-1">Deshabilitado</th>
+            
+            
             <th scope="col-1">Categoria</th>
             <th scope="col-1">Observacion</th>
             <th scope="col-1">Materiales</th>
@@ -159,6 +159,7 @@
                     </select>
                     
             </div>
+           
                 <div class="col-12 cargaModal">
                   no se cargaron los datos
                 </div>
@@ -203,31 +204,56 @@
         
 <div class="modal fade" id="modal_nuevaCategoria" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_nuevaCategoria" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="modal_nuevaCategoria">Insertar nueva categoria</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-5 pt-1 pb-1">
-            <div class="col-12">
+                <div class="col-12">
                     <label for="txt__nombre_nuevaCategoria" class="form-label">Nombre de la nueva categoria</label>
                   <input type="text" name="txt__nombre_nuevaCategoria" id="txt__nombre_nuevaCategoria" class="form-control">
 
                     <label for="txt__observacion_nuevaCategoria" class="form-label">Observacion</label>
                   <input type="text" name="txt__observacion_nuevaCategoria" id="txt__observacion_nuevaCategoria" class="form-control">
                     
+                </div>
             </div>
-            
-                <div class="modal-footer">
+            <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
                 <button type="button" class="btn btn-primary" id="modalnuevaCategoria">Añadir categoría</button>
             </div>
+        </div>
+            
+    </div>
+</div>
+         
+    <!-- Termina MODAL ELIMINAR ARTICULO -->
+
+<!-- MODAL cambiar Imagen producto-->
+        
+<div class="modal fade" id="modal_cambiarIMG" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_cambiarIMG" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal_cambiarIMG">Cambiar imagen</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
+                <div class="modal-body p-5 pt-1 pb-1" id="datos_modalProductoIMG">
+            
+                </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" id="cancelar_cambiarImagen">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="modal_cambiarImagen">Cambiar imagen</button>
+            </div>     
             
         </div>
     </div>
+</div>
          
-    <!-- Termina MODAL ELIMINAR ARTICULO -->
+<!-- Termina cambiar Imagen producto -->
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

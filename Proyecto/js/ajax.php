@@ -25,6 +25,7 @@
                   $art_deshabilitado = $fila['art_deshabilitado'];
                   $art_categoria = $fila['art_categoria'];
                   $art_materiales = $fila['art_materiales'];
+                  $art_imagen = $fila['art_imagen'];
                   
                   $articulo->art_nom =$art_nom;
                   $articulo->art_desc =$art_desc;
@@ -35,6 +36,7 @@
                   $articulo->art_deshabilitado =$art_deshabilitado;
                   $articulo->art_categoria =$art_categoria;
                   $articulo->art_materiales =$art_materiales;
+                  $articulo->art_imagen =$art_imagen;
 
                   
                 }
@@ -64,6 +66,7 @@
       $modificarArticulo = $_POST['modalModificar_Articulo'];
         if(!empty($modificarArticulo)){  
                   include('./../js/bd.php');
+                 
                     $consulta = "UPDATE `articulos` SET `art_nom`='".$modificarArticulo[2]."',`art_desc`='".$modificarArticulo[6]."',`art_precio`='".$modificarArticulo[3]."',`art_stock`='".$modificarArticulo[4]."',`art_costo`='".$modificarArticulo[5]."',`art_vendible`='',`art_deshabilitado`='',`art_categoria`='".$modificarArticulo[1]."',`art_materiales`='".$modificarArticulo[7]."' where `art_id` = '".$modificarArticulo[0]."' ";
                     //$db = mysqli_select_db( $conexion, $nombreBD ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
                     $datos= mysqli_query ($conexion,$consulta);
@@ -71,11 +74,12 @@
                     mysqli_close($conexion);
 
 
-                if(isset($datos)){
-                  $data = 1;
-                }else{
-                  $data = 'error';
-                }
+                    if(isset($datos)){
+                      $data = 1;
+                    }else{
+                      $data = 'error';
+                    }
+                
                 
                 echo json_encode($data,JSON_UNESCAPED_UNICODE);
                 exit; 
@@ -239,4 +243,72 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalnueva_Categoria'){
   }
     //Termina - //Inserta Nueva categoria en articulos
 
+    //Cargar imagen de producto al modal de modificar
+    if(isset($_POST['action']) && $_POST['action'] == 'cambiar__imgProducto'){
+      $cambiarimgProducto = $_POST['cambiar__imgProducto'];
+        if(!empty($cambiarimgProducto)){
+          
+          include('./../js/bd.php');
+            $consulta = "SELECT `art_id`,`art_imagen` FROM `articulos` WHERE art_id = ".$cambiarimgProducto."";
+        
+            $datos= mysqli_query ($conexion,$consulta);
+            
+            $articulo = new stdClass();
+            
+            mysqli_close($conexion);
+            // 4) Ir Imprimiendo las filas resultantes
+            while ($fila =mysqli_fetch_array($datos)){
+              $art_imagen = $fila['art_imagen'];
+              $art_id = $fila['art_id'];
+              
+              $articulo->art_id =$art_id;
+              $articulo->art_imagen =$art_imagen;
+              
+            }
+
+            
+
+            if($articulo){
+                  $data = $articulo;
+                }else{
+                  $data = 0;
+                }
+
+                echo json_encode($data,JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+          
+          }        
+
+    //Termina Cargar imagen de producto al modal de modificar
+
+
+    //Actualiza imagen del articulo seleccionado
+    
+    if(isset($_POST['action']) && $_POST['action'] == 'modalcambiar_Imagen'){
+      $modificar_imagenProducto = $_POST['modalcambiar_Imagen'];
+        if(!empty($modificar_imagenProducto)){  
+                  include('./../js/bd.php');
+                 
+                    $consulta = "UPDATE `articulos` SET `art_imagen` = './../images/".$modificar_imagenProducto[1]."' WHERE `articulos`.`art_id` = ".$modificar_imagenProducto[0]." limit 1";
+                    //$db = mysqli_select_db( $conexion, $nombreBD ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
+                    $datos= mysqli_query ($conexion,$consulta);
+
+                    mysqli_close($conexion);
+
+
+                    if(isset($datos)){
+                      $data = 1;
+                    }else{
+                      $data = 'error';
+                    }
+                
+                
+                echo json_encode($data,JSON_UNESCAPED_UNICODE);
+                exit; 
+            
+        }
+      }
+
+    //Termina---Actualiza imagen del articulo seleccionado
 ?>

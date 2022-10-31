@@ -13,7 +13,11 @@ let subTotal_detalle;
 let contadorBotonFactura = 0;
 let arrayArticulos =[];
 
+let imagenModificar;
+let imagenActual;
 let art_id;
+
+let imgProductoID;
 let i=1;
 ///////////////////////////////////////////////////////
 $(function() {
@@ -341,8 +345,9 @@ $(function() {
         let costo = $('#modalArt__modificarCosto').val();
         let descripcion = $('#modalArt__modificarDescripcion').val();
         let materiales = $('#modalArt__modificarMateriales').val();
-
+        
         arrModificar.push(id,categoria,nombre,precio,stock,costo,descripcion,materiales);
+        
 
         //console.log("este es el array a modificar"+arrModificar);
 
@@ -407,46 +412,45 @@ $(function() {
                 
                 <div class="row">
                 
-                <div class="col-12">
-                <label for="modalArt__modificarNombre" class="form-label" >Nombre:</label>
-                <input type="text" class="form-control" name="modalArt__modificarNombre" id="modalArt__modificarNombre" value="${data.art_nom}">
-                </div>
-                </div>
-                <div class="row pt-2">
+                    <div class="col-12">
+                        <label for="modalArt__modificarNombre" class="form-label" >Nombre:</label>
+                        <input type="text" class="form-control" name="modalArt__modificarNombre" id="modalArt__modificarNombre" value="${data.art_nom}">
+                    </div>
+                
+                    <div class="col-3">
+                        <label for="precioArticulo" class="form-label">Precio:</label>
+                        <input type="number" class="form-control" name="precioArticulo" id="modalArt__modificarPrecio" value="${data.art_precio}" required>
+                    </div>
 
-                <div class="col-3">
-                <label for="precioArticulo" class="form-label">Precio:</label>
-                <input type="number" class="form-control" name="precioArticulo" id="modalArt__modificarPrecio" value="${data.art_precio}" required>
-                </div>
-                <div class="col-3">
-                <label for="cantidadArticulo" class="form-label">Stock:</label>
-                <input type="number" class="form-control" name="cantidadArticulo" id="modalArt__modificarStock" value="${data.art_stock}" required>
-                </div>
+                    <div class="col-3">
+                        <label for="cantidadArticulo" class="form-label">Stock:</label>
+                        <input type="number" class="form-control" name="cantidadArticulo" id="modalArt__modificarStock" value="${data.art_stock}" required>
+                    </div>
                 
-                <div class="col-6">
-                <label for="costoCreacionArticulo" class="form-label">Costo de creación:</label>
-                <input type="number" class="form-control" name="costoCreacionArticulo" id="modalArt__modificarCosto" value="${data.art_costo}">
-                
-                </div>
+                    <div class="col-6">
+                        <label for="costoCreacionArticulo" class="form-label">Costo de creación:</label>
+                        <input type="number" class="form-control" name="costoCreacionArticulo" id="modalArt__modificarCosto" value="${data.art_costo}">
+                    </div>
                 </div>
                 
                 
                 
                 <div class="row p-2">
-                
-                
-                
-                <label class="form-label" for="descripcionArticulo" >Descripcion:</label>
-                <textarea class="form-control" name="descripcionArticulo" rows="4" cols="50" id="modalArt__modificarDescripcion">${data.art_desc}</textarea>
-                <label class="form-label" for="MaterialesArticulo">Materiales:</label>
-                <textarea class="form-control" name="MaterialesArticulo" rows="4" cols="50" id="modalArt__modificarMateriales">${data.art_materiales}</textarea>
-                
+
+                    <label class="form-label" for="descripcionArticulo" >Descripcion:</label>
+                    <textarea class="form-control" name="descripcionArticulo" rows="4" cols="50" id="modalArt__modificarDescripcion">${data.art_desc}</textarea>
+                    <label class="form-label" for="MaterialesArticulo">Materiales:</label>
+                    <textarea class="form-control" name="MaterialesArticulo" rows="4" cols="50" id="modalArt__modificarMateriales">${data.art_materiales}</textarea>
+
                 
                 </div>
+                
                 </form>
-                
-                </div>
                 `;
+
+                imagenActual = data.art_imagen;
+                
+                
                 //$("#selectedId option : selected").val(data.categoria);
                 $('select option[value='+data.art_categoria+']').attr("selected", true);
                 console.log('la categoria seleccionada es: '+data.art_categoria);
@@ -477,7 +481,7 @@ $(function() {
         let costo = $('#txt__costoCreacionArticulo').val();
         let descripcion = $('#txt__descripcionArticulo').val();
         let materiales = $('#txt__materialesArticulo').val();
-
+        
         producto.push(codigo,nombre,descripcion,precio,stock,costo,categoria,materiales);
 
 
@@ -518,7 +522,7 @@ $(function() {
     });
     //Termina - Botón de nuevo Artículo
 
-    //MODAL FORMULARIO MODIFICAR POR ID
+    //MODAL FORMULARIO ELIMINAR POR ID
     $("[id^='eliminar__Articulo']").click(function(e){
         e.preventDefault();
         art_id = $(this).attr('data-art_id');
@@ -555,7 +559,7 @@ $(function() {
         });  
         
     });
-    //Termina - MODAL FORMULARIO MODIFICAR POR ID
+    //Termina - MODAL FORMULARIO ELIMINAR POR ID
 
     //Boton que ELIMINA ARTICULO EN MODAL
     $("#modalEliminar").click(function(e){
@@ -635,4 +639,119 @@ $(function() {
     });
     
     //Termina---Botón que agrega nueva categoría (Articulos)
+
+    //Cambiar imagen producto
+    $("[id^='imgProducto']").click(function(e){
+        e.preventDefault();
+        imgProductoID = $(this).attr('data-art_id');
+
+        let action = 'cambiar__imgProducto';
+        
+        $.ajax({
+            url: './../js/ajax.php',
+            type: "POST",
+            async: true,
+            data: {action:action,cambiar__imgProducto:imgProductoID},
+            
+            
+            success: function(response){
+                
+                
+                if(response == 0){
+                    //console.log("error " + response);
+                }
+                let data =$.parseJSON(response);
+                //console.log("entro a eliminar el articulo: "+response);
+                let innerHTML = `
+                <div class="mb-3">
+                    <label for="formFile" class="form-label">Seleccione nueva imagen</label>
+                    <input class="form-control" type="file" id="formFile" >
+                </div>
+                <h4>Imagen actual:</h4>
+                <div class="col-auto text-center">
+                <img src="${data.art_imagen}" alt="Error al cargar imagen" height="280" data-art_id=''> 
+                </div>
+                `
+                console.log('el id imagen es: '+(data.art_id));
+                $('#datos_modalProductoIMG').html(innerHTML);
+
+                $('#formFile').attr("value",data.art_imagen);
+                
+                console.log($('#formFile').val());
+                
+                $('#formFile').change(function(e){
+                    //e.preventDefault();
+                   console.log($('#formFile').val());
+                   
+                });
+                $('#cancelar_cambiarImagen').click(function(e){
+                    //e.preventDefault();
+                    
+                    data.art_id = '';
+                   console.log('esto es el id: '+data.art_id);
+
+                });
+                $('.btn-close').click(function(e){
+                    //e.preventDefault();
+                    data.art_id = '';
+                   console.log('esto es el id: '+data.art_id);
+
+                });
+
+                //Boton que cambia imagen
+                $('#modal_cambiarImagen').click(function(e){
+                    e.preventDefault();
+                    let action = 'modalcambiar_Imagen'
+                    let urlImg = $('#formFile').val();
+                    let urlReal = urlImg.slice(11); //recorta link C:fakepath
+                    let imagenCambiar = [];
+                    
+                    imagenCambiar.push(data.art_id , urlReal);
+                    if(urlImg!==''){
+
+                        $.ajax({
+                            url: './../js/ajax.php',
+                            type: "POST",
+                            async: true,
+                            data: {action:action,modalcambiar_Imagen:imagenCambiar},
+                            
+                            
+                            success: function(response){
+                                
+                                
+                                if(response == 0){
+                                    alert('Húbo un error al cambiar imagen');
+                                }
+                                data = $.parseJSON(response);
+                                //console.log(data);
+                                if(data== true){
+                                    location.reload();
+                                }else{
+                                    alert('Húbo un error al cambiar imagen');
+                                }
+
+
+                            },
+                            error: function(error){
+                                
+                            }
+                        });  
+
+                    }
+
+                });
+                //Termina---Boton que cambia imagen
+               
+                
+                
+            },
+            error: function(error){
+                
+            }
+        });  
+        //datos_modalProductoIMG
+    });
+    
+        //Termina---Cambiar imagen producto
 });
+
