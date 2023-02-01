@@ -15,9 +15,9 @@
       
     }
     
-    function recargar(){
+   /*  function recargar(){
         reload();
-    }
+    } */
 
     function mostrarArticulos(){
       include('./../js/bd.php');
@@ -307,48 +307,7 @@
 
           ////////------------------------------////////////////
 
-          /* if(isset($_POST['action']) && $_POST['action'] == 'generaFactura'){
-            
-            
-            $formated_DATE = date('Y-m-d');
-            if(isset($_POST['clienteVenta'])){
-
-              include('./../js/bd.php');
-              $consulta="SELECT max(noFactura) FROM `facturas`";
-              $db = mysqli_select_db( $conexion, "$nombreBD" ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
-  
-              $datos= mysqli_query ($conexion,$consulta);
-             
-              if($datos > 0){
-                $resultado = mysqli_fetch_assoc($datos);
-                $idFactura=$resultado['max(noFactura)'];
-  
-                include('./../js/bd.php');
-               
-                $consulta= "INSERT INTO `facturas`(`noFactura`, `id_cliente`, `fecha`) VALUES ('',".$_POST['clienteVenta'].",'$formated_DATE')";
-                    
-                $db = mysqli_select_db( $conexion, "$nombreBD" ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
-    
-                try {
-                    $datos= mysqli_query ($conexion,$consulta);
-                  } catch (\Throwable $th) {
-                    //throw $th;
-                  }
-                  
-    
-                  mysqli_close($conexion);
-  
-  
-                  /////////////
-            }
-
-            }else{
-              location.reload();
-            }
-            
-  
-             
-          } */
+          
 
         // función sql que muestra las facturas
           function mostrarFacturas(){

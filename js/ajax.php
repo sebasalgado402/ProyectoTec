@@ -1,7 +1,7 @@
 <?php 
      
 
-    //Carga el producto al modal
+    //Carga el producto al modal modificar
         if(isset($_POST['action']) && $_POST['action'] == 'modificarArticulo'){
           $modificarArticulo = $_POST['modificar__Articulo'];
             if(!empty($modificarArticulo)){
@@ -58,7 +58,7 @@
                 
               }        
 
-    //Termina Carga el producto al modal
+    //Termina Carga el producto al modal modificar
 
     //Modifica el articulo del modal
     
@@ -123,7 +123,7 @@
               $insertarArticulo = "INSERT INTO `articulos`(`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_deshabilitado`, `art_categoria`, `art_materiales`) VALUES (NULL,'".$articulo->codigo."','".$articulo->nombre."','".$articulo->descripcion."',".$articulo->precio.",".$articulo->stock.",".$articulo->costo.",'S','S','".$articulo->categoria."','".$articulo->materiales."')";
   
              
-              $datos= mysqli_query ($conexion,$insertarArticulo) or die(mysqli_error());
+              $datos= mysqli_query ($conexion,$insertarArticulo) or die($mysqli->error);
               
 
                 if($datos){
@@ -191,7 +191,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
               
                 $consulta = "DELETE FROM `articulos` WHERE `articulos`.`art_id` = $id";
                 //$db = mysqli_select_db( $conexion, $nombreBD ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
-                $datos= mysqli_query ($conexion,$consulta) or die(mysqli_error());
+                $datos= mysqli_query ($conexion,$consulta) or die($mysqli->error);
 
                 mysqli_close($conexion);
 
@@ -222,7 +222,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalnueva_Categoria'){
               
                 $consulta = "INSERT INTO `categorias`(`cat_id`, `cat_nom`, `cat_obs`) VALUES ('','$categoria->nombre','$categoria->observacion')";
                 //$db = mysqli_select_db( $conexion, $nombreBD ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
-                $datos= mysqli_query ($conexion,$consulta) or die(mysqli_error());
+                $datos= mysqli_query ($conexion,$consulta) or die($mysqli->error);
 
                 mysqli_close($conexion);
 
@@ -384,11 +384,11 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalnueva_Categoria'){
                 $data = 0;
               }
 
-              echo json_encode($data,JSON_UNESCAPED_UNICODE);
-              
+            echo json_encode($data , JSON_UNESCAPED_UNICODE);
+           
+            exit;
           }
         
-          exit;
       }
   //Termina---Buscar producto en FACTURACION
 
@@ -402,7 +402,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalnueva_Categoria'){
 
         $consulta = "INSERT INTO `factura`(`fact_id`, `fact_fecha`) VALUES (null,'$formated_DATE')";
             
-            $insertFactura= mysqli_query ($conexion,$consulta) or die(mysqli_error());
+            $insertFactura= mysqli_query ($conexion,$consulta) or die($mysqli->error);
             mysqli_close($conexion);
             
                 if($insertFactura == 1){
@@ -451,10 +451,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalnueva_Categoria'){
                     }
       
                     echo json_encode($data,JSON_UNESCAPED_UNICODE);
+                    exit;
               }
         
             }
-        exit;
     }
   //Termina---Procesar venta en facturacion
 
