@@ -72,7 +72,31 @@
         </div>
      
         </div>  
-      </nav>';
+      </nav>'; 
+      echo '
+  <header class="HeaderContainer">
+      <input type="search" name="InputSearch" class="InputSearch" placeholder="Ejemplo: Silla">
+      <div class="CategoriesContainer">
+          <p class="CatTitle">Categorias: </p>
+          <div class="Categories">
+              <a href="#" class="CatLink">
+                  <p class="CatLinkName">Sillas</p>                    
+              </a>
+              <a href="#" class="CatLink">
+                  <p class="CatLinkName">Mesas</p>                    
+              </a>
+              <a href="#" class="CatLink">
+                  <p class="CatLinkName">Tablas</p>                    
+              </a>
+              <a href="#" class="CatLink">
+                  <p class="CatLinkName">Materas</p>                    
+              </a>
+              <a href="#" class="CatLink">
+                  <p class="CatLinkName">Llaveros</p>                    
+              </a>
+          </div>
+      </div>
+  </header>';
   }else{
     echo '<nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <div class="container-fluid">

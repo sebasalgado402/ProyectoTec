@@ -1,6 +1,13 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+/*---------------------------
+    Tarjetas del ecommerce
+---------------------------*/
 
-/* Tarjetas del ecommerce */
 
 #section-product{
     text-align: center;
@@ -13,6 +20,8 @@
     padding: 20px;
     flex-wrap: wrap;
 
+  
+
 }
 #section-product .product{
     /* height: 400px; */
@@ -20,7 +29,7 @@
     min-width: 250px;
     max-width: 250px;
     padding: 10px 20px;
-    border: 1px solid #cce7d0;
+    border: 1px solid #4a2500;
     border-radius: 25px;
     cursor: pointer;
     box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
@@ -85,11 +94,67 @@
   color: #ffffff;
   
 }
-/*Termina --- Tarjetas del ecommerce */
+
+/*--------------
+    Header
+---------------*/
+
 .banner-container{
    display: flex;
   align-items: center;
   justify-content: center; 
   width: 100%;
   object-fit: contain;
+}
+
+
+.HeaderContainer {
+  background-color: #121212;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+}
+
+.InputSearch {
+  align-self: center;
+  width: 95%;
+  color: black;
+  background-color: #fff;
+  height: 35px;
+  border: 3px solid grey;
+  border-radius: 20px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.CategoriesContainer {
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+  align-items: center;
+  overflow: hidden;
+  overflow-x: scroll;
+  border-top: 1px solid #303030;
+}
+
+.CatTitle {
+  color: #fff;
+  font-size: 15;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.Categories {
+  display: flex;
+  flex-direction: row;
+  margin-left: 10px;
+}
+
+.CatLink {
+  color: #fff;
+  margin-right: 10px;
+}
+
+.CatLinkName {
+  font-family: Arial, Helvetica, sans-serif;
 }

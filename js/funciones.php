@@ -349,7 +349,7 @@
                   mysqli_close($conexion);
               }
         //Termina---función sql que muestra las facturas
-            
+        
 
 
           
