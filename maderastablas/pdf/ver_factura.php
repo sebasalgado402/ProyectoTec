@@ -1,6 +1,6 @@
 <?php
 require_once('tcpdf/tcpdf.php'); //Llamando a la Libreria TCPDF
-include('./../../js/bd.php'); //Llamando a la conexión para BD
+include('./../../assets/js/bd.php'); //Llamando a la conexión para BD
 date_default_timezone_set('America/Montevideo');
 
 
@@ -13,7 +13,7 @@ class MYPDF extends TCPDF{
             $bMargin = $this->getBreakMargin();
             $auto_page_break = $this->AutoPageBreak;
             $this->SetAutoPageBreak(false, 0);
-            $img_file = dirname( __FILE__ ) .'./../../icons/logomt.jpg';
+            $img_file = dirname( __FILE__ ) .'./../../assets/icons/logomt.jpg';
             $this->Image($img_file, 10, 8, 25, 25, '', '', '', false, 30, '', false, false, 0);
             $this->SetAutoPageBreak($auto_page_break, $bMargin);
             $this->setPageMark();
@@ -115,7 +115,7 @@ $pdf->SetFont('helvetica','',10);
 //SQL para consultas Empleados
 //$fechaInit = date("Y-m-d", strtotime($_POST['fecha_ingreso']));
 //$fechaFin  = date("Y-m-d", strtotime($_POST['fechaFin']));
-include('./../../js/bd.php');
+include('./../../assets/js/bd.php');
 $sqlTrabajadores = ("call ver_factura(".$_POST['fact_id'].")");
 //$sqlTrabajadores = ("SELECT * FROM trabajadores");
 $query = mysqli_query($conexion, $sqlTrabajadores);
@@ -130,7 +130,7 @@ while ($dataRow = mysqli_fetch_array($query)) {
     }
     mysqli_close($conexion);
 
-include('./../../js/bd.php');
+include('./../../assets/js/bd.php');
 $sqlFactura = ("call precioTotal_Factura(".$_POST['fact_id'].")");
 //$sqlTrabajadores = ("SELECT * FROM trabajadores");
 $queryFactura = mysqli_query($conexion, $sqlFactura);

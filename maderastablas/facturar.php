@@ -3,7 +3,7 @@
 <head>
     <?php
         session_start();
-        include("./../js/funciones.php");
+        include("./../assets/js/funciones.php");
         comprobarUsuario();
     ?> 
     
@@ -12,9 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
    <!-- Link a mis estilos -->
-   <link rel="stylesheet" href="./../style.css">
+    <link rel="stylesheet" href="./../assets/css/style.css">
     <!--Icono en la pestaña -->
-    <link rel="shortcut icon" href="./../icons/favicon.png">
+    <link rel="shortcut icon" href="./../assets/icons/favicon.png">
     <!--Iconos de bootstrap  -->
     <!-- <link rel="stylesheet" href="./../bootstrapIcons/font/bootstrap-icons.css"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -32,7 +32,7 @@
 <body>
     <section>
         <?php
-            include('./../js/header.php');
+            include('./../assets/js/header.php');
         ?>
     </section>
     
@@ -152,7 +152,7 @@
     <!-- <script src="./../bootstrap/js/bootstrap.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
     <!--Importo javascript propio -->
-    <script src="./../js/functions.js"></script>
+    <script src="./../assets/js/functions.js"></script>
     <!--  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     -->
 

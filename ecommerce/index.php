@@ -3,17 +3,16 @@
 <head>
     <?php
         session_start();
-        include("./../js/funciones.php");
-        //comprobarUsuario();
+        include("./../assets/js/funciones.php");
     ?> 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
-  <!-- Link a mis estilos -->
-  <link rel="stylesheet" href="./../style.css">
+    <!-- Link a mis estilos -->
+    <link rel="stylesheet" href="./../assets/css/style.css">
     <!--Icono en la pestaña -->
-    <link rel="shortcut icon" href="./../icons/favicon.png">
+    <link rel="shortcut icon" href="./../assets/icons/favicon.png">
     <!--Iconos de bootstrap  -->
     <!-- <link rel="stylesheet" href="./../bootstrapIcons/font/bootstrap-icons.css"> -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -28,22 +27,12 @@
     <title>Ecommerce - Maderas tablas</title>
 </head>
 <body>
-    <?php include './../js/header.php';?>
-    <section>
-        <div class="banner-container">
-            <img src="./../icons/BANNER.png" alt="" srcset="">
-        </div>
-    </section>
-    <section id='section-search'>
-        <div class="search-container">
-            <label for="txt_search"></label>
-            <div class="container">
-                <div class="row">
-                    <input type="text" name="txt_search" id="txt_search" class='form-control col-4'>
-                </div>
-            </div>
-        </div>
-    </section>
+    <?php 
+        include ('./../assets/js/header.php');
+        include ('./../assets/js/buscador.php');
+        include ('./../assets/js/banner.php');
+    ?>
+   
 
     <section id="section-product" class="section-product">
             <div class="product-container">
@@ -62,6 +51,7 @@
             </div> 
     </section>
 
+    <?php include('./../assets/js/footer.php')?>
 </body>
  <!--Importa librería jquery -->
     <!-- <script src="./../jQuery/jquery.min.js"></script> -->
@@ -72,7 +62,7 @@
     <!-- <script src="./../bootstrap/js/bootstrap.min.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
     <!--Importo javascript propio -->
-    <script src="./../js/functions.js"></script>
+    <script src="./../assets/js/functions.js"></script>
     <!--  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     -->
 
