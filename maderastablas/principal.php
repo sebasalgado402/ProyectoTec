@@ -33,7 +33,7 @@
             include('./../assets/js/header.php');
         ?>
     </section>
-    <div class="container col-12">
+    <!-- <div class="container col-12">
 
         <form action="facturar.php" class="m-2">
             <button type="submit" class="btn btn-success offset-xl-4 col-xl-4 col-sm-12 col-12">Facturacion</button>
@@ -50,8 +50,51 @@
         <form action="actualizar_articulo.php" class="m-2">
             <button type="submit" class="btn btn-success offset-xl-4 col-xl-4 col-sm-12 col-12">Añadir stock a un producto existente</button>
         </form>
-    </div>
+        <form action="balance.php" class="m-2">
+            <button type="submit" class="btn btn-success offset-xl-4 col-xl-4 col-sm-12 col-12">Balance de ganancias</button>
+        </form>
+    </div> -->
     
+    <!--Functions List-->
+    <main class="main-principal">
+        <a href="facturar.php" class="FuntionCard-principal">
+            <p class="FuntionCard_Title-principal">Facturación</p>
+            <div class="FuntionCard_Icon-Container-principal">
+                <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon-principal">
+            </div>
+        </a>
+        <a href="lista__Facturas.php" class="FuntionCard-principal">
+            <p class="FuntionCard_Title-principal">Ventas Realizadas</p>
+            <div class="FuntionCard_Icon-Container-principal">
+                <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon-principal">
+            </div>
+        </a>
+        <a href="balance.php" class="FuntionCard-principal">
+            <p class="FuntionCard_Title-principal">Calcular Ganancias</p>
+            <div class="FuntionCard_Icon-Container-principal">
+                <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon-principal">
+            </div>
+        </a>
+        <a href="articulos.php" class="FuntionCard-principal">
+            <p class="FuntionCard_Title-principal">Lista de articulos</p>
+            <div class="FuntionCard_Icon-Container-principal">
+                <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon-principal">
+            </div>
+        </a>
+        <a href="nuevo_articulo.php" class="FuntionCard-principal">
+            <p class="FuntionCard_Title-principal">Ingresar nuevo articulo</p>
+            <div class="FuntionCard_Icon-Container-principal">
+                <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon-principal">
+            </div>
+        </a>
+        <a href="actualizar_articulo.php" class="FuntionCard-principal">
+            <p class="FuntionCard_Title-principal">Modificar articulo existente</p>
+            <div class="FuntionCard_Icon-Container-principal">
+                <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon-principal">
+            </div>
+        </a>
+        
+    </main>
 
    
 </body>

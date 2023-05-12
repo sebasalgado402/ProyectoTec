@@ -465,7 +465,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
 
    //Buscador Ecommerce
 
-   /* if(isset($_POST['action']) || $_POST['action']=='buscar_ecommerce'){
+   if((isset($_POST['action'])) && $_POST['action']=='buscar_ecommerce'){
     //SELECT * FROM articulos WHERE articulos.art_nom LIKE ('%', palabra , '%');
     include('bd.php');
                       
@@ -487,10 +487,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
           <a href="#"><i class="bi bi-cart4 cart"></i></a>
       </div>';
     }
-    mysqli_close($conexion);
     exit;
+    mysqli_close($conexion);
   }
- */
+
 
 //Termina---Buscador Ecommerce
 
@@ -552,6 +552,43 @@ if(isset($_POST['action']) && $_POST['action'] == 'buscar_nombreArticulo'){
 
 //Termina --- verificador de existencia Nombre de articulo
 
+//Comienza --- Calcular Balance
+
+if(isset($_POST['action']) && $_POST['action'] == 'calcularBalance'){
+  $calcularBalance = $_POST['calcularBalance'];
+    if(!empty($calcularBalance)){  
+              include('./../js/bd.php');
+              
+                $consulta = "SELECT ventas_total - COALESCE(ROUND(gastos_total, 2), 0) AS ganancia_total
+                FROM (
+                    SELECT SUM(df.dfact_precio) AS ventas_total
+                    FROM detalle_factura df
+                    JOIN factura f ON df.fact_id = f.fact_id
+                    WHERE f.fact_fecha BETWEEN '".$calcularBalance[0]."' AND '".$calcularBalance[1]."'
+                ) AS ventas,
+                (
+                    SELECT SUM(gas_total) AS gastos_total
+                    FROM gastos
+                    WHERE gas_fecha BETWEEN '".$calcularBalance[0]."' AND '".$calcularBalance[1]."'
+                ) AS gastos;";
+                //$db = mysqli_select_db( $conexion, $nombreBD ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
+                $datos= mysqli_query ($conexion,$consulta);
+                $resultado =mysqli_fetch_array($datos);
+                mysqli_close($conexion);
+                
+                
+                if(strlen($resultado["ganancia_total"])>0){
+                  $data = $resultado["ganancia_total"];
+                }else{
+                  $data = 0;
+                }
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+            exit; 
+        
+    }
+  }
+
+//Termina --- Calcular Balance
 
 
 ?>

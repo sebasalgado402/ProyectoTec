@@ -167,6 +167,7 @@
     <section>
         <?php
          include("./../assets/js/header.php");
+         include("./../assets/js/buscador.php");
         ?>
     </section>
     
@@ -177,16 +178,6 @@
 
     ?>
 
-        <section id='section-search'>
-            <div class="search-container">
-                <label for="txt_search"></label>
-                <div class="container">
-                    <div class="row">
-                        <input type="text" name="txt_search" id="txt_search" class='form-control col-4'>
-                    </div>
-                </div>
-            </div>
-        </section>
 
     <div class="container-fluid table-responsive ">
         <table class="table table-bordered table-primary table-sm vertical-align middle-align table-hover">

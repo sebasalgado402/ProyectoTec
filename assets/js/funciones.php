@@ -156,8 +156,6 @@
                   }else{
                     $dataId = 0;
                   }
-
-
               echo json_encode($articulo,JSON_UNESCAPED_UNICODE);
             }
             

@@ -1,12 +1,6 @@
-//funcion de redireccion de articulos
-function redireccionArticulo(id) {
-    window.location.href = './../ecommerce/articulo.php?articleID=' + id;
-}
-//
-//
 let imgProductoID;
 let i = 1;
-//
+
 //Parte FACTURACIÓN--->
 let id_articuloAgregar;
 let nombre_articuloAgregar;
@@ -15,6 +9,24 @@ let precio_articuloAgregar;
 
 let precioArticulo;
 
+
+function obtenerPrimerDiaDelMes() {
+    var fechaActual = new Date();
+    var primerDia = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
+    
+    var year = primerDia.getFullYear();
+    var month = ('0' + (primerDia.getMonth() + 1)).slice(-2);
+    var day = ('0' + primerDia.getDate()).slice(-2);
+    
+    var fechaFormateada = year + '-' + month + '-' + day;
+    return fechaFormateada;
+  }
+  
+  
+  
+function redireccionArticulo(id) { //funcion de redireccion de articulos
+    window.location.href = './../ecommerce/articulo.php?articleID=' + id;
+}
 function vaciarCampos() {
     let vacio = '';
     found = false;
@@ -25,7 +37,7 @@ function vaciarCampos() {
     $("#txt_precioTotal").html(vacio);
 }
 //Parte FACTURACIÓN<---
-///////////////////////////////////////////////////////
+
 //función que limpia los campos de agregar producto a factura
 function limpiarCamposArt() {
     $('#th_id_articulo').html('');
@@ -738,11 +750,11 @@ $(function () {
                 url: './../assets/js/ajax.php',
                 type: "POST",
                 async: true,
-                data: { buscar_ecommerce: buscar },
+                data: {action:action, buscar_ecommerce: buscar },
 
                 success: function (response) {
-                    if (response == 0) {
-                        //console.log("error " + response);
+                    if (response ==0) {
+                        console.log(response);
                     } else {
                         let resultado = response;
                         $('.product-container').html(resultado);
@@ -860,5 +872,87 @@ $(function () {
     });
 
     //Termina --- Verificacion de existencia de NOMBRE articulo
+
+    //Comienza --- Establece fecha actual al final del balance
+   
+      // Obtener los elementos de fecha de inicio y fecha final
+      var fechaInicio = $("#date_Inicio-balance");
+      var fechaFin = $("#date_Final-balance");
+      
+      // Configurar el datepicker de fecha de inicio
+      fechaInicio.datepicker({
+          dateFormat: "yy-mm-dd",
+          showButtonPanel: false,
+        onSelect: function(selectedDate) {
+          // Establecer la fecha máxima permitida en el datepicker de fecha final
+          fechaFin.datepicker("option", "minDate", selectedDate);
+        }
+      });
+      
+
+      //Comenzar --- Fecha incio del mes
+
+      let primerDiaDelMes = obtenerPrimerDiaDelMes();
+      //Termina --- Fecha incio del mes
+
+      // Configurar el datepicker de fecha final
+    let fechaActual = new Date();
+    
+    let year = fechaActual.getFullYear();
+    let month = ('0' + (fechaActual.getMonth() + 1)).slice(-2);
+    let day = ('0' + fechaActual.getDate()).slice(-2);
+
+    let fechaFormateada = year + '-' + month + '-' + day;
+    $("#date_Final-balance").val(fechaFormateada);
+    $("#date_Inicio-balance").val(primerDiaDelMes);
+      fechaFin.datepicker({
+          dateFormat: "yy-mm-dd",
+          showButtonPanel: false,
+        onSelect: function(selectedDate) {
+          // Establecer la fecha mínima permitida en el datepicker de fecha de inicio
+          fechaInicio.datepicker("option", "maxDate", selectedDate);
+        }
+      });
+  
+
+    //Termina --- Establece fecha actual al final del balance
+
+    //Comienza --- Calcular balance
+    
+    $("#btn_Calcular-balance").click(function (e) {
+        e.preventDefault();
+        let arrayFechas =[];
+        let inicio = $("#date_Inicio-balance").val();
+        let final = $("#date_Final-balance").val();        
+        arrayFechas.push(inicio,final);
+        console.log(arrayFechas);
+          
+        let action = 'calcularBalance';
+         $.ajax({
+            url: './../assets/js/ajax.php',
+            type: "POST",
+            async: true,
+            data: { action: action, calcularBalance: arrayFechas },
+
+            success: function (response) {
+                let data = $.parseJSON(response);
+
+                if(data == 0){
+                    $("#recibeBalance").html("$"+0);
+                    console.log(data);
+                }else{
+                    $("#recibeBalance").html("$"+data);
+                    console.log(data);
+                }
+
+                //console.log(data);
+                
+            },
+            error: function (error) {
+            }
+        });
+    });
+    
+    //Comienza --- Calcular balance
 });
 

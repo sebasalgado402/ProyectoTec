@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Servidor: localhost:3306
--- Tiempo de generación: 25-04-2023 a las 00:04:25
--- Versión del servidor: 10.5.16-MariaDB
--- Versión de PHP: 7.3.32
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 12-05-2023 a las 04:23:39
+-- Versión del servidor: 10.4.25-MariaDB
+-- Versión de PHP: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,23 +18,23 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de datos: `id19677335_barredadb`
+-- Base de datos: `barredadb`
 --
 
 DELIMITER $$
 --
 -- Procedimientos
 --
-CREATE DEFINER=`id19677335_admin`@`%` PROCEDURE `insertar_dFactura` (IN `venta_renglon` INT, IN `idFactura` INT, IN `venta_articulo` INT, IN `venta_cantidad` INT, IN `venta_precio` INT)  INSERT INTO `detalle_factura`(`dfact_renglon`, `fact_id`, `art_id`, `dfact_cantidad`, `dfact_precio`) VALUES (venta_renglon,idFactura,venta_articulo,venta_cantidad,venta_precio)$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_dFactura` (IN `venta_renglon` INT, IN `idFactura` INT, IN `venta_articulo` INT, IN `venta_cantidad` INT, IN `venta_precio` INT)   INSERT INTO `detalle_factura`(`dfact_renglon`, `fact_id`, `art_id`, `dfact_cantidad`, `dfact_precio`) VALUES (venta_renglon,idFactura,venta_articulo,venta_cantidad,venta_precio)$$
 
-CREATE DEFINER=`id19677335_admin`@`%` PROCEDURE `mostrar_Facturas` ()  SELECT factura.fact_id ,factura.fact_fecha ,sum(dfact_precio) as precioTotal from detalle_factura 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_Facturas` ()   SELECT factura.fact_id ,factura.fact_fecha ,sum(dfact_precio) as precioTotal from detalle_factura 
 INNER JOIN factura on detalle_factura.fact_id = factura.fact_id  GROUP BY fact_id ORDER BY fact_id DESC$$
 
-CREATE DEFINER=`id19677335_admin`@`%` PROCEDURE `precioTotal_Factura` (IN `idFactura` INT)  select sum(df.dfact_precio) as total from detalle_factura as df where df.fact_id = idFactura$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `precioTotal_Factura` (IN `idFactura` INT)   select sum(df.dfact_precio) as total from detalle_factura as df where df.fact_id = idFactura$$
 
-CREATE DEFINER=`id19677335_admin`@`%` PROCEDURE `restar_stock` (IN `idarticulo` INT(20), IN `cantidad` INT(20))  UPDATE articulos SET articulos.art_stock = articulos.art_stock-cantidad where articulos.art_id = idarticulo$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `restar_stock` (IN `idarticulo` INT(20), IN `cantidad` INT(20))   UPDATE articulos SET articulos.art_stock = articulos.art_stock-cantidad where articulos.art_id = idarticulo$$
 
-CREATE DEFINER=`id19677335_admin`@`%` PROCEDURE `ver_factura` (IN `idFactura` INT(20))  select df.dfact_renglon as nroRenglon, art.art_nom as articulo, df.dfact_cantidad as cantidad, df.dfact_precio as precioFinal , art.art_precio as precioUnitario , fact.fact_fecha as fecha from detalle_factura as df 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ver_factura` (IN `idFactura` INT(20))   select df.dfact_renglon as nroRenglon, art.art_nom as articulo, df.dfact_cantidad as cantidad, df.dfact_precio as precioFinal , art.art_precio as precioUnitario , fact.fact_fecha as fecha from detalle_factura as df 
 inner JOIN articulos as art on df.art_id = art.art_id
 INNER JOIN factura as fact on df.fact_id = fact.fact_id WHERE fact.fact_id = idFactura order by nroRenglon asc$$
 
@@ -52,7 +51,7 @@ CREATE TABLE `articulos` (
   `art_cod` varchar(20) NOT NULL,
   `art_nom` varchar(30) NOT NULL,
   `art_desc` varchar(255) NOT NULL,
-  `art_precio` int(20) NOT NULL,
+  `art_precio` float NOT NULL,
   `art_stock` int(20) NOT NULL,
   `art_costo` int(20) NOT NULL,
   `art_vendible` varchar(1) NOT NULL DEFAULT 'S',
@@ -60,7 +59,7 @@ CREATE TABLE `articulos` (
   `art_categoria` int(20) NOT NULL,
   `art_materiales` varchar(50) NOT NULL,
   `art_notas` text NOT NULL,
-  `art_imagen` text NOT NULL DEFAULT './../images/default.png'
+  `art_imagen` text NOT NULL DEFAULT './../assets/images/default.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -68,24 +67,15 @@ CREATE TABLE `articulos` (
 --
 
 INSERT INTO `articulos` (`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_deshabilitado`, `art_categoria`, `art_materiales`, `art_notas`, `art_imagen`) VALUES
-(2, 'SC2', 'Silla Comunidad', '', 1200, 1, 600, '', '', 1, '', '', './../images/default.png'),
-(3, 'SRP3', 'Silla rústica pino', '', 1400, 2, 500, '', '', 1, '', '', './../images/default.png'),
-(4, 'MV4', 'Matera Vivi', '', 500, 4, 150, '', '', 2, '', '', './../images/default.png'),
-(5, 'SSC5', 'Soporte simple celular', 'Una ranura', 150, 10, 30, 'S', NULL, 13, '', '', './../images/default.png'),
-(6, 'SI6', 'Soporte incienso', '', 150, 26, 30, 'S', NULL, 13, '', '', './../images/default.png'),
-(7, 'CM15', 'Caja Multiuso', '15x15cm, altura 7cm', 200, 1, 80, '', '', 10, '', '', './../images/default.png'),
-(9, 'SCC9', 'Soporte clásico celular', 'Dos ranuras', 150, 0, 30, 'S', NULL, 13, '', '', './../images/default.png'),
-(10, 'LA10', 'Llavero Aruera', 'Llavero Aruera con colgadores simples (pitones)', 300, 1, 120, 'S', NULL, 7, '', '', './../images/default.png'),
-(11, 'PA11', 'Perchero Aruera', 'Perchero Aruera con colgadores fuertes, soporta prendas de ropa', 500, 2, 300, '', '', 4, '', '', './../images/default.png'),
-(12, 'LJ12', 'Llavero Jane', 'Forma de casa de pajaritos, 3 colgadores, techo en colores varios.', 200, 3, 80, 'S', NULL, 7, '', '', './../images/default.png'),
-(13, 'PPM13', 'Perchero de pie ', '4 colgadores dobles, 1.60 de altura', 1200, 0, 300, '', '', 4, '', '', './../images/default.png'),
-(23, 'CSG', 'Cuenco grande (E.robusta)', 'Cuenco de 50 cm de largo con dos perforaciones', 1500, 2, 200, '', '', 14, 'Madera', '', './../images/default.png'),
-(24, 'CSM', 'Cuenco mediano', 'Cuenco mediano', 800, 1, 100, 'S', NULL, 14, 'Madera', '', './../images/default.png'),
-(25, 'CSC', 'Cuenco chico', 'Cuenco chico', 500, 5, 100, 'S', NULL, 14, 'Madera', '', './../images/default.png'),
-(26, 'PC50', 'Pino 50CM colores', 'Pino cerrado 50cm, colores varios: verde, rojo y azul', 500, 2, 50, '', '', 15, 'Madera', 'Angulos a 17 grados', './../images/default.png'),
-(27, 'PC70', 'Pino 70CM colores', 'Pino cerrado 70cm, colores varios: verde, rojo y azul', 700, 0, 80, '', '', 15, 'Madera', 'Angulos a 17 grados', './../images/default.png'),
-(28, 'PC100', 'Pino 100CM colores', 'Pino cerrado 100cm, colores varios: verde, rojo y azul', 1000, 0, 100, '', '', 15, 'Madera', 'Angulos a 17 grados', './../images/default.png'),
-(29, 'PC120', 'Pino 120CM colores', 'Pino cerrado 120cm, colores varios: verde, rojo y azul', 1200, 8, 120, '', '', 15, 'Madera', 'Angulos a 17 grados', './../images/default.png');
+(59, '1', '1', 'aasdasd', 2000, 199, 100, '', '', 10, 'asdasd', '', './../assets/images/default.png'),
+(60, '2', '2', 'asdasd', 2000, 199, 100, '', '', 10, 'asdasd', '', './../assets/images/default.png'),
+(61, '3', '3', 'asdasd', 2000, 199, 100, '', '', 8, 'asdasd', '', './../assets/images/default.png'),
+(62, 'emilia', 'emilia 2', 'asdasd', 499.9, 56, 10, 'S', 'S', 3, 'asdasda', '', './../assets/images/default.png'),
+(63, 'axadasd', 'asdasd', 'asdasd', 2142, 424, 2411, 'S', 'S', 7, 'asdasd', '', './../assets/images/default.png'),
+(64, 'zzz', 'zzz', 'asdasd', 222, 22, 22, 'S', 'S', 11, 'asdasd', '', './../assets/images/default.png'),
+(65, 'jjjj', 'jjjj', 'asdasd', 24, 424, 4124, 'S', 'S', 8, 'asdsad', '', './../assets/images/default.png'),
+(66, 'asdasd', 'asdasd4', 'asdasd', 4124, 2424, 424, 'S', 'S', 7, 'asdasd', '', './../assets/images/default.png'),
+(67, 'hjjjj', 'jjjg', 'sdfsdf', 24523, 345235, 523, 'S', 'S', 8, 'sdfsdf', '', './../assets/images/default.png');
 
 -- --------------------------------------------------------
 
@@ -128,7 +118,7 @@ CREATE TABLE `detalle_factura` (
   `fact_id` int(11) NOT NULL,
   `art_id` int(11) NOT NULL,
   `dfact_cantidad` int(11) NOT NULL,
-  `dfact_precio` int(11) NOT NULL
+  `dfact_precio` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -136,8 +126,9 @@ CREATE TABLE `detalle_factura` (
 --
 
 INSERT INTO `detalle_factura` (`dfact_renglon`, `fact_id`, `art_id`, `dfact_cantidad`, `dfact_precio`) VALUES
-(1, 88, 29, 1, 1200),
-(1, 89, 29, 2, 2400);
+(1, 104, 59, 1, 2000),
+(2, 104, 60, 1, 2000),
+(3, 104, 61, 1, 2000);
 
 -- --------------------------------------------------------
 
@@ -155,8 +146,7 @@ CREATE TABLE `factura` (
 --
 
 INSERT INTO `factura` (`fact_id`, `fact_fecha`) VALUES
-(88, '2023-02-03'),
-(89, '2023-02-03');
+(104, '2023-05-11');
 
 -- --------------------------------------------------------
 
@@ -170,8 +160,23 @@ CREATE TABLE `gastos` (
   `gas_proveedor` varchar(50) NOT NULL,
   `gas_concepto` varchar(50) DEFAULT NULL,
   `gas_cantidad` int(20) NOT NULL,
-  `gas_total` int(20) NOT NULL
+  `gas_total` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `gastos`
+--
+
+INSERT INTO `gastos` (`gas_id`, `gas_fecha`, `gas_proveedor`, `gas_concepto`, `gas_cantidad`, `gas_total`) VALUES
+(9, '2023-05-01', 'asdasd', 'asdasd', 5, 10000),
+(10, '2023-05-01', 'asdasd', 'asdasd', 1, 500),
+(11, '2023-05-01', 'asdasd', 'asdasd', 1, 10),
+(12, '2023-05-12', 'adasdasd', 'asdasdasd', 56, 99.99),
+(13, '2023-05-12', 'asdasd', 'asd', 424, 14124),
+(14, '2023-05-12', 'asdasd', 'asdasd', 22, 214124),
+(15, '2023-05-12', 'asdasd', 'asdasd', 424, 214124),
+(16, '2023-05-12', 'asdasd', 'asdasdasd', 2424, 2141240),
+(17, '2023-05-12', 'sdfsdf', 'sdfsdf', 345235, 2352);
 
 -- --------------------------------------------------------
 
@@ -195,7 +200,7 @@ INSERT INTO `usuarios` (`usu_id`, `usu_nombre`, `usu_contraseña`, `usu_rol`) VA
 (2, 'seba', 'seba', 1),
 (3, 'emilia', 'emilia', 1),
 (4, 'gaston', 'gaston', 1),
-(5, 'jero', 'jero', 1),
+(5, 'jero', 'jero', 2),
 (6, 'juanpablo', 'juanpablo', 1);
 
 --
@@ -251,25 +256,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  MODIFY `art_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `art_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `cat_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `cat_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `fact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `fact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT de la tabla `gastos`
 --
 ALTER TABLE `gastos`
-  MODIFY `gas_id` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `gas_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
