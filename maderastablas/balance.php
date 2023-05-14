@@ -54,38 +54,39 @@
             <input type="submit" id="btn_Calcular-balance" class="ButtonCalcular-balance" value="Calcular el Balance">
         </form>
         <!--Tabla Gastos-->
-        <div class="container-fluid col-4">
-            <table  class="table table-hover" >
-                <thead class="table-dark ">
-                    <tr>
-                        <th scope="col">Numero</th>
-                        <th scope="col">Concepto</th>
-                        <th scope="col">Gasto</th>
-                        <th scope="col">Fecha</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td scope="Tabla-Gastos__Row-Content">1</td>
-                        <td scope="Tabla-Gastos__Row-Content">Comida</td>
-                        <td scope="Tabla-Gastos__Row-Content">$20</td>
-                        <td scope="Tabla-Gastos__Row-Content">2023-05-10</td>
-                    </tr>
-                    <tr>
-                        <td scope="Tabla-Gastos__Row-Content">2</td>
-                        <td scope="Tabla-Gastos__Row-Content">Gasolina</td>
-                        <td scope="Tabla-Gastos__Row-Content">$40</td>
-                        <td scope="Tabla-Gastos__Row-Content">2023-05-08</td>
-                    </tr>
-                    <tr>
-                        <td scope="Tabla-Gastos__Row-Content">3</td>
-                        <td scope="Tabla-Gastos__Row-Content">Renta</td>
-                        <td scope="Tabla-Gastos__Row-Content">$800</td>
-                        <td scope="Tabla-Gastos__Row-Content">2023-05-01</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <div class="container-fluid col-lg-12 col-sm-12 table-responsive mt-2" >
+
+        <table class="table table-borderer table-bordered table-hover align-middle">
+            <thead>
+                <tr class="table-dark align-middle">
+                    <!-- <th scope="col">#</th> -->
+                    <th class="text-center" scope="col">Numeracion</th>
+                    <th class="text-center" scope="col">Concepto</th>
+                    <th class="text-center" scope="col">Proveedor</th>
+                    <th class="text-center" scope="col">Fecha</th>
+                    <th class="text-center" scope="col">Gasto Total</th>
+                </tr>
+            </thead>
+            <tbody id='recibeResultados_Gastos'>
+                
+
+            </tbody>
+        </table>
+        <table class="table table-borderer table-bordered table-hover align-middle">
+            <thead>
+                <tr class="table-dark align-middle">
+                    <!-- <th scope="col">#</th> -->
+                    <th class="text-center" scope="col">Numeracion</th>
+                    <th class="text-center" scope="col">ID Factura</th>
+                    <th class="text-center" scope="col">Fecha de venta</th>
+                    <th class="text-center" scope="col">Venta Total</th>
+                </tr>
+            </thead>
+            <tbody id='recibeResultados_Ventas'>
+                
+
+            </tbody>
+        </table>
     </div>
 </body>
 <!--Importa librería jquery -->

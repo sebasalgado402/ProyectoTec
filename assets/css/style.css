@@ -673,8 +673,11 @@ body::-webkit-scrollbar-thumb {
   background-color: aliceblue;
   box-shadow: 0 0 3px gray;
   min-width: 320px;
+  max-width: 700px;
+  margin: auto;
   border-radius: 10px;
   align-self: center;
+  margin-bottom: 20px;
 }
 
 .Title-balance{
@@ -685,8 +688,6 @@ body::-webkit-scrollbar-thumb {
 .PercentageContainer-balance{
   width: 150px;
   height: 150px;
-  border-radius: 100px;
-  background-color: rgb(10, 206, 10);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -694,7 +695,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .PercentageContainer_Text-balance{
-  font-size: 30px;
+  font-size: 50px;
 }
 
 .FormContainer-balance{

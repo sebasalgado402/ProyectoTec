@@ -41,7 +41,6 @@
                 <!-- <th scope="col">#</th> -->
                 <th class="align-middle p-2" scope="col">Número de factura</th>
                 <th scope="col">Fecha</th>
-                <th scope="col">Cliente</th>
                 <th scope="col">importe Total</th>
                 <th class="align-middle p-2" scope="col">Accion</th>
                 </tr>

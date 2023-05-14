@@ -70,7 +70,7 @@
                     $consulta = "UPDATE `articulos` SET `art_nom`='".$modificarArticulo[2]."',`art_desc`='".$modificarArticulo[6]."',`art_precio`='".$modificarArticulo[3]."',`art_stock`='".$modificarArticulo[4]."',`art_costo`='".$modificarArticulo[5]."',`art_vendible`='',`art_deshabilitado`='',`art_categoria`='".$modificarArticulo[1]."',`art_materiales`='".$modificarArticulo[7]."' where `art_id` = '".$modificarArticulo[0]."' ";
                     //$db = mysqli_select_db( $conexion, $nombreBD ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
                     $datos= mysqli_query ($conexion,$consulta);
-
+          
                     mysqli_close($conexion);
 
 
@@ -558,8 +558,39 @@ if(isset($_POST['action']) && $_POST['action'] == 'calcularBalance'){
   $calcularBalance = $_POST['calcularBalance'];
     if(!empty($calcularBalance)){  
               include('./../js/bd.php');
-              
-                $consulta = "SELECT ventas_total - COALESCE(ROUND(gastos_total, 2), 0) AS ganancia_total
+              if ($calcularBalance[0] == $calcularBalance[1]) {
+                /* $consulta = "SELECT ventas_total - COALESCE(ROUND(gastos_total, 2), 0) AS ganancia_total
+                FROM (
+                    SELECT SUM(df.dfact_precio) AS ventas_total
+                    FROM detalle_factura df
+                    JOIN factura f ON df.fact_id = f.fact_id
+                    WHERE f.fact_fecha = '".$calcularBalance[0]."'
+                ) AS ventas,
+                (
+                    SELECT SUM(gas_total) AS gastos_total
+                    FROM gastos
+                    WHERE gas_fecha = '".$calcularBalance[0]."'
+                ) AS gastos;"; */
+                $consulta= "SELECT ventas_total AS total_ventas,
+                COALESCE(ROUND(gastos_total, 2), 0) AS total_gastos,
+                ventas_total - COALESCE(ROUND(gastos_total, 2), 0) AS ganancia_total
+                FROM (
+                    SELECT SUM(df.dfact_precio) AS ventas_total
+                    FROM detalle_factura df
+                    JOIN factura f ON df.fact_id = f.fact_id
+                    WHERE f.fact_fecha = '".$calcularBalance[0]."'
+                ) AS ventas,
+                (
+                    SELECT SUM(gas_total) AS gastos_total
+                    FROM gastos
+                    WHERE gas_fecha = '".$calcularBalance[0]."'
+                ) AS gastos;
+                ";
+
+              }else{
+                $consulta= "SELECT ventas_total AS total_ventas,
+                COALESCE(ROUND(gastos_total, 2), 0) AS total_gastos,
+                ventas_total - COALESCE(ROUND(gastos_total, 2), 0) AS ganancia_total
                 FROM (
                     SELECT SUM(df.dfact_precio) AS ventas_total
                     FROM detalle_factura df
@@ -571,24 +602,248 @@ if(isset($_POST['action']) && $_POST['action'] == 'calcularBalance'){
                     FROM gastos
                     WHERE gas_fecha BETWEEN '".$calcularBalance[0]."' AND '".$calcularBalance[1]."'
                 ) AS gastos;";
+              }
+               
                 //$db = mysqli_select_db( $conexion, $nombreBD ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
                 $datos= mysqli_query ($conexion,$consulta);
                 $resultado =mysqli_fetch_array($datos);
                 mysqli_close($conexion);
                 
                 
-                if(strlen($resultado["ganancia_total"])>0){
-                  $data = $resultado["ganancia_total"];
-                }else{
-                  $data = 0;
-                }
-            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+            echo json_encode($resultado,JSON_UNESCAPED_UNICODE);
             exit; 
         
     }
   }
 
 //Termina --- Calcular Balance
+
+//Comienza --- Busqueda entre Fechas en Lista de gastos
+
+if(isset($_POST['action']) && $_POST['action'] == 'busqueda_Fecha_Gastos'){
+  $busqueda_Fecha_Gastos = $_POST['busqueda_Fecha_Gastos'];
+    if(!empty($busqueda_Fecha_Gastos)){  
+              include('./../js/bd.php');
+                if ($busqueda_Fecha_Gastos[0] !== $busqueda_Fecha_Gastos[1]) {
+
+                $consulta = "SELECT
+                ROW_NUMBER() OVER (ORDER BY gas_id) AS numeracion,
+                gas_id,
+                gas_proveedor,
+                gas_fecha,
+                gas_concepto,
+                gas_total
+                FROM
+                Gastos where gas_fecha BETWEEN '".$busqueda_Fecha_Gastos[0]."' AND '".$busqueda_Fecha_Gastos[1]."'";
+                
+                }else {
+                $consulta = "SELECT
+                ROW_NUMBER() OVER (ORDER BY gas_id) AS numeracion,
+                gas_id,
+                gas_proveedor,
+                gas_fecha,
+                gas_concepto,
+                gas_total
+                FROM
+                Gastos where gas_fecha= '".$busqueda_Fecha_Gastos[0]."'";
+                }
+                
+
+                $datos= mysqli_query ($conexion,$consulta);
+                $gastos = array(); // Array para almacenar los objetos de gastos
+
+                while ($fila = mysqli_fetch_array($datos)) {
+                    $gas_num = $fila['numeracion'];
+                    $gas_id = $fila['gas_id'];
+                    $gas_proveedor = $fila['gas_proveedor'];
+                    $gas_fecha = $fila['gas_fecha'];
+                    $gas_concepto = $fila['gas_concepto'];
+                    $gas_total = $fila['gas_total'];
+
+                    $gasto = new stdClass(); // Objeto para almacenar los datos de cada gasto
+                    $gasto->gas_num = $gas_num;
+                    $gasto->gas_concepto = $gas_concepto;
+                    $gasto->gas_proveedor = $gas_proveedor;
+                    $gasto->gas_fecha = $gas_fecha;
+                    $gasto->gas_total = $gas_total;
+                    $gasto->gas_id = $gas_id;
+
+                    $gastos[] = $gasto; // Agregar el objeto de gasto al array
+
+                    // ... Resto del código ...
+                }
+
+                mysqli_close($conexion);
+
+                $data = $gastos; // Utilizar el array de gastos como resultado 
+                echo json_encode($data, JSON_UNESCAPED_UNICODE);
+                exit;
+                        
+              }
+  }
+
+//Termina --- Busqueda entre Fechas en Lista de gastos
+
+//Comienza --- Busqueda entre Fechas de Ventas para Balance
+
+if(isset($_POST['action']) && $_POST['action'] == 'busqueda_ventasFechas'){
+  $busqueda_ventasFechas = $_POST['busqueda_ventasFechas'];
+    if(!empty($busqueda_ventasFechas)){  
+    
+              include('./../js/bd.php');
+                
+                if ($busqueda_ventasFechas[0] == $busqueda_ventasFechas[1]) {
+                $consulta = "SELECT
+                ROW_NUMBER() OVER (ORDER BY factura.fact_id) AS numeracion,
+                factura.fact_id,
+                factura.fact_fecha,
+                total_factura.precioTotal
+                FROM
+                    Factura factura
+                JOIN
+                    (SELECT
+                        fact_id,
+                        SUM(dfact_precio) AS precioTotal
+                    FROM
+                        Detalle_Factura
+                    GROUP BY
+                        fact_id) total_factura
+                ON
+                    total_factura.fact_id = factura.fact_id
+                WHERE
+                    factura.fact_fecha = '".$busqueda_ventasFechas[0]."'
+                ORDER BY
+                    numeracion ASC
+                ";
+                }else {
+                  $consulta = "SELECT
+                ROW_NUMBER() OVER (ORDER BY factura.fact_id) AS numeracion,
+                factura.fact_id,
+                factura.fact_fecha,
+                total_factura.precioTotal
+                FROM
+                    Factura factura
+                JOIN
+                    (SELECT
+                        fact_id,
+                        SUM(dfact_precio) AS precioTotal
+                    FROM
+                        Detalle_Factura
+                    GROUP BY
+                        fact_id) total_factura
+                ON
+                    total_factura.fact_id = factura.fact_id
+                WHERE
+                    factura.fact_fecha BETWEEN '".$busqueda_ventasFechas[0]."' AND '".$busqueda_ventasFechas[1]."'
+                ORDER BY
+                    numeracion ASC
+                ";
+                }
+                
+
+                $datos= mysqli_query ($conexion,$consulta);
+                $ventas = array(); // Array para almacenar los objetos de ventas
+
+                while ($fila = mysqli_fetch_array($datos)) {
+                    $ventas_num = $fila['numeracion'];
+                    $ventas_id = $fila['fact_id'];
+                    $ventas_fecha = $fila['fact_fecha'];
+                    $ventas_total = $fila['precioTotal'];
+
+
+                    $venta = new stdClass(); // Objeto para almacenar los datos de cada ventasto
+                    $venta->ventas_num = $ventas_num;
+                    $venta->ventas_id = $ventas_id;
+                    $venta->ventas_fecha = $ventas_fecha;
+                    $venta->ventas_total = $ventas_total;
+
+                    $ventas[] = $venta; // Agregar el objeto de gasto al array
+
+                    // ... Resto del código ...
+                }
+
+                mysqli_close($conexion);
+
+                $data = $ventas; // Utilizar el array de ventas como resultado 
+                echo json_encode($data, JSON_UNESCAPED_UNICODE);
+                exit;
+                        
+              }
+              
+  }
+
+//Termina --- Busqueda entre Fechas de Ventas para Balance
+
+//Comienza --- Busqueda concepto lista_Gastos
+
+if((isset($_POST['action'])) && $_POST['action']=='buscar_conceptoLista__Gastos'){
+  //SELECT * FROM articulos WHERE articulos.art_nom LIKE ('%', palabra , '%');
+  include('bd.php');
+                    
+  $consulta ="SELECT
+  ROW_NUMBER() OVER (ORDER BY gas_id) AS numeracion,
+  gas_id,
+  gas_proveedor,
+  gas_fecha,
+  gas_concepto,
+  gas_total
+FROM
+  Gastos
+WHERE
+  gas_concepto LIKE '".$_POST['buscar_conceptoLista__Gastos']."%' ORDER BY numeracion ASC;";
+  $datos= mysqli_query ($conexion,$consulta);
+
+  $busqueda = new stdClass();
+  while ($fila =mysqli_fetch_assoc($datos)){
+    echo'
+      <tr>
+        <th class="col-1 text-center">'.$fila ["numeracion"].'</th>
+        <th>'.$fila ["gas_concepto"].'</th>
+        <th>'.$fila ["gas_proveedor"].'</th>
+        <th class="col-2 text-center">'.$fila ["gas_fecha"].'</th>
+        <th class="text-center">$'.$fila ["gas_total"].'</th>
+      </tr>';
+  }
+  exit;
+  mysqli_close($conexion);
+}
+
+//Termina --- Busqueda concepto lista_Gastos
+//Comienza --- Busqueda proveedor lista_Gastos
+
+if((isset($_POST['action'])) && $_POST['action']=='buscar_proveedorLista__Gastos'){
+  //SELECT * FROM articulos WHERE articulos.art_nom LIKE ('%', palabra , '%');
+  include('bd.php');
+                    
+  $consulta ="SELECT
+  ROW_NUMBER() OVER (ORDER BY gas_id) AS numeracion,
+  gas_id,
+  gas_proveedor,
+  gas_fecha,
+  gas_concepto,
+  gas_total
+FROM
+  Gastos
+WHERE
+  gas_proveedor LIKE '".$_POST['buscar_proveedorLista__Gastos']."%' ORDER BY numeracion ASC;";
+  $datos= mysqli_query ($conexion,$consulta);
+
+  $busqueda = new stdClass();
+  while ($fila =mysqli_fetch_assoc($datos)){
+    echo'
+      <tr>
+        <th class="col-1 text-center">'.$fila ["numeracion"].'</th>
+        <th>'.$fila ["gas_concepto"].'</th>
+        <th>'.$fila ["gas_proveedor"].'</th>
+        <th class="col-2 text-center">'.$fila ["gas_fecha"].'</th>
+        <th class="text-center">$'.$fila ["gas_total"].'</th>
+      </tr>';
+  }
+  exit;
+  mysqli_close($conexion);
+}
+
+//Termina --- Busqueda proveedor lista_Gastos
 
 
 ?>

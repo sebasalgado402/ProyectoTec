@@ -223,8 +223,8 @@
           function mostrarFacturas(){
             include('./../assets/js/bd.php');
                
-                  $consulta= "SELECT factura.fact_id ,factura.fact_fecha ,sum(dfact_precio) as precioTotal from detalle_factura INNER JOIN factura on detalle_factura.fact_id = factura.fact_id  GROUP BY fact_id ORDER BY fact_id DESC";
-      
+                  /* $consulta= "SELECT factura.fact_id ,factura.fact_fecha ,sum(dfact_precio) as precioTotal from detalle_factura INNER JOIN factura on detalle_factura.fact_id = factura.fact_id  GROUP BY fact_id ORDER BY fact_id DESC"; */
+                  $consulta = 'call mostrar_Facturas()';
                   $datos= mysqli_query ($conexion,$consulta);
       
               
@@ -237,17 +237,9 @@
                         
                           <th>'.$fila ["fact_id"].'</th>
                           <th>'.$fila ["fact_fecha"].'</th>
-                          <th>...</th>
                           <th>'.$fila ["precioTotal"].'</th>
                          
-                          <th class="align-middle ">
-                          
-                          <form action="./../maderastablas/pdf/ver_factura.php" method="post" target="_blank">  
-                            <input id="fact_id" name="fact_id" type="hidden" value='.$fila ['fact_id'].'>
-                            <button type="submit" class="btn btn-success">
-                              <i class="bi bi-eye-fill"></i>
-                            </button>
-                          </form>
+                        <th class="align-middle ">
                           <a role="button" id="imprimir_Factura'.$fila ["fact_id"].'" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_eliminarArticulo" data-fact_id='.$fila ['fact_id'].'>
                           <i class="bi bi-printer-fill"></i>
                           </a>
@@ -259,6 +251,35 @@
                   mysqli_close($conexion);
               }
         //Termina---función sql que muestra las facturas
+
+        // función sql que muestra los gastos
+          function mostrarGastos(){
+            include('./../assets/js/bd.php');
+               
+                  $consulta= "call mostrar_Gastos()";
+      
+                  $datos= mysqli_query ($conexion,$consulta);
+      
+              
+                  $i = 1;
+                  while ($fila =mysqli_fetch_array($datos)){
+                    //<th scope="col-1">'.$i++.'</th>
+                    
+                      echo'
+                      <tr>
+                          <th class="col-1 text-center">'.$fila ["numeracion"].'</th>
+                          <th>'.$fila ["gas_concepto"].'</th>
+                          <th>'.$fila ["gas_proveedor"].'</th>
+                          <th class="col-2 text-center">'.$fila ["gas_fecha"].'</th>
+                          <th class="text-center">$'.$fila ["gas_total"].'</th>
+                      </tr>';
+                  }
+                    
+      
+                  mysqli_close($conexion);
+                  
+              }
+        //Termina---función sql que muestra los gastos
         
         //Comienza---mostrar articulo seleccionado
 

@@ -93,6 +93,12 @@
                 <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon-principal">
             </div>
         </a>
+        <a href="lista__Gastos.php" class="FuntionCard-principal">
+            <p class="FuntionCard_Title-principal">Lista de gastos</p>
+            <div class="FuntionCard_Icon-Container-principal">
+                <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon-principal">
+            </div>
+        </a>
         
     </main>
 
