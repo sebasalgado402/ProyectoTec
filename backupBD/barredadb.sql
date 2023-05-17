@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-05-2023 a las 04:23:39
+-- Tiempo de generación: 18-05-2023 a las 01:40:53
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -29,6 +29,16 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insertar_dFactura` (IN `venta_rengl
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_Facturas` ()   SELECT factura.fact_id ,factura.fact_fecha ,sum(dfact_precio) as precioTotal from detalle_factura 
 INNER JOIN factura on detalle_factura.fact_id = factura.fact_id  GROUP BY fact_id ORDER BY fact_id DESC$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_Gastos` ()   SELECT
+  ROW_NUMBER() OVER (ORDER BY gas_id) AS numeracion,
+  gas_id,
+  gas_proveedor,
+  gas_fecha,
+  gas_concepto,
+  gas_total
+FROM
+  Gastos$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `precioTotal_Factura` (IN `idFactura` INT)   select sum(df.dfact_precio) as total from detalle_factura as df where df.fact_id = idFactura$$
 
@@ -67,15 +77,30 @@ CREATE TABLE `articulos` (
 --
 
 INSERT INTO `articulos` (`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_deshabilitado`, `art_categoria`, `art_materiales`, `art_notas`, `art_imagen`) VALUES
-(59, '1', '1', 'aasdasd', 2000, 199, 100, '', '', 10, 'asdasd', '', './../assets/images/default.png'),
-(60, '2', '2', 'asdasd', 2000, 199, 100, '', '', 10, 'asdasd', '', './../assets/images/default.png'),
-(61, '3', '3', 'asdasd', 2000, 199, 100, '', '', 8, 'asdasd', '', './../assets/images/default.png'),
-(62, 'emilia', 'emilia 2', 'asdasd', 499.9, 56, 10, 'S', 'S', 3, 'asdasda', '', './../assets/images/default.png'),
 (63, 'axadasd', 'asdasd', 'asdasd', 2142, 424, 2411, 'S', 'S', 7, 'asdasd', '', './../assets/images/default.png'),
 (64, 'zzz', 'zzz', 'asdasd', 222, 22, 22, 'S', 'S', 11, 'asdasd', '', './../assets/images/default.png'),
 (65, 'jjjj', 'jjjj', 'asdasd', 24, 424, 4124, 'S', 'S', 8, 'asdsad', '', './../assets/images/default.png'),
 (66, 'asdasd', 'asdasd4', 'asdasd', 4124, 2424, 424, 'S', 'S', 7, 'asdasd', '', './../assets/images/default.png'),
-(67, 'hjjjj', 'jjjg', 'sdfsdf', 24523, 345235, 523, 'S', 'S', 8, 'sdfsdf', '', './../assets/images/default.png');
+(67, 'hjjjj', 'jjjg', 'sdfsdf', 1000, 345235, 523, 'S', 'S', 8, 'sdfsdf', '', './../assets/images/default.png');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `art_imagenes`
+--
+
+CREATE TABLE `art_imagenes` (
+  `art_id` int(11) NOT NULL,
+  `ruta_img` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `art_imagenes`
+--
+
+INSERT INTO `art_imagenes` (`art_id`, `ruta_img`) VALUES
+(66, 'cosaa'),
+(66, 'cosaa');
 
 -- --------------------------------------------------------
 
@@ -100,7 +125,6 @@ INSERT INTO `categorias` (`cat_id`, `cat_nom`, `cat_obs`) VALUES
 (4, 'Percheros', '---'),
 (7, 'Llaveros', '---'),
 (8, 'Estanterias', '---'),
-(10, 'Cajas', NULL),
 (11, 'Descuentos', NULL),
 (12, 'Marcos', NULL),
 (13, 'Otros accesorios', NULL),
@@ -126,9 +150,9 @@ CREATE TABLE `detalle_factura` (
 --
 
 INSERT INTO `detalle_factura` (`dfact_renglon`, `fact_id`, `art_id`, `dfact_cantidad`, `dfact_precio`) VALUES
-(1, 104, 59, 1, 2000),
-(2, 104, 60, 1, 2000),
-(3, 104, 61, 1, 2000);
+(1, 107, 59, 2, 2000),
+(1, 108, 59, 25, 25000),
+(1, 109, 62, 4, 1996);
 
 -- --------------------------------------------------------
 
@@ -146,7 +170,9 @@ CREATE TABLE `factura` (
 --
 
 INSERT INTO `factura` (`fact_id`, `fact_fecha`) VALUES
-(104, '2023-05-11');
+(107, '2023-05-14'),
+(108, '2023-05-14'),
+(109, '2023-05-14');
 
 -- --------------------------------------------------------
 
@@ -168,15 +194,15 @@ CREATE TABLE `gastos` (
 --
 
 INSERT INTO `gastos` (`gas_id`, `gas_fecha`, `gas_proveedor`, `gas_concepto`, `gas_cantidad`, `gas_total`) VALUES
-(9, '2023-05-01', 'asdasd', 'asdasd', 5, 10000),
-(10, '2023-05-01', 'asdasd', 'asdasd', 1, 500),
-(11, '2023-05-01', 'asdasd', 'asdasd', 1, 10),
-(12, '2023-05-12', 'adasdasd', 'asdasdasd', 56, 99.99),
-(13, '2023-05-12', 'asdasd', 'asd', 424, 14124),
-(14, '2023-05-12', 'asdasd', 'asdasd', 22, 214124),
-(15, '2023-05-12', 'asdasd', 'asdasd', 424, 214124),
-(16, '2023-05-12', 'asdasd', 'asdasdasd', 2424, 2141240),
-(17, '2023-05-12', 'sdfsdf', 'sdfsdf', 345235, 2352);
+(9, '2023-05-01', 'luis', 'clavos', 5, 10000),
+(10, '2023-05-01', 'ricardo', 'tablon de madera de ceibo', 1, 500),
+(11, '2023-05-01', 'manuel', 'martillo', 1, 10),
+(12, '2023-05-12', 'luis', 'clavelos', 56, 99.99),
+(13, '2023-05-12', 'papa', 'pc', 424, 1000),
+(14, '2023-05-12', 'alex', 'usb', 22, 2000),
+(15, '2023-05-12', 'martin', 'alquiler', 424, 1000),
+(16, '2023-05-12', 'luis', 'deudas', 2424, 300.34),
+(17, '2023-05-12', 'amelia', 'que se yo', 345235, 2352);
 
 -- --------------------------------------------------------
 
@@ -216,6 +242,12 @@ ALTER TABLE `articulos`
   ADD UNIQUE KEY `art_cod_2` (`art_cod`),
   ADD UNIQUE KEY `art_cod_3` (`art_cod`),
   ADD KEY `art_categoria` (`art_categoria`);
+
+--
+-- Indices de la tabla `art_imagenes`
+--
+ALTER TABLE `art_imagenes`
+  ADD KEY `art_id` (`art_id`);
 
 --
 -- Indices de la tabla `categorias`
@@ -268,7 +300,7 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `fact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `fact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
 
 --
 -- AUTO_INCREMENT de la tabla `gastos`
@@ -291,6 +323,12 @@ ALTER TABLE `usuarios`
 --
 ALTER TABLE `articulos`
   ADD CONSTRAINT `articulos_ibfk_1` FOREIGN KEY (`art_categoria`) REFERENCES `categorias` (`cat_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `art_imagenes`
+--
+ALTER TABLE `art_imagenes`
+  ADD CONSTRAINT `art_imagenes_ibfk_1` FOREIGN KEY (`art_id`) REFERENCES `articulos` (`art_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `detalle_factura`
