@@ -475,16 +475,13 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
     $busqueda = new stdClass();
     while ($fila =mysqli_fetch_assoc($datos)){
       echo'
-      <div class="product" id="art_Ecommerce" onclick="redireccionArticulo('.$fila ["art_id"].')" data-art_id="'.$fila ["art_id"].'">
-        <div class="product-imagen">
-            <img src="'.$fila ["art_imagen"].'" alt="error al cargar img">
-        </div>
-          <div class="card-descripcion">
-              <span>'.$fila ["cat_nom"].'</span>
-              <h5>'.$fila ["art_nom"].'</h5>
-              <h4>$'.$fila ["art_precio"].'</h4>
+      <div class="ProductsList_Card" id="art_Ecommerce" onclick="redireccionArticulo(' . $fila["art_id"] . ')">
+              <img src="'. $fila["art_imagen"] .'" alt="error al cargar imagen" class="ProductsList_Card-Img">
+          <div class="ProductsList_Card-Content">
+              <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
+              <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
+              <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
           </div>
-          <a href="#"><i class="bi bi-cart4 cart"></i></a>
       </div>';
     }
     exit;
@@ -559,18 +556,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'calcularBalance'){
     if(!empty($calcularBalance)){  
               include('./../js/bd.php');
               if ($calcularBalance[0] == $calcularBalance[1]) {
-                /* $consulta = "SELECT ventas_total - COALESCE(ROUND(gastos_total, 2), 0) AS ganancia_total
-                FROM (
-                    SELECT SUM(df.dfact_precio) AS ventas_total
-                    FROM detalle_factura df
-                    JOIN factura f ON df.fact_id = f.fact_id
-                    WHERE f.fact_fecha = '".$calcularBalance[0]."'
-                ) AS ventas,
-                (
-                    SELECT SUM(gas_total) AS gastos_total
-                    FROM gastos
-                    WHERE gas_fecha = '".$calcularBalance[0]."'
-                ) AS gastos;"; */
+                
                 $consulta= "SELECT ventas_total AS total_ventas,
                 COALESCE(ROUND(gastos_total, 2), 0) AS total_gastos,
                 ventas_total - COALESCE(ROUND(gastos_total, 2), 0) AS ganancia_total

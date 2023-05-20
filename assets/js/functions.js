@@ -13,6 +13,24 @@ let precioArticulo;
 let fechaInicio = $("#date_Inicio-balance");
 let fechaFinal = $("#date_Final-balance");
 
+//Parte subir imagenes
+function subirImagen_articulo(){
+    var parametros = new FormData($('#form_subirImagenes')[0]);
+
+    $.ajax({
+        data:parametros,
+        url: './../assets/js/ajax.php',
+        type: "POST",
+        contentType: false,
+        processData: false,
+        beforesend: function(response) {
+        },
+        success: function(response) {
+            alert(response);
+        }
+    })
+}
+
 
 function mostrarLista_gastosFechas_parametros(fecha1,fecha2) {
     fechaInicio.datepicker({
@@ -255,6 +273,9 @@ function obtenerPrimerDiaDelMes() {
 
 function redireccionArticulo(id) { //funcion de redireccion de articulos
     window.location.href = './../ecommerce/articulo.php?articleID=' + id;
+}
+function redireccionArticulo_Imagenes(id) { //funcion de redireccion de articulos
+    window.location.href = './../maderastablas/articulo_imagenes.php?img_articleID=' + id;
 }
 function vaciarCampos() {
     let vacio = '';
@@ -986,7 +1007,7 @@ $(function () {
                         
                     } else {
                         let resultado = response;
-                        $('.product-container').html(resultado);
+                        $('.ProductsList').html(resultado);
                         
                     }
 
@@ -1184,7 +1205,7 @@ $(function () {
                 let resultadoFinal = data['total_ventas'] - data['total_gastos']
                 let resultadoFixed = resultadoFinal.toFixed(2);
                
-                if (resultadoFinal == 0) {
+                if (resultadoFinal == 0 || resultadoFinal == 0.00 ) {
                     $("#recibeBalance").html("$" + 0);
                     $("#recibeBalance").html("$" + resultadoFixed);
                     $("#recibeBalance").css("color", "black");
@@ -1210,7 +1231,7 @@ $(function () {
         
     });
 
-    //Comienza --- Calcular balance
+    //Termina --- Calcular balance
 
     //Comienza --- Selector de búsqueda en gastos
 
@@ -1335,6 +1356,12 @@ $(function () {
     });
 
     //Termina --- Buscador por concepto en Lista__Gastos
+
+    //
+
+    
+
+    //
 
 });
 

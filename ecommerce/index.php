@@ -28,14 +28,14 @@
 </head>
 <body>
     <?php 
-        include ('./../assets/js/header.php');
-        include ('./../assets/js/buscador.php');
+        include ('./../assets/Components/Nav.php');
+        include ('./../assets/Components/Menu.php');
         include ('./../assets/js/banner.php');
     ?>
    
 
     <section id="section-product" class="section-product">
-            <div class="product-container">
+            <div class="ProductsList">
                 <!-- <div class="product">
                     <div class="product-imagen">
                         <img src="./../images/ejemploFactura.jpeg" alt="error al cargar img"> 
@@ -50,8 +50,7 @@
                  <?php mostrarArticulos_Ecommerce(); ?> 
             </div> 
     </section>
-
-    <?php include('./../assets/js/footer.php')?>
+    <?php include('./../assets/Components/footer.php')?>
 </body>
  <!--Importa librería jquery -->
     <!-- <script src="./../jQuery/jquery.min.js"></script> -->

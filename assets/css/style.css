@@ -1,848 +1,915 @@
-@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
-*{
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-} 
-/*---------------------------
-    Tarjetas del ecommerce
----------------------------*/
-
-
-#section-product{
-    text-align: center;
-}
-#section-product .product-container{
-    margin: 0px 10px;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    flex-wrap: wrap;
-
-  
-
-}
-#section-product .product{
-    /* height: 400px; */
-    width: 20%;
-    min-width: 250px;
-    max-width: 250px;
-    padding: 10px 20px;
-    border: 1px solid #4a2500;
-    border-radius: 25px;
-    cursor: pointer;
-    box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
-    margin: 15px 5px;
-    transition: 0.2s ease;
-    position: relative;
-}
-#section-product .product:hover{
-     box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.20);
-}
-#section-product .product:not(hover){
-     box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
-}
-
-.product-imagen{
-  width:100%;
-  height:250px;
-  overflow:hidden;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 25px;
-}
-.product-imagen img{  
-  width: 210px;
-}
-#section-product .product .card-descripcion{
-    text-align: start;
-    padding: 10px 0;
-}
-#section-product .product .card-descripcion span{
-  color: #606063;
-  font-size: 12px;
-}
-#section-product .product .card-descripcion h5{
-  padding-top: 7px;
-  color: #1a1a1a;
-  font-size: 14px;
-
-}
-#section-product .product .card-descripcion h4{
-    padding-top: 7px;
-    font-size: 25px;
-    font-weight: 700;
-    color: #552103;
-}
-#section-product .product .cart{
-    width: 40px;
-    height: 40px;
-    line-height: 40px;
-    border-radius: 50px;
-    background-color: #e8f6ea;
-    font-weight: 500;
-    color: #088178;
-    border: 1px solid #cce7d0;
-    position: absolute;
-    bottom: 20px;
-    right: 10px;
-}
-#section-product .product .cart:hover{
-  background-color: #aa0303;
-  color: #ffffff;
-  
-}
-
-
-/* Jero */
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-  scroll-behavior: smooth;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 body {
-  background-image: url(./../icons/Background.svg);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+    background-image: url(../Icons/Background.svg);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
 }
 
 body::-webkit-scrollbar {
-  width: 8px;
-  background-color: transparent;
-  border-radius: 15px;
+    width: 8px;
+    background-color: transparent;
+    border-radius: 15px;
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: grey;
-  border-radius: 10px;
+    background-color: grey;
+    border-radius: 10px;
 }
+
+.container {
+    height: 100vh;
+}
+
 /*===============
      NavBar
 ================*/
 
 .nav {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    flex-wrap: wrap;
+    background-color: #fff;
 }
 
 .TitleContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  column-gap: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 10px;
 }
 
 .Icon {
-  width: 60px;
-  height: 60px;
+    width: 60px;
+    height: 60px;
 }
 
 .Title {
-  font-size: 22px;
-  margin-bottom: 0;
+    font-size: 22px;
+    margin-bottom: 0;
+    display: none;
+}
+
+.NavButtons_Container {
+    display: flex;
+    flex-direction: row;
+    column-gap: 5px;
+    align-items: center;
 }
 
 .NavButton {
-  background-color: transparent;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
+    background-color: transparent;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
 }
 
 .NavButtonIcon {
-  width: 50px;
-  height: 50px;
-  filter: drop-shadow(0 0 1px white);
-  transition: 0.2s ease-in-out;
+    width: 50px;
+    height: 50px;
+    filter: drop-shadow(0 0 1px white);
+}
+
+.LoginButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.LoginButton__Icon {
+    width: 35px;
+    height: 35px;
+    filter: drop-shadow(0 0 1px gray);
+    opacity: 0.5;
+}
+
+.Nav-Content-Container {
+    flex-direction: row;
+    width: 80%;
+    display: none;
+}
+
+.Nav-InputSearch {
+    width: 100%;
+    height: 50px;
+    outline: none;
+    padding: 10px;
+    border-radius: 0 10px 10px 0;
+    border-top: 1px solid rgba(128, 128, 128, 0.555);
+    border-right: 1px solid rgba(128, 128, 128, 0.555);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.555);
+    border-left: 0;
+    font-size: 16px;
+}
+
+.Nav-DropdownButton {
+    width: 220px;
+    height: 50px;
+    border: 1px solid rgba(128, 128, 128, 0.555);
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 10px 0 0 10px;
+    margin-bottom: 2px;
+    outline: none;
+    background-color: #fff;
+    color: black;
+}
+
+.Nav-DropMenu {
+    width: 220px;
+    flex-direction: column;
 }
 
 /*===============
-   Header
-================*/
+    Menu
+===============*/
 
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  row-gap: 20px;
-  padding: 10px;
-  padding-bottom: 15px;
-  backdrop-filter: blur(2px);
+.Menu {
+    display: none;
+    flex-direction: column;
+    padding-top: 10px;
+    background-color: #fff;
 }
 
-.InputSearch {
-  width: 90%;
-  outline: none;
-  padding: 10px;
-  border-radius: 10px;
-  border: 2px solid gray;
-  font-size: 16px;
+.Menu_Search {
+    display: flex;
+    flex-direction: row;
+    padding: 0 5px 0 5px;
+    margin-bottom: 10px;
 }
 
-.CategoriesContainer {
-  display: flex;
-  flex-direction: row;
-  column-gap: 10px;
-  align-items: center;
-  max-width: 90%;
-  overflow: hidden;
-  overflow-x: scroll;
-  padding-bottom: 10px;
+.Menu_Search-Input {
+    width: 100%;
+    height: 50px;
+    outline: none;
+    padding: 10px;
+    border-radius: 7px 0 0 7px;
+    border-top: 1px solid rgba(128, 128, 128, 0.555);
+    border-left: 1px solid rgba(128, 128, 128, 0.555);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.555);
+    border-right: 0;
+    font-size: 16px;
 }
 
-.CategoriesContainer::-webkit-scrollbar {
-  width: 8px;
-  height: 6px;
-  background-color: transparent;
-  border-radius: 15px;
+.Menu_Search-Button {
+    width: 50px;
+    height: 50px;
+    border-top: 1px solid rgba(128, 128, 128, 0.555);
+    border-right: 1px solid rgba(128, 128, 128, 0.555);
+    border-bottom: 1px solid rgba(128, 128, 128, 0.555);
+    border-left: 0;
+    border-radius: 0 7px 7px 0;
+    background-color: #fff;
+    outline: none;
 }
 
-.CategoriesContainer::-webkit-scrollbar-thumb {
-  background-color: grey;
-  border-radius: 10px;
+.Menu_Search-Button-Icon {
+    width: 30px;
+    height: 30px;
+    opacity: 0.4;
 }
 
-.CategoryLink {
-  text-decoration: none;
-  color: black;
-  font-size: 18px;
-  font-weight: 600;
-  border-right: 1px solid grey;
-  padding-right: 5px;
-  transition: 0.2s ease-in-out;
+.MenuActive {
+    display: flex;
 }
 
-.CategoryLink:hover {
-  transition: 0.2s ease-in-out;
-  font-size: 22px;
+.Menu_Category {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    margin-top: 5px;
 }
 
+.Menu_Category-item {
+    color: black;
+    text-decoration: none;
+}
 
 /*===============
      Banner
 ================*/
 
-.BannerContainer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  margin-top: 30px;
-
-}
-
 .Banners {
-  width: 90%;
-  height: 300px;
-  display: flex;
-  overflow: hidden;
-  border-radius: 10px;
+    width: 100vw;
+    height: 300px;
+    display: flex;
+    overflow: hidden;
 }
 
 .BannerImg {
-  width: 80%;
-  height: 300px;
+    width: 80%;
+    height: 300px;
 }
-
-
-/* oiasudhfuisoadfhasio */
-
 
 /*==================
-    Main Product
+    Products List 
 ===================*/
-.main {
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
+
+.ProductsList {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: center;
+    column-gap: 10px;
+    row-gap: 40px;
+    margin-top: 40px;
 }
 
-.ProductContainer {
-  display: flex;
-  flex-direction: column;
-  row-gap: 15px;
+.ProductsList_Card {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 300px;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s linear;
 }
 
-/*--Main Product--*/
-
-.MainProduct {
-  width: 270px;
-  height: 290px;
-  background-color: #fff;
-  display: flex;
-  align-self: center;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 2px black;
-  border-radius: 10px;
+.ProductsList_Card:hover {
+    box-shadow: 0 0 7px black;
+    transition: 0.2s ease-in-out;
 }
 
-.MainProduct__Img {
-  width: 200px;
-  height: 240px;
-  object-fit: contain;
+.ProductsList_Card-Img {
+    align-self: center;
+    width: 180px;
+    height: 180px;
+    object-fit: contain;
 }
 
-/*--Carrousel Product--*/
-
-.ProductCarrouselContainer {
-  display: flex;
-  flex-direction: row;
-  column-gap: 5px;
+.ProductsList_Card-Content {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
 }
 
-.ProductCarrousel {
-  box-shadow: 0 0 2px black;
-  padding: 2px;
-  background-color: #fff;
-  border-radius: 10px;
-  cursor: pointer;
+.ProductsList_Card-Name {
+    font-size: 20px;
 }
 
-.ProductCarrousel__Img {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
+/*====================
+    Product Details 
+=====================*/
+
+.ProductDetails {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-/*--Product Content--*/
-
-.ProductContent {
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
-  justify-content: center;
-  padding: 10px;
+.ProductDetails_Main {
+    width: 270px;
+    height: 290px;
+    background-color: #fff;
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 2px black;
+    border-radius: 10px;
 }
 
-.ProductContent__Category {
-  color: #737373;
+.ProductDetails_Main-Img {
+    width: 100%;
+    height: 240px;
+    object-fit: contain;
 }
 
-.ProductContent__Name {
-  font-size: 20px;
+.ProductDetails_Main-Content {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    justify-content: center;
+    padding: 10px;
 }
 
-.ProductContent__Description {
-  line-height: 25px;
+.ProductDetails_Main-Category {
+    color: #737373;
 }
 
-.ProductContent__Price {
-  font-size: 19px;
-  font-weight: 600;
+.ProductDetails_Main-Name {
+    font-size: 20px;
 }
 
-.ProductContent__Button {
-  display: flex;
-  align-self: center;
-  align-items: center;
-  justify-content: center;
-  width: 300px;
-  height: 50px;
-  border-radius: 50px;
-  margin-top: 20px;
-  font-size: 17px;
-  background-color: rgb(45, 227, 45);
-  text-decoration: none;
-  color: black;
+.ProductDetails_Main-Description {
+    line-height: 25px;
 }
 
-/*==========================
-  Category Products List 
-===========================*/
-.CategoryProductList {
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
-  padding: 10px;
-  margin-top: 30px;
-  margin-bottom: 30px;
+.ProductDetails_Main-Price {
+    font-size: 19px;
+    font-weight: 600;
 }
 
-.CategoryProductList__Title {
-  font-size: 22px;
+.ProductDetails_Main-Button {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 50px;
+    border-radius: 50px;
+    margin-top: 20px;
+    font-size: 17px;
+    background-color: rgb(45, 227, 45);
+    text-decoration: none;
+    color: black;
 }
 
-.CategoryProductList__Container {
-  display: flex;
-  flex-direction: row;
-  column-gap: 15px;
-  overflow: hidden;
-  overflow-x: scroll;
-  padding-bottom: 15px;
+/*--Category Products List--*/
+
+.ProductDetails_CategoryList {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding: 10px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
-.CategoryProductList__Container::-webkit-scrollbar {
-  width: 8px;
-  height: 5px;
-  background-color: transparent;
-  border-radius: 15px;
-  cursor: pointer;
+.ProductDetails_CategoryList__Title {
+    font-size: 22px;
 }
 
-.CategoryProductList__Container::-webkit-scrollbar-thumb {
-  background-color: grey;
-  border-radius: 10px;
-  cursor: pointer;
+.ProductDetails_CategoryList__Container {
+    display: flex;
+    flex-direction: row;
+    column-gap: 15px;
+    overflow: hidden;
+    overflow-x: scroll;
+    padding-bottom: 15px;
 }
 
-.ProductCard {
-  display: flex;
-  flex-direction: column;
-  width: 220px;
-  height: 300px;
-  padding: 10px;
-  border: 2px solid rgb(190, 190, 190);
-  background-color: #fff;
-  border-radius: 10px;
-  backdrop-filter: blur(4px);
-  cursor: pointer;
-  transition: 0.2s linear;
+.ProductDetails_CategoryList__Container::-webkit-scrollbar {
+    width: 8px;
+    height: 5px;
+    background-color: transparent;
+    border-radius: 15px;
+    cursor: pointer;
 }
 
-.ProductCard:hover {
-  box-shadow: 0 0 7px black;
-  transition: 0.2s ease-in-out;
+.ProductDetails_CategoryList__Container::-webkit-scrollbar-thumb {
+    background-color: grey;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
-.ProductCardImg {
-  align-self: center;
-  width: 180px;
-  height: 180px;
-  object-fit: contain;
+/*====================
+    Funtions Page
+====================*/
+
+.FuntionsContainer {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 10px;
 }
 
-.ProductoCardContent {
-  margin-top: auto;
-  display: flex;
-  flex-direction: column;
-  row-gap: 20px;
+.FuntionCard {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 0 6px gray;
+    text-decoration: none;
+    color: black;
+    transition: 0.2s ease-in-out;
+    max-width: 700px;
+    padding: 10px;
 }
 
-.CardName {
-  font-size: 20px;
+.FuntionCard:hover {
+    box-shadow: 0 0 10px gray;
+    transition: 0.2s ease-in-out;
+    transform: scale(1.1);
+}
+
+.FunctionCard-Content {
+    display: flex;
+    flex-direction: column;
+}
+
+.FuntionCard_Title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.FuntionCard_Icon-Container {
+    display: flex;
+    align-items: center;
+}
+
+.FuntionCard_Icon {
+    width: 35px;
+    height: 35px;
+}
+
+/*=====================
+    Balance Page
+=====================*/
+
+.BalancePageContainer {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.BalanceCalculator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background-color: aliceblue;
+    box-shadow: 0 0 3px gray;
+    min-width: 320px;
+    border-radius: 10px;
+    align-self: center;
+}
+
+.BalanceCalculator_Title {
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.BalanceCalculator_PercentageContainer {
+    width: 150px;
+    height: 150px;
+    border-radius: 100px;
+    background-color: rgb(10, 206, 10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+.BalanceCalculator_PercentageContainer-Text {
+    font-size: 30px;
+}
+
+.BalanceCalculator_FormContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 20px;
+}
+
+.BalanceCalculator_InputContainer {
+    border-top: 1px solid gray;
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    padding-top: 10px;
+}
+
+.BalanceCalculator_Input {
+    padding: 10px;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    box-shadow: 0 0 2px black;
+}
+
+.BalanceCalculator_ButtonCalcular {
+    width: 250px;
+    height: 50px;
+    margin-top: 30px;
+    font-size: 20px;
+    background-color: antiquewhite;
+    outline: none;
+    border-radius: 50px;
+    border: 2px solid black;
+    cursor: pointer;
+}
+
+.BalanceCalculator_Tabla-Gastos {
+    width: 100%;
+    max-width: 700px;
+    box-shadow: 0 0 4px gray;
+    align-self: center;
+    background-color: #fff;
+    border: 2px solid gray;
+    margin-top: 30px;
+}
+
+.BalanceCalculator_Tabla-Gastos__Row-Title {
+    padding: 10px;
+}
+
+.BalanceCalculator_Tabla-Gastos__Row-Content {
+    padding: 5px;
+}
+
+/*=====================
+    Add Product Page
+=====================*/
+
+.AddProductPageContainer {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.AddProduct_FormContainer {
+    background-color: aliceblue;
+    width: 100%;
+    max-width: 900px;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-shadow: 0 0 3px black;
+    border-radius: 10px;
+    row-gap: 10px;
+}
+
+.AddProduct_FormTitle {
+    text-align: center;
+    font-size: 23px;
+    font-weight: bold;
+}
+
+.AddProduct_Obligatory {
+    color: red;
+    font-size: 18px;
+}
+
+.AddProduct_Input {
+    padding: 6px;
+    border-radius: 10px;
+    outline: none;
+    border: 2px solid gray;
+}
+
+.AddProduct_CategoryContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    row-gap: 10px;
+}
+
+.AddProduct_CategoryInput-Container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.AddProduct_BotonCategoria {
+    background-color: rgb(66, 66, 249);
+    color: white;
+    border: none;
+    outline: none;
+    padding: 6px;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.AddProduct_BotonEnviar {
+    border: 3px solid green;
+    padding: 6px;
+    margin-top: 10px;
+    border-radius: 50px;
+    background-color: transparent;
+    color: green;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 /*==============
-  Footer
+    Footer
 ==============*/
 
 .footer {
-  background-color: #e2e8f0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 12px;
-  margin-top: 20px;
-  row-gap: 10px;
+    background-color: #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px;
+    margin-top: 20px;
+    row-gap: 10px;
 }
 
 .FooterMain {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .FooterIcon {
-  width: 50px;
-  height: 50px;
+    width: 50px;
+    height: 50px;
 }
 
 .FooterContentIcon:nth-child(2) {
-  width: 40px;
-  height: 40px;
+    width: 40px;
+    height: 40px;
 }
 
 .FooterTitle {
-  font-size: 18px;
-  text-decoration: none;
-  margin-bottom: 0;
+    font-size: 18px;
+    text-decoration: none;
+    margin-bottom: 0;
 }
 
 .FooterContentContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  row-gap: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 12px;
+    align-items: center;
 }
 
 .FooterContent {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  column-gap: 10px;
-  text-decoration: none;
-  color: black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    column-gap: 10px;
+    text-decoration: none;
+    color: black;
 }
 
 .FooterContentIcon {
-  width: 30px;
-  height: 30px;
+    width: 30px;
+    height: 30px;
 }
 
-.ContentTitle {
-  margin-bottom: 0;
+.Footer-ContentTitle {
+    margin-bottom: 0;
 }
-
 
 /*================
-  Copyright
+    Copyright
 ================*/
 .Copyright {
-  background-color: #e2e8f0;
-  display: flex;
-  padding: 10px;
-  align-items: center;
-  justify-content: center;
+    background-color: #e2e8f0;
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
 }
 
 .CopyrightText {
-  font-size: 16px;
-  color: gray;
+    font-size: 16px;
+    color: gray;
 }
 
-/*======================
-  Responsive Tablet 
-=======================*/
-@media screen and (min-width: 768px){
-  /*--Product Container--*/
-  
-  .ProductContainer {
-      flex-direction: row;
-      row-gap: none;
-      column-gap: 20px;
-  }
-
-  /*--Product Carrousel Container--*/
-
-  .ProductCarrouselContainer {
-      flex-direction: column;
-      column-gap: none;
-      row-gap: 5px;
-  }
-
-  /*--Product Content Button--*/
-
-  .ProductContent__Button {
-      align-self: center;
-  }
-
-  /*--Footer--*/
-
-  .footer {
-      flex-direction: row;
-      justify-content: space-between;
-  }
-
-  .FooterContentContainer {
-      display: flex;
-      row-gap: 10px;
-      flex-direction: column;
-  }
-}
-
-/*======================
-  Responsive Laptop 
-=======================*/
-@media screen and (min-width: 1024px){
-  /*--Main--*/
-
-  .main {
-      flex-direction: row;
-      row-gap: none;
-      column-gap: 50px;
-      margin-top: none;
-      padding: 40px;
-      padding-left: 80px;
-      padding-right: 80px;
-  }
-
-  /*--Product Content--*/
-
-  .ProductContent {
-      row-gap: 20px;
-  }
-  .MainProduct {
-      width: 400px;
-      height: 440px;
-      padding: 10px;
-  }
-  .MainProduct__Img {
-      width: 100%;
-      height: 100%;
-  }
-
-  /*--Product Carrousel--*/
-
-  .ProductCarrouselContainer {
-      flex-direction: column;
-      align-items: center;
-      column-gap: none;
-      row-gap: 35px;
-  }
-  .ProductCarrousel {
-      box-shadow: 0 0 2px black;
-      padding: 2px;
-      background-color: #fff;
-      border-radius: 10px;
-      cursor: pointer;
-  }
-  
-  .ProductCarrousel__Img {
-      width: 75px;
-      height: 75px;
-      object-fit: contain;
-  }
-
-  /*--Product Content--*/
-
-  .ProductContent__Category {
-      color: #737373;
-      font-size: 20px;
-  }
-  
-  .ProductContent__Name {
-      font-size: 25px;
-  }
-  
-  .ProductContent__Description {
-      line-height: 25px;
-      font-size: 18px;
-  }
-  
-  .ProductContent__Price {
-      font-size: 20px;
-      font-weight: 600;
-  }
-
-  /*--Product Buttons--*/
-
-  .ProductContent__Button {
-      width: 360px;
-      height: 60px;
-      font-size: 20px;
-  }
-  
-  .ProductContent__Button-Img {
-      width: 30px;
-      height: 30px;
-  }
-
-  /*--CategoryProductList--*/
-
-  .CategoryProductList {
-      padding-left: 80px;
-      padding-right: 80px;
-  }
-  .CategoryProductList__Title {
-      font-size: 25px;
-  }
-
-  /*--Footer--*/
-
-  .FooterContentContainer {
-      flex-direction: row;
-      column-gap: 20px;
-  }
-}
-
-
-
-/*=============
-    Main-Balance
-=============*/
-
-.main-balance {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  background-color: aliceblue;
-  box-shadow: 0 0 3px gray;
-  min-width: 320px;
-  max-width: 700px;
-  margin: auto;
-  border-radius: 10px;
-  align-self: center;
-  margin-bottom: 20px;
-}
-
-.Title-balance{
-  font-size: 30px;
-  margin-bottom: 20px;
-}
-
-.PercentageContainer-balance{
-  width: 150px;
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-
-.PercentageContainer_Text-balance{
-  font-size: 50px;
-}
-
-.FormContainer-balance{
-  display: flex;
-  flex-direction: column;
-  row-gap: 20px;
-}
-
-.InputContainer-balance{
-  border-top: 1px solid gray;
-  display: flex;
-  flex-direction: column;
-  row-gap: 10px;
-  padding-top: 10px;
-}
-
-.Input-balance{
-  padding: 10px;
-  border-radius: 5px;
-  outline: none;
-  border: none;
-  box-shadow: 0 0 2px black;
-}
-
-.ButtonCalcular-balance{
-  width: 250px;
-  height: 50px;
-  margin-top: 30px;
-  font-size: 20px;
-  background-color: antiquewhite;
-  outline: none;
-  border-radius: 50px;
-  border: 2px solid black;
-  cursor: pointer;
-}
-
-
-/*===================
-    Tabla Gastos 
+/*====================
+    Whatsapp Button
 ====================*/
 
-.Tabla-Gastos {
-  width: 100%;
-  max-width: 700px;
-  box-shadow: 0 0 4px gray;
-  align-self: center;
-  background-color: #fff;
-  border: 2px solid gray;
-  margin-top: 30px;
+.WhatsappButton {
+    width: 50px;
+    height: 50px;
+    position: sticky;
+    bottom: 30px;
+    left: 95%;
+    background-color: rgb(4, 193, 14);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 5px 0 0 5px;
+    margin-right: 5px;
 }
 
-.Tabla-Gastos__Row-Title {
-  padding: 10px;
+.WhatsappButton__Icon {
+    width: 45px;
+    height: 45px;
+    filter: drop-shadow(0 0 2px black);
 }
 
-.Tabla-Gastos__Row-Content {
-  padding: 5px;
-}
-
-
-/*=============
-    Main-principal
-==============*/
-
-.main-principal {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  row-gap: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-top: 10px;
-}
-
-.FuntionCard-principal {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  height: 50px;
-  border-radius: 10px;
-  overflow: hidden;
-  background-color: white;
-  box-shadow: 0 0 6px gray;
-  text-decoration: none;
-  color: black;
-  transition: 0.2s ease-in-out;
-  max-width: 700px;
-}
-
-.FuntionCard-principal:hover {
-  box-shadow: 0 0 10px gray;
-  transition: 0.2s ease-in-out;
-}
-
-.FuntionCard_Title-principal {
-  font-size: 20px;
-  font-weight: bold;
-  margin-left: 10px;
-}
-
-.FuntionCard_Icon-Container-principal {
-  background-color: rgb(206, 206, 206);
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.FuntionCard_Icon-principal {
-  width: 35px;
-  height: 35px;
-}
-
-/*=======================
-  Responsive Tablet
+/*======================
+    Responsive Tablet 
 =======================*/
+@media screen and (min-width: 768px) {
+    /*--Title--*/
 
+    .Title {
+        display: block;
+    }
 
-@media screen and (min-width: 768px){
-  /*--Form Container--*/
+    /*--Products List--*/
 
-  .main-principal {
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 20px;
-    column-gap: 20px;
-    place-items: center;
-  }
-  
-  .FormContainer-balance{
-      flex-direction: row;
-      row-gap: 20px;  
-      column-gap: 30px;
-  }
+    .ProductsList {
+        grid-template-columns: repeat(3, max-content);
+        column-gap: 30px;
+    }
 
-  /*--Input Container--*/
+    /*--Product Details Page--*/
 
-  .InputContainer-balance{
-      border-top: none;
-      display: flex;
-      flex-direction: column;
-      row-gap: 10px;
-      padding-top: 10px;
-      padding-right: 10px;
-  }
+    .ProductDetails_Main {
+        width: 300px;
+        height: 320px;
+        background-color: #fff;
+        display: flex;
+        align-self: center;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 2px black;
+        border-radius: 10px;
+        position: relative;
+    }
 
-  .InputContainer-balance:nth-child(2) {
-      border-right: none;
-      padding-right: 0;
-  }
+    .ProductDetails_Main-Img {
+        width: 290px;
+        height: 290px;
+    }
+
+    /*--Product Content Button--*/
+
+    .ProductDetails_Main-Button {
+        align-self: center;
+    }
+
+    /*--Funtions Page--*/
+
+    .FuntionsContainer {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 20px;
+        column-gap: 20px;
+        place-items: center;
+    }
+
+    /*--Balance Page--*/
+
+    .BalanceCalculator_FormContainer {
+        flex-direction: row;
+        row-gap: 20px;
+        column-gap: 30px;
+    }
+
+    .BalanceCalculator_InputContainer {
+        border-top: none;
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+        padding-top: 10px;
+        padding-right: 10px;
+    }
+
+    .BalanceCalculator_InputContainer:nth-child(2) {
+        border-right: none;
+        padding-right: 0;
+    }
+
+    /*--Footer--*/
+
+    .footer {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .FooterContentContainer {
+        display: flex;
+        row-gap: 10px;
+        flex-direction: column;
+    }
+}
+
+/*======================
+    Responsive Laptop 
+=======================*/
+@media screen and (min-width: 1024px) {
+    /*--Nav--*/
+
+    .nav {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    .Nav_Menu-Open {
+        display: none;
+    }
+
+    .Menu {
+        display: none;
+    }
+
+    .Nav-Content-Container {
+        display: flex;
+    }
+
+    /*--Banner--*/
+
+    .Banners {
+        width: 80% !important;
+        display: flex;
+        margin: auto;
+    }
+
+    /*--Products List--*/
+
+    .ProductsList {
+        grid-template-columns: repeat(4, max-content);
+    }
+
+    /*--Product Details Page--*/
+
+    .ProductDetails {
+        flex-direction: row;
+        row-gap: none;
+        column-gap: 50px;
+        margin-top: none;
+        padding: 40px;
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+
+    .ProductDetails_Main-Content {
+        row-gap: 20px;
+    }
+
+    .ProductDetails_Main {
+        width: 400px;
+        height: 440px;
+        padding: 10px;
+    }
+
+    .ProductDetails_Main-Img {
+        width: 390px;
+        height: 440px;
+    }
+
+    .ProductDetails_Main-Category {
+        color: #737373;
+        font-size: 20px;
+    }
+
+    .ProductDetails_Main-Name {
+        font-size: 25px;
+    }
+
+    .ProductDetails_Main-Description {
+        line-height: 25px;
+        font-size: 18px;
+    }
+
+    .ProductDetails_Main-Price {
+        font-size: 20px;
+        font-weight: 600;
+    }
+
+    .ProductDetails_Main-Button {
+        width: 360px;
+        height: 60px;
+        font-size: 20px;
+    }
+
+    .ProductDetails_Main-Button-Img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .ProductDetails_CategoryList {
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+
+    .ProductDetails_CategoryList-Title {
+        font-size: 25px;
+    }
+
+    /*--Footer--*/
+
+    .footer {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
+
+    .FooterContentContainer {
+        flex-direction: row;
+        column-gap: 20px;
+    }
+}
+
+/*===========================
+    Responsive Laptop Large
+============================*/
+@media screen and (min-width: 1440px) {
+    /*--Products List--*/
+
+    .ProductsList {
+        grid-template-columns: repeat(5, max-content);
+    }
 }

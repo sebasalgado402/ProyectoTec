@@ -33,75 +33,77 @@
             include('./../assets/js/header.php');
         ?>
     </section>
-    <!-- <div class="container col-12">
-
-        <form action="facturar.php" class="m-2">
-            <button type="submit" class="btn btn-success offset-xl-4 col-xl-4 col-sm-12 col-12">Facturacion</button>
-        </form>
-        <form action="lista__Facturas.php" class="m-2">
-            <button type="submit" class="btn btn-success offset-xl-4 col-xl-4 col-sm-12 col-12">Ventas realizadas</button>
-        </form>
-        <form action="articulos.php" class="m-2">
-            <button type="submit" class="btn btn-success offset-xl-4 col-xl-4 col-sm-12 col-12">Articulos</button>
-        </form>
-        <form action="nuevo_articulo.php" class="m-2">
-            <button type="submit" class="btn btn-success offset-xl-4 col-xl-4 col-sm-12 col-12">Ingresar articulo nuevo</button>
-        </form>
-        <form action="actualizar_articulo.php" class="m-2">
-            <button type="submit" class="btn btn-success offset-xl-4 col-xl-4 col-sm-12 col-12">Añadir stock a un producto existente</button>
-        </form>
-        <form action="balance.php" class="m-2">
-            <button type="submit" class="btn btn-success offset-xl-4 col-xl-4 col-sm-12 col-12">Balance de ganancias</button>
-        </form>
-    </div> -->
     
-    <!--Functions List-->
-    <main class="main-principal">
-        <a href="facturar.php" class="FuntionCard-principal">
-            <p class="FuntionCard_Title-principal">Facturación</p>
-            <div class="FuntionCard_Icon-Container-principal">
-                <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon-principal">
-            </div>
-        </a>
-        <a href="lista__Facturas.php" class="FuntionCard-principal">
-            <p class="FuntionCard_Title-principal">Ventas Realizadas</p>
-            <div class="FuntionCard_Icon-Container-principal">
-                <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon-principal">
-            </div>
-        </a>
-        <a href="balance.php" class="FuntionCard-principal">
-            <p class="FuntionCard_Title-principal">Calcular Ganancias</p>
-            <div class="FuntionCard_Icon-Container-principal">
-                <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon-principal">
-            </div>
-        </a>
-        <a href="articulos.php" class="FuntionCard-principal">
-            <p class="FuntionCard_Title-principal">Lista de articulos</p>
-            <div class="FuntionCard_Icon-Container-principal">
-                <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon-principal">
-            </div>
-        </a>
-        <a href="nuevo_articulo.php" class="FuntionCard-principal">
-            <p class="FuntionCard_Title-principal">Ingresar nuevo articulo</p>
-            <div class="FuntionCard_Icon-Container-principal">
-                <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon-principal">
-            </div>
-        </a>
-        <a href="actualizar_articulo.php" class="FuntionCard-principal">
-            <p class="FuntionCard_Title-principal">Modificar articulo existente</p>
-            <div class="FuntionCard_Icon-Container-principal">
-                <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon-principal">
-            </div>
-        </a>
-        <a href="lista__Gastos.php" class="FuntionCard-principal">
-            <p class="FuntionCard_Title-principal">Lista de gastos</p>
-            <div class="FuntionCard_Icon-Container-principal">
-                <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon-principal">
-            </div>
-        </a>
-        
     </main>
-
+    <div class="container">
+        <!--Functions List-->
+        <main class="FuntionsContainer">
+            <a href="facturar.php" class="FuntionCard">
+                <div class="FunctionCard-Content">
+                    <p class="FuntionCard_Title">Facturacion</p>
+                    <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+                <div class="FuntionCard_Icon-Container">
+                    <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
+                </div>
+            </a>
+            <a href="lista__Facturas.php" class="FuntionCard">
+                <div class="FunctionCard-Content">
+                    <p class="FuntionCard_Title">Ventas Realizadas</p>
+                    <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+                <div class="FuntionCard_Icon-Container">
+                    <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
+                </div>
+            </a>
+            <a href="./balance.php" class="FuntionCard">
+                <div class="FunctionCard-Content">
+                    <p class="FuntionCard_Title">Balance</p>
+                    <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+                <div class="FuntionCard_Icon-Container">
+                    <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
+                </div>
+            </a>
+            <a href="nuevo_articulo.php" class="FuntionCard">
+                <div class="FunctionCard-Content">
+                    <p class="FuntionCard_Title">Articulos</p>
+                    <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+                <div class="FuntionCard_Icon-Container">
+                    <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
+                </div>
+            </a>
+            <a href="articulos.php" class="FuntionCard">
+                <div class="FunctionCard-Content">
+                    <p class="FuntionCard_Title">Lista de Articulos</p>
+                    <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+                <div class="FuntionCard_Icon-Container">
+                    <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
+                </div>
+            </a>
+            <a href="actualizar_articulo.php" class="FuntionCard">
+                <div class="FunctionCard-Content">
+                    <p class="FuntionCard_Title">Insertar Stock</p>
+                    <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+                <div class="FuntionCard_Icon-Container">
+                    <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
+                </div>
+            </a>
+            <a href="lista__Gastos.php" class="FuntionCard">
+                <div class="FunctionCard-Content">
+                    <p class="FuntionCard_Title">Lista de gastos</p>
+                    <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+                <div class="FuntionCard_Icon-Container">
+                    <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
+                </div>
+            </a>
+        
+        </main>
+    </div>
    
 </body>
  <!--Importa librería jquery -->

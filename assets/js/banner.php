@@ -1,7 +1,7 @@
 <?php 
     echo '
     <!--Banner-->
-    <div id="carouselExampleAutoplaying" class="carousel slide container-fluid mt-2" data-bs-ride="carousel">
+    <div id="carouselExampleAutoplaying" class="carousel slide Banners container-fluid mt-2" data-bs-ride="carousel">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="https://cdn.pixabay.com/photo/2018/08/14/13/23/ocean-3605547__480.jpg"

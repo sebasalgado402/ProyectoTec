@@ -23,6 +23,7 @@ session_start();
             if($arrayUser){
                 $_SESSION['usuarioActivo'] = $arrayUser[0];
                 $_SESSION['usu_rol'] = $arrayUser[2];
+                header('location: ./../../maderastablas/principal.php');
             }else{
                 header('location: ./../../maderastablas/index.php');
             }
@@ -31,10 +32,5 @@ session_start();
         }
    }
    
-                
-        
-            
-    
-    
 ?> 
 
