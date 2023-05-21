@@ -67,7 +67,7 @@
             </a>
             <a href="nuevo_articulo.php" class="FuntionCard">
                 <div class="FunctionCard-Content">
-                    <p class="FuntionCard_Title">Articulos</p>
+                    <p class="FuntionCard_Title">Nuevo Articulo</p>
                     <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
                 </div>
                 <div class="FuntionCard_Icon-Container">

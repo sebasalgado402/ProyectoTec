@@ -32,7 +32,7 @@
         <?php
         include('./../assets/js/header.php');
         ?>
-        <div class="container form-control col-12">
+       <!--  <div class="container form-control col-12">
             <form class="offset-2 col-9">
                 <h1 class="text-center display-4">Ingresar nuevo producto</h1>
 
@@ -50,7 +50,7 @@
                 <div class="row">
 
                     <div class="col-4">
-                        <label for="precioArticulo" class="form-label">Precio:</label>
+                        <label for="precioArticulo" class="form-label">Precio:<span style="color:red" title="Obligatorio">*</span></label>
                         <input type="number" class="form-control" name="precioArticulo" id="txt__precioArticulo" required>
                     </div>
                     <div class="col-4">
@@ -58,7 +58,7 @@
                         <input type="number" class="form-control" class="form-label" name="cantidadArticulo" id="txt__cantidadArticulo" required>
                     </div>
                     <div class="col-4">
-                        <label for="costoCreacionArticulo">Costo de creación:</label>
+                        <label for="costoCreacionArticulo">Costo de creación:<span style="color:red" title="Obligatorio">*</span></label>
                         <input type="number" class="form-control" class="form-label" name="costoCreacionArticulo" id="txt__costoCreacionArticulo">
                     </div>
 
@@ -69,9 +69,7 @@
                         <label for="categoria" class="form-label">Elija la categoria:<span style="color:red" title="Obligatorio">*</span></label>
                         <select name="categoria" id="select__categoria" class="form-select">
                             <option value="none">---</option>'
-                            <?php
-                            cargarCategorias($conexion, $nombreBD);
-                            ?>
+                            
                         </select>
                     </div>
                     <div class="row" id="container__btnCategoria">
@@ -108,17 +106,70 @@
                         <input type="number" class="form-control" name="gastoTotal" id="txt__gastoTotal" required>
                     </div>
 
-                    <div class="input-group mb-3">
-                        <input type="file" class="form-control" name='lista[]' id="input_subirImagenes" multiple>
-                        <label class="input-group-text" for="input_subirImagenes">Subir</label>
-                    </div>
-                    <button type="button" class="btn btn-outline-success mt-2" id="btn_subirImagenes" ondblclick="art_subirImagenes()">Subir imagenes</button>
-
-                    <button type="submit" class="btn btn-outline-danger mt-2 disabled" id="btn__ingresarArticulo">Ingresar articulo nuevo</button>
+                    <button type="submit" class="btn btn-outline-danger mt-2 " id="btn__ingresarArticulo">Ingresar articulo nuevo</button>
                 </div>
 
             </form>
-        </div>
+        </div> -->
+
+        <form action="" class="AddProduct_FormContainer">
+            <p class="AddProduct_FormTitle">Ingresar Nuevo Articulo</p>
+            <!--Código de Artículo-->
+            <label for="CodArt">Codigo de Articulo:<span class="AddProduct_Obligatory">*</span></label>
+            <input type="text" name="codArticulo" id="txt__codArticulo" class="AddProduct_Input" required>
+            <!--Nombre Articulo-->
+            <label for="NomArt">Nombre de Articulo:<span class="AddProduct_Obligatory">*</span></label>
+            <input type="text" name="nombreArticulo" id="txt__nombreArticulo" class="AddProduct_Input" required>
+            <!--Precio Articulo-->
+            <label for="PrecioArt">Precio de Articulo:</label>
+            <input type="number" name="precioArticulo" id="txt__precioArticulo" class="AddProduct_Input">
+            <!--Stock Articulo-->
+            <label for="StockArt">Stock de Articulo:<span class="AddProduct_Obligatory">*</span></label>
+            <input type="number" name="cantidadArticulo" id="txt__cantidadArticulo" class="AddProduct_Input" required>
+            <!--Costo Creacion Articulo-->
+            <label for="CreaArticulo">Costo de Creacion de Articulo:</label>
+            <input type="number" name="costoCreacionArticulo" id="txt__costoCreacionArticulo" class="AddProduct_Input">
+            <!--Categoria Articulo-->
+            <div class="AddProduct_CategoryInput-Container">
+                <label for="categoria">Elije la Categoria:</label>
+                <div class="dropdown AddProduct_CategoryContainer">
+                    
+                    <select name="categoria" id="select__categoria" class="form-select bg-transparent border-2 text-black">
+                            <option value="none">---</option>'
+                            <?php
+                            cargarCategorias();
+                            ?>
+                    </select>
+                </div>
+                <!--Boton Categoria-->
+                <button class="AddProduct_BotonCategoria" id="btnModal_nuevaCategoria" data-bs-toggle="modal" data-bs-target="#modal_nuevaCategoria">
+                    Crear Nueva Categoria
+                </button>
+            </div>
+
+            <!--Descripcion Articulo-->
+            <label for="DescArt">Descripción de Articulo:</label>
+            <input type="text" name="descripcionArticulo" id="txt__descripcionArticulo" class="AddProduct_Input">
+
+            <!--Materiales Articulo-->
+            <label for="MatsArt">Materiales de Articulo:</label>
+            <input type="text" name="MaterialesArticulo" id="txt__materialesArticulo" class="AddProduct_Input">
+
+            <!--Proveedor-->
+            <label for="MatsArt">Proveedor:</label>
+            <input type="text" name="proveedor" id="txt__proveedor" class="AddProduct_Input">
+
+            <!--Concepto Articulo-->
+            <label for="MatsArt">Concepto:</label>
+            <input type="text"  name="provConcepto" id="txt__provConcepto" class="AddProduct_Input">
+
+            <!--Gasto Total-->
+            <label for="MatsArt">Gasto Total:</label>
+            <input type="number" name="gastoTotal" id="txt__gastoTotal" class="AddProduct_Input">
+
+            <!--Boton Enviar-->
+            <input type="submit" value="Ingresar Nuevo Articulo" id="btn__ingresarArticulo" class="AddProduct_BotonEnviar">
+        </form>
 
         <!-- MODAL Nueva Categoría-->
 

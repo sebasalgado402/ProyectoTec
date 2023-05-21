@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-05-2023 a las 01:40:53
+-- Tiempo de generación: 21-05-2023 a las 23:49:47
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -68,20 +68,20 @@ CREATE TABLE `articulos` (
   `art_deshabilitado` varchar(1) DEFAULT NULL,
   `art_categoria` int(20) NOT NULL,
   `art_materiales` varchar(50) NOT NULL,
-  `art_notas` text NOT NULL,
-  `art_imagen` text NOT NULL DEFAULT './../assets/images/default.png'
+  `art_notas` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `articulos`
 --
 
-INSERT INTO `articulos` (`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_deshabilitado`, `art_categoria`, `art_materiales`, `art_notas`, `art_imagen`) VALUES
-(63, 'axadasd', 'asdasd', 'asdasd', 2142, 424, 2411, 'S', 'S', 7, 'asdasd', '', './../assets/images/default.png'),
-(64, 'zzz', 'zzz', 'asdasd', 222, 22, 22, 'S', 'S', 11, 'asdasd', '', './../assets/images/default.png'),
-(65, 'jjjj', 'jjjj', 'asdasd', 24, 424, 4124, 'S', 'S', 8, 'asdsad', '', './../assets/images/default.png'),
-(66, 'asdasd', 'asdasd4', 'asdasd', 4124, 2424, 424, 'S', 'S', 7, 'asdasd', '', './../assets/images/default.png'),
-(67, 'hjjjj', 'jjjg', 'sdfsdf', 1000, 345235, 523, 'S', 'S', 8, 'sdfsdf', '', './../assets/images/default.png');
+INSERT INTO `articulos` (`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_deshabilitado`, `art_categoria`, `art_materiales`, `art_notas`) VALUES
+(63, 'axadasd', 'asdasd', 'asdasd', 2142, 424, 2411, 'S', 'S', 11, 'asdasd', ''),
+(64, 'zzz', 'zzz', 'asdasd', 222, 22, 22, 'S', 'S', 11, 'asdasd', ''),
+(65, 'jjjj', 'jjjj', 'asdasd', 24, 424, 4124, 'S', 'S', 11, 'asdsad', ''),
+(66, 'asdasd', 'asdasd4', 'asdasd', 4124, 2424, 424, 'S', 'S', 11, 'asdasd', ''),
+(67, 'hjjjj', 'jjjg', 'sdfsdf', 1000, 345235, 523, 'S', 'S', 8, 'sdfsdf', ''),
+(70, 'aasd', '4dasd', 'prueba', 232, 4, 42, 'S', 'S', 13, 'asdasd', '');
 
 -- --------------------------------------------------------
 
@@ -91,7 +91,7 @@ INSERT INTO `articulos` (`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio
 
 CREATE TABLE `art_imagenes` (
   `art_id` int(11) NOT NULL,
-  `ruta_img` varchar(20) NOT NULL
+  `ruta_img` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -99,8 +99,14 @@ CREATE TABLE `art_imagenes` (
 --
 
 INSERT INTO `art_imagenes` (`art_id`, `ruta_img`) VALUES
-(66, 'cosaa'),
-(66, 'cosaa');
+(67, './../assets/images/26100d5d3c9cd6169fddc6da410e4d8a.png'),
+(67, './../assets/images/74d30b373e4a019ca9eedd06281658be.png'),
+(67, './../assets/images/a56adde061ef9ecde88cc3fb3a33a406.png'),
+(67, './../assets/images/c38aa1e27de72a9cdaaff1d2096e956a.png'),
+(66, './../assets/images/26100d5d3c9cd6169fddc6da410e4d8a.png'),
+(66, './../assets/images/74d30b373e4a019ca9eedd06281658be.png'),
+(66, './../assets/images/a56adde061ef9ecde88cc3fb3a33a406.png'),
+(66, './../assets/images/c38aa1e27de72a9cdaaff1d2096e956a.png');
 
 -- --------------------------------------------------------
 
@@ -202,7 +208,8 @@ INSERT INTO `gastos` (`gas_id`, `gas_fecha`, `gas_proveedor`, `gas_concepto`, `g
 (14, '2023-05-12', 'alex', 'usb', 22, 2000),
 (15, '2023-05-12', 'martin', 'alquiler', 424, 1000),
 (16, '2023-05-12', 'luis', 'deudas', 2424, 300.34),
-(17, '2023-05-12', 'amelia', 'que se yo', 345235, 2352);
+(17, '2023-05-12', 'amelia', 'que se yo', 345235, 2352),
+(24, '2023-05-21', 'asdasd', 'adasd', 4, 412421);
 
 -- --------------------------------------------------------
 
@@ -288,13 +295,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  MODIFY `art_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `art_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `cat_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `cat_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
@@ -306,7 +313,7 @@ ALTER TABLE `factura`
 -- AUTO_INCREMENT de la tabla `gastos`
 --
 ALTER TABLE `gastos`
-  MODIFY `gas_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `gas_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -322,7 +329,7 @@ ALTER TABLE `usuarios`
 -- Filtros para la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  ADD CONSTRAINT `articulos_ibfk_1` FOREIGN KEY (`art_categoria`) REFERENCES `categorias` (`cat_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `articulos_ibfk_1` FOREIGN KEY (`art_categoria`) REFERENCES `categorias` (`cat_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `art_imagenes`

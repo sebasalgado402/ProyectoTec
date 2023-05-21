@@ -16,31 +16,18 @@ if (isset($_SESSION["usuarioActivo"]) && $_SESSION['usu_rol'] == 1) {
         <div class="Nav-Content-Container">
             <!--Categories List-->
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle Nav-DropdownButton" type="button" data-bs-toggle="dropdown"
-                aria-expanded="false">
-                Categorias
-                </button>
-                <ul class="dropdown-menu border border-dark Nav-DropMenu">
-                    <li><a class="dropdown-item" href="#">Cajas</a></li>
-                    <li><a class="dropdown-item" href="#">Descuentos</a></li>
-                    <li><a class="dropdown-item" href="#">Estanterias</a></li>
-                    <li><a class="dropdown-item" href="#">Llaveros</a></li>
-                    <li><a class="dropdown-item" href="#">Marcos</a></li>
-                    <li><a class="dropdown-item" href="#">Materas</a></li>
-                    <li><a class="dropdown-item" href="#">Mesas</a></li>
-                    <li><a class="dropdown-item" href="#">Otros Accesorios</a></li>
-                    <li><a class="dropdown-item" href="#">Percheros</a></li>
-                    <li><a class="dropdown-item" href="#">Pinos Navidad</a></li>
-                    <li><a class="dropdown-item" href="#">Sillas</a></li>
-                    <li><a class="dropdown-item" href="#">Tablas y Cuencos</a></li>
-                </ul>
+            <select name="categoria" id="select__categoria" class="form-select bg-transparent border-2 text-black Nav-DropdownButton">
+                            <option value="none">---</option>';
+                           cargarCategorias();
+              echo'</select>
+                
             </div>
             <input type="search" name="txt_search" id="txt_search" class="Nav-InputSearch" placeholder="Buscar: ">
         </div>
-        <form class="ms-auto">
+        <form class="ms-auto d-flex flex-column">
         <span class="text-dark" href="#">Bienvenido/a ' . $_SESSION["usuarioActivo"] . '</span>
-          <a href="./../maderastablas/principal.php" >Administrar</a>
-          <a href="./../assets/js/cerrarSesion.php" >Cerrar Sesion</a>
+          <a href="./../maderastablas/principal.php" class="text-decoration-none text-primary" >Administrar</a>
+          <a href="./../assets/js/cerrarSesion.php" class="text-decoration-none text-danger">Cerrar Sesion</a>
       </form>
     </nav>
               
@@ -65,24 +52,10 @@ if (isset($_SESSION["usuarioActivo"]) && $_SESSION['usu_rol'] == 1) {
             <div class="Nav-Content-Container">
                 <!--Categories List-->
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle Nav-DropdownButton" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Categorias
-                    </button>
-                    <ul class="dropdown-menu border border-dark Nav-DropMenu">
-                        <li><a class="dropdown-item" href="#">Cajas</a></li>
-                        <li><a class="dropdown-item" href="#">Descuentos</a></li>
-                        <li><a class="dropdown-item" href="#">Estanterias</a></li>
-                        <li><a class="dropdown-item" href="#">Llaveros</a></li>
-                        <li><a class="dropdown-item" href="#">Marcos</a></li>
-                        <li><a class="dropdown-item" href="#">Materas</a></li>
-                        <li><a class="dropdown-item" href="#">Mesas</a></li>
-                        <li><a class="dropdown-item" href="#">Otros Accesorios</a></li>
-                        <li><a class="dropdown-item" href="#">Percheros</a></li>
-                        <li><a class="dropdown-item" href="#">Pinos Navidad</a></li>
-                        <li><a class="dropdown-item" href="#">Sillas</a></li>
-                        <li><a class="dropdown-item" href="#">Tablas y Cuencos</a></li>
-                    </ul>
+                <select name="categoria" id="select__categoria" class="form-select bg-transparent border-2 text-black Nav-DropdownButton">
+                <option value="none">---</option>';
+               cargarCategorias();
+  echo'</select>
                 </div>
                 <input type="search" name="txt_search" id="txt_search" class="Nav-InputSearch" placeholder="Buscar: ">
             </div>
@@ -111,24 +84,10 @@ if (isset($_SESSION["usuarioActivo"]) && $_SESSION['usu_rol'] == 1) {
             <div class="Nav-Content-Container">
                 <!--Categories List-->
                 <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle Nav-DropdownButton" type="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
-                    Categorias
-                    </button>
-                    <ul class="dropdown-menu border border-dark Nav-DropMenu">
-                        <li><a class="dropdown-item" href="#">Cajas</a></li>
-                        <li><a class="dropdown-item" href="#">Descuentos</a></li>
-                        <li><a class="dropdown-item" href="#">Estanterias</a></li>
-                        <li><a class="dropdown-item" href="#">Llaveros</a></li>
-                        <li><a class="dropdown-item" href="#">Marcos</a></li>
-                        <li><a class="dropdown-item" href="#">Materas</a></li>
-                        <li><a class="dropdown-item" href="#">Mesas</a></li>
-                        <li><a class="dropdown-item" href="#">Otros Accesorios</a></li>
-                        <li><a class="dropdown-item" href="#">Percheros</a></li>
-                        <li><a class="dropdown-item" href="#">Pinos Navidad</a></li>
-                        <li><a class="dropdown-item" href="#">Sillas</a></li>
-                        <li><a class="dropdown-item" href="#">Tablas y Cuencos</a></li>
-                    </ul>
+                <select name="categoria" id="select__categoria" class="form-select bg-transparent border-2 text-black Nav-DropdownButton">
+                <option value="none">---</option>';
+               cargarCategorias();
+  echo'</select>
                 </div>
                 <input type="search" name="txt_search" id="txt_search" class="Nav-InputSearch" placeholder="Buscar: ">
             </div>

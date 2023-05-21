@@ -34,27 +34,34 @@
     <title>Iniciar Sesion</title>
 </head>
 <body>
-    <div class="container-fluid col-sm-12 col-lg-4 mt-5">
-        <form action="./../assets/js/redirect.php" method="post" class="form-control p-5">
-            <!-- Usuario input -->
-            <div class="form-outline mb-4">
-                <label class="form-label" for="input__User">Ingrese Usuario</label>
-                <input type="text" id="input__User" name="input__Usuario" class="form-control" />
-            </div>
-            
-            <!-- Contraseña input -->
-            <div class="form-outline mb-4">
-                <label class="form-label" for="input__Password">Ingrese Contraseña</label>
-                <input type="password" id="input__Password" name="input__Password" class="form-control" />
-            </div>
 
-            <!-- Submit button -->
-            <button type="submit" class="btn btn-primary btn-block mb-4">Iniciar sesión</button>
-            
+    <div class="container">
+        <form class="LoginContainer" action="./../assets/js/redirect.php" method="post">
+            <img src="./../assets/icons/icon.png" alt="Logo" class="LoginContainer_Logo">
+            <!--Input Usuarios-->
+            <div class="Login_InputContainer">
+                <label class="Login_InputContainer-Label" for="input__User">Usuario:</label>
+                <input type="text" id="input__User" name="input__Usuario" class="Login_InputContainer-Input" required placeholder="Ingrese su Usuario..." />
+            </div>
+            <!--Input Contraseña-->
+            <div class="Login_InputContainer">
+                <label class="Login_InputContainer-Label" for="input__Password">Contraseña:</label>
+                <input type="password" id="input__Password" name="input__Password" class="Login_InputContainer-Input" required placeholder="Ingrese su Contraseña..." />
+            </div>
+            <!--Boton Enviar-->
+            <button type="submit" class="Login_SubmitButton">Iniciar Sesión</button>
+            <div class="LoginContainer_Home">
+                <p class="LoginContainer_Home-Text">Si no eres Administrador - 
+                    <a href="./../ecommerce/index.php" class="LoginContainer_Home-Link">Ingresar sin Usuario</a>
+                </p>
+            </div>
         </form>
-        <form action="./../ecommerce/index.php">
+
+
+
+        <!-- <form action="./../ecommerce/index.php">
             <button type="submit" class="btn btn-success mb-8">Continuar sin iniciar</button>
-        </form>
+        </form>  -->
     </div>
 
 </body>

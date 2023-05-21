@@ -32,29 +32,13 @@
 
     <title>Balance</title>
 </head>
-<style>
-    .card {
-        width: 600px;
-        height: 600px;
-        background-color: #f2f2f2;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
 
-    .card img {
-        max-width: 100%;
-        max-height: 100%;
-        border-radius: 5px;
-    }
-</style>
 
 <body>
     <?php include('./../assets/js/header.php');
     ?>
     <h1>Subir imágenes</h1>
+    <?php echo '<div id="recibeID">'.$_GET['img_articleID'].'</div>'?>
 
     <form method="POST" enctype="multipart/form-data" id='form_subirImagenes'>
         <input type="file" name="images[]" multiple>

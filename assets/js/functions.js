@@ -1,6 +1,9 @@
 let imgProductoID;
 let i = 1;
 
+//Validacion de boton "ingresar articulo nuevo"
+let verificacion_codigoArt ;
+let verificacion_nombreArt ;
 //Parte FACTURACIÓN--->
 let id_articuloAgregar;
 let nombre_articuloAgregar;
@@ -15,8 +18,10 @@ let fechaFinal = $("#date_Final-balance");
 
 //Parte subir imagenes
 function subirImagen_articulo(){
-    var parametros = new FormData($('#form_subirImagenes')[0]);
-
+    let parametros = new FormData($('#form_subirImagenes')[0]);
+    let idArt_imagen = $('#recibeID').html();
+    parametros.append('idArt_imagen', idArt_imagen);
+    console.log(parametros);
     $.ajax({
         data:parametros,
         url: './../assets/js/ajax.php',
@@ -26,7 +31,8 @@ function subirImagen_articulo(){
         beforesend: function(response) {
         },
         success: function(response) {
-            alert(response);
+            alert('Se subieron las fotos correctamente');
+            location.reload();
         }
     })
 }
@@ -445,9 +451,11 @@ $(function () {
     //Termina - MODAL FORMULARIO MODIFICAR POR ID
 
     //Botón de ingresar nuevo Artículo
+    //$('#btn__ingresarArticulo').addClass('disabled');
     $("#btn__ingresarArticulo").click(function (e) {
         e.preventDefault();
-        let producto = [];
+        if (verificacion_codigoArt == 'no' && verificacion_nombreArt == 'no') {
+            let producto = [];
         let codigo = $('#txt__codArticulo').val();
         let nombre = $('#txt__nombreArticulo').val();
         let categoria = $('#select__categoria').val();
@@ -492,6 +500,10 @@ $(function () {
 
             }
         });
+        }else{
+            alert('Verifique que estén correctos los campos');
+        }
+        
 
     });
     //Termina - Botón de nuevo Artículo
@@ -599,34 +611,9 @@ $(function () {
                     alert('Húbo un error al Agregar categoría');
                 }
                 if (data == 'exito') {
-                    //location.reload();
-                    let action;
-                    let actualizar_Categorias = 'actualizar_Categorias';
-                    $.ajax({
-                        url: './../assets/js/ajax.php',
-                        type: "POST",
-                        async: true,
-                        data: { action: action, actualizar_Categorias: actualizar_Categorias },
-
-
-                        success: function (response) {
-                            
-                            data = $.parseJSON(response);
-
-                            if (data == 0) {
-                                alert('Húbo un error al Agregar categoría');
-                            }
-                            if (data == 'exito') {
-                                //location.reload();
-
-                            }
-
-
-                        },
-                        error: function (error) {
-
-                        }
-                    });
+                    location.reload();
+                    console.log(response);
+                  
                 }
 
 
@@ -1059,14 +1046,17 @@ $(function () {
                     let data = $.parseJSON(response);
                     
                     if (data == 'Existe') {
+                        verificacion_codigoArt = 'si';
                         $('#txt__codArticulo').removeAttr("class");
                         $('#txt__codArticulo').addClass('form-control border border-danger');
-                        $('#btn__ingresarArticulo').addClass('disabled');
+                        
 
                     } else {
+                        verificacion_codigoArt = 'no';
                         $('#txt__codArticulo').removeAttr("class");
                         $('#txt__codArticulo').addClass('form-control border border-success');
-                        $('#btn__ingresarArticulo').removeClass('disabled');
+                        
+                        
                     }
 
                 },
@@ -1102,14 +1092,16 @@ $(function () {
                     let data = $.parseJSON(response);
                     
                     if (data == 'Existe') {
+                        verificacion_nombreArt = 'si';
                         $('#txt__nombreArticulo').removeAttr("class");
                         $('#txt__nombreArticulo').addClass('form-control border border-danger');
-                        $('#btn__ingresarArticulo').addClass('disabled');
+                        
 
                     } else if (data == 'noExiste') {
+                        verificacion_nombreArt = 'no';
                         $('#txt__nombreArticulo').removeAttr("class");
                         $('#txt__nombreArticulo').addClass('form-control border border-success');
-                        $('#btn__ingresarArticulo').removeClass('disabled');
+                        
                     }
 
                 },

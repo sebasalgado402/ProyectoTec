@@ -68,7 +68,16 @@ function mostrarArticulos_Ecommerce()
 {
   include('./../assets/js/bd.php');
   // 2) Preparar la orden SQL
-  $consulta = "SELECT * FROM articulos INNER JOIN categorias on articulos.art_categoria = categorias.cat_id ORDER BY art_id DESC";
+  $consulta = "SELECT articulos.*, categorias.*, primera_imagen.ruta_img AS art_imagen
+  FROM articulos 
+  INNER JOIN categorias ON articulos.art_categoria = categorias.cat_id 
+  LEFT JOIN (
+    SELECT art_id, ruta_img
+    FROM art_imagenes
+    GROUP BY art_id
+  ) AS primera_imagen ON articulos.art_id = primera_imagen.art_id
+  ORDER BY articulos.art_id DESC;
+  ";
 
   // puedo seleccionar de DB
   $db = mysqli_select_db($conexion, $nombreBD) or die("Upps! Pues va a ser que no se ha podido conectar a la base de datos");
@@ -81,25 +90,26 @@ function mostrarArticulos_Ecommerce()
   while ($fila = mysqli_fetch_array($datos)) {
     //<th scope="col-1">'.$i++.'</th>
     echo '<div class="ProductsList_Card" id="art_Ecommerce" onclick="redireccionArticulo(' . $fila["art_id"] . ')">
-              <img src="'. $fila["art_imagen"] .'" alt="error al cargar imagen" class="ProductsList_Card-Img">
-          <div class="ProductsList_Card-Content">
+              <img src="';
+              if(strlen($fila['art_imagen'])>1) {
+              echo ''.$fila["art_imagen"] .'" alt="error al cargar imagen" class="ProductsList_Card-Img">
+              <div class="ProductsList_Card-Content">
               <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
               <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
               <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
-          </div>
-      </div>';
-    /* echo '
-                <div class="product" id="art_Ecommerce" onclick="redireccionArticulo(' . $fila["art_id"] . ')" data-art_id="' . $fila["art_id"] . '">
-                <div class="product-imagen">
-                    <img src="' . $fila["art_imagen"] . '" alt="error al cargar img">
-                </div>
-                    <div class="card-descripcion">
-                        <span>' . $fila["cat_nom"] . '</span>
-                        <h5>' . $fila["art_nom"] . '</h5>
-                        <h4>$' . $fila["art_precio"] . '</h4>
-                    </div>
-                    <a href="#"><i class="bi bi-cart4 cart"></i></a>
-                </div>'; */
+              </div>
+              </div>';
+              }else{
+                echo './../assets/images/default.png" alt="error al cargar imagen" class="ProductsList_Card-Img">
+              <div class="ProductsList_Card-Content">
+              <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
+              <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
+              <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
+              </div>
+              </div>';
+              }
+            
+    
   }
 
   mysqli_close($conexion);
@@ -299,7 +309,7 @@ function mostrarArticuloSeleccionado()
     $consultaIMG = 'SELECT ruta_img
             FROM articulos
             INNER JOIN art_imagenes ON articulos.art_id = art_imagenes.art_id
-            WHERE articulos.art_id = "' . $_GET['articleID'] . '" LIMIT 999999 OFFSET 1';
+            WHERE articulos.art_id = "' . $_GET['articleID'] . '" LIMIT 999999 OFFSET 0';
 
     $consultaPrimer_img = 'SELECT ruta_img
             FROM articulos
@@ -315,24 +325,54 @@ function mostrarArticuloSeleccionado()
     $filaIMG = mysqli_fetch_array($datosIMG);
     $filaPrimer_IMG = mysqli_fetch_array($datosPrimer_img);
 
-    echo '
+    if ($filaPrimer_IMG) {
+      echo '
+      <!--Product Content-->
+      <main class="ProductDetails">
+          <div id="carouselExampleAutoplaying" class="carousel slide ProductDetails_Main" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                  <div class="carousel-item active">
+                      <img src="'.$filaPrimer_IMG['ruta_img'].'" class="ProductDetails_Main-Img " alt="...">
+                  </div>';
+                  while ($imagenRecibida = mysqli_fetch_array($datosIMG)) {
+                    echo ' 
+                        <div class="carousel-item">
+                            <img src="' . $imagenRecibida['ruta_img'] . '" class="ProductDetails_Main-Img" alt="...">
+                        </div>';
+                  }
+  
+              echo '
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+              </button>
+          </div>
+          </div>
+          <div class="ProductDetails_Main-Content">
+              <p class="ProductDetails_Main-Category">' . $fila["cat_nom"] . '</p>
+              <p class="ProductDetails_Main-Name">' . $fila["art_nom"] . '</p>
+              <p class="ProductDetails_Main-Description">' . $fila["art_desc"] . '</p>
+              <p class="ProductDetails_Main-Price">$' . $fila["art_precio"] . '</p>
+              <p class="ProductDetails_Main-Price">Stock:' . $fila["art_stock"] . '</p>
+              <a href="https://wa.me/573001112233?text=Hola!%20Estoy%20interesado%20en%20este%20producto" class="ProductDetails_Main-Button" target="_blank">
+                  Consultar Producto
+              </a>
+          </div>
+      </main>';
+  
+    }else {
+      echo '
     <!--Product Content-->
     <main class="ProductDetails">
         <div id="carouselExampleAutoplaying" class="carousel slide ProductDetails_Main" data-bs-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="'.$filaPrimer_IMG['ruta_img'].'" class="ProductDetails_Main-Img " alt="...">
+                    <img src="./../assets/images/default.png" class="ProductDetails_Main-Img " alt="...">
                 </div>';
-                while ($imagenRecibida = mysqli_fetch_array($datosIMG)) {
-
-
-                  echo ' 
-                             <div class="carousel-item">
-                                 <img src="' . $imagenRecibida['ruta_img'] . '" class="ProductDetails_Main-Img" alt="...">
-                                 
-                             </div>';
-                  // ... Resto del código ...
-                }
 
             echo '</div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
@@ -357,6 +397,8 @@ function mostrarArticuloSeleccionado()
         </div>
     </main>';
 
+    }
+    
 
             
 
@@ -366,10 +408,9 @@ function mostrarArticuloSeleccionado()
 
 //Termina--- mostrar articulo seleccionado
 
-//Comienza --- cargar 'cambio de imagenes' segun id articulo
+//Comienza --- cargar imagenes en subir imagen segun id articulo
 
-function imagenes_articuloSeleccionado()
-{
+function imagenes_articuloSeleccionado(){
   if (isset($_GET['img_articleID'])) {
 
     include('./../assets/js/bd.php');
@@ -384,7 +425,6 @@ function imagenes_articuloSeleccionado()
     // 3) Ejecutar la orden y obtener datos
     $datos = mysqli_query($conexion, $consulta);
 
-    $imagenes = array(); // Array para almacenar los objetos de gastos
 
     echo '
             <main class="main">';
@@ -392,17 +432,13 @@ function imagenes_articuloSeleccionado()
     while ($fila = mysqli_fetch_array($datos)) {
       $ruta_img = $fila['ruta_img'];
 
-
-      echo ' <div>
-                          <img src="' . $fila["ruta_img"] . '" class="ProductCarrousel__Img" >
-                      </div>';
-
-      // ... Resto del código ...
+      echo '
+          <div>
+            <img src="' . $ruta_img . '" class="ProductCarrousel__Img" >
+          </div>';
     }
 
-    echo '
-            
-        </main>';
+    echo '</main>';
 
     mysqli_close($conexion);
   }

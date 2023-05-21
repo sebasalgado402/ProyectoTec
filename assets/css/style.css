@@ -7,8 +7,8 @@
 
 body {
     background-image: url(../Icons/Background.svg);
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px);
+    /* backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px); */
 }
 
 body::-webkit-scrollbar {
@@ -112,16 +112,19 @@ body::-webkit-scrollbar-thumb {
 }
 
 .Nav-DropdownButton {
-    width: 220px;
-    height: 50px;
-    border: 1px solid rgba(128, 128, 128, 0.555);
-    font-size: 16px;
-    padding: 10px;
-    border-radius: 10px 0 0 10px;
+    width: 220px !important;
+    height: 50px !important;
+    border-radius: 10px 0 0 10px !important;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.555) !important;
+    border-top: 1px solid rgba(128, 128, 128, 0.555) !important;
+    border-left: 1px solid rgba(128, 128, 128, 0.555) !important;
+    border-right: 1px solid rgba(128, 128, 128, 0.555) !important;
+    font-size: 16px !important;
+    padding: 10px !important;
     margin-bottom: 2px;
     outline: none;
-    background-color: #fff;
-    color: black;
+    background-color: #fff !important;
+    color: black !important;
 }
 
 .Nav-DropMenu {
@@ -282,12 +285,14 @@ body::-webkit-scrollbar-thumb {
     justify-content: center;
     box-shadow: 0 0 2px black;
     border-radius: 10px;
+    border: 1px solid #0000001a;
 }
 
 .ProductDetails_Main-Img {
     width: 100%;
     height: 240px;
     object-fit: contain;
+    
 }
 
 .ProductDetails_Main-Content {
@@ -296,6 +301,8 @@ body::-webkit-scrollbar-thumb {
     row-gap: 10px;
     justify-content: center;
     padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #0000001a;
 }
 
 .ProductDetails_Main-Category {
@@ -400,7 +407,7 @@ body::-webkit-scrollbar-thumb {
 .FuntionCard:hover {
     box-shadow: 0 0 10px gray;
     transition: 0.2s ease-in-out;
-    transform: scale(1.1);
+    transform: scale(1.01,1.01);
 }
 
 .FunctionCard-Content {
@@ -427,22 +434,18 @@ body::-webkit-scrollbar-thumb {
     Balance Page
 =====================*/
 
-.BalancePageContainer {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
 .BalanceCalculator {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 10px;
-    background-color: aliceblue;
-    box-shadow: 0 0 3px gray;
+    backdrop-filter: blur(10px);
+    background: #ffffff9d;
     min-width: 320px;
-    border-radius: 10px;
-    align-self: center;
+    max-width: 900px;
+    border-radius: 5px;
+    margin: 0 auto;
+    box-shadow: 0 0 1px gray;
 }
 
 .BalanceCalculator_Title {
@@ -450,19 +453,9 @@ body::-webkit-scrollbar-thumb {
     margin-bottom: 20px;
 }
 
-.BalanceCalculator_PercentageContainer {
-    width: 150px;
-    height: 150px;
-    border-radius: 100px;
-    background-color: rgb(10, 206, 10);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.BalanceCalculator_Percentage-Text {
+    font-size: 35px;
     margin-bottom: 30px;
-}
-
-.BalanceCalculator_PercentageContainer-Text {
-    font-size: 30px;
 }
 
 .BalanceCalculator_FormContainer {
@@ -491,53 +484,35 @@ body::-webkit-scrollbar-thumb {
     width: 250px;
     height: 50px;
     margin-top: 30px;
-    font-size: 20px;
-    background-color: antiquewhite;
+    font-size: 25px;
     outline: none;
     border-radius: 50px;
-    border: 2px solid black;
+    background-color: transparent;
+    border: 1px solid #0000003d;
+    transition: 0.2s ease-in-out;    
     cursor: pointer;
 }
 
-.BalanceCalculator_Tabla-Gastos {
-    width: 100%;
-    max-width: 700px;
-    box-shadow: 0 0 4px gray;
-    align-self: center;
-    background-color: #fff;
-    border: 2px solid gray;
-    margin-top: 30px;
-}
-
-.BalanceCalculator_Tabla-Gastos__Row-Title {
-    padding: 10px;
-}
-
-.BalanceCalculator_Tabla-Gastos__Row-Content {
-    padding: 5px;
+.BalanceCalculator_ButtonCalcular:hover {
+    transition: 0.2s ease-in-out;
+    border: 2px solid black;
+    transform: scale(1.01,1.01);
 }
 
 /*=====================
     Add Product Page
 =====================*/
 
-.AddProductPageContainer {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
 .AddProduct_FormContainer {
-    background-color: aliceblue;
+    background-color: #fff;
     width: 100%;
     max-width: 900px;
-    align-self: center;
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    box-shadow: 0 0 3px black;
-    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     row-gap: 10px;
+    margin: 0 auto;
 }
 
 .AddProduct_FormTitle {
@@ -573,9 +548,9 @@ body::-webkit-scrollbar-thumb {
 }
 
 .AddProduct_BotonCategoria {
-    background-color: rgb(66, 66, 249);
-    color: white;
-    border: none;
+    background-color: transparent;
+    color: rgb(66, 66, 249);
+    border: 2px solid rgb(66, 66, 249);
     outline: none;
     padding: 6px;
     border-radius: 10px;
@@ -583,8 +558,15 @@ body::-webkit-scrollbar-thumb {
     cursor: pointer;
 }
 
+.AddProduct_BotonCategoria:hover {
+    background-color: rgb(66, 66, 249);
+    color: white;
+}
+
 .AddProduct_BotonEnviar {
-    border: 3px solid green;
+    width: 250px;
+    align-self: center;
+    border: 1px solid;
     padding: 6px;
     margin-top: 10px;
     border-radius: 50px;
@@ -592,6 +574,13 @@ body::-webkit-scrollbar-thumb {
     color: green;
     font-size: 20px;
     cursor: pointer;
+    margin-bottom: 20px;
+    transition: 0.2s linear;
+}
+
+.AddProduct_BotonEnviar:hover {
+    transition: 0.2s linear;
+    transform: scale(1.01,1.01);
 }
 
 /*==============
@@ -697,6 +686,103 @@ body::-webkit-scrollbar-thumb {
     width: 45px;
     height: 45px;
     filter: drop-shadow(0 0 2px black);
+}
+
+/*==================
+    Login Page
+==================*/
+
+.LoginContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    row-gap: 20px;
+    justify-content: center;
+    background-color: #ffffff7e;
+    backdrop-filter: blur(6px);
+}
+
+.LoginContainer_Logo {
+    width: 150px;
+    height: 150px;
+}
+
+.Login_InputContainer {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.Login_InputContainer-Label {
+    font-size: 25px;
+}
+
+.Login_InputContainer-Input {
+    width: 350px;
+    height: 50px;
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid gray;
+    transition: 0.2s ease-in-out;
+    outline: none;
+    font-family: inherit;
+}
+
+.Login_InputContainer-Input::placeholder {
+    color: rgb(171, 171, 171);
+}
+
+.Login_InputContainer-Input:hover {
+    transition: 0.2s ease-in-out;
+    border: 1px solid gray;
+    padding: 15px;
+    border-radius: 13px;
+}
+
+.Login_SubmitButton {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    width: 280px;
+    height: 50px;
+    font-size: 23px;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.1s linear;
+}
+
+.Login_SubmitButton:hover {
+    transition: 0.1s linear;
+    border: 1px solid gray;
+    font-size: 25px;
+    border-radius: 50px;
+    padding: 10px;
+    letter-spacing: 1px;
+}
+
+.LoginContainer_Home {
+    margin-top: 20px;
+}
+
+.LoginContainer_Home-Text {
+    color: gray;
+}
+
+.LoginContainer_Home-Link {
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    text-decoration: none;
+}
+.LoginContainer_Home-Link:hover {
+    color: rgb(213, 0, 0);
+    font-weight: bold;
+    text-decoration: none;
 }
 
 /*======================
@@ -888,6 +974,15 @@ body::-webkit-scrollbar-thumb {
 
     .ProductDetails_CategoryList-Title {
         font-size: 25px;
+    }
+
+    /*--Funtions Page--*/
+
+    .FuntionsContainer {
+        grid-template-columns: repeat(2, 1fr);
+        row-gap: 20px;
+        column-gap: 20px;
+        place-items: center;
     }
 
     /*--Footer--*/

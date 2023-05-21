@@ -36,26 +36,27 @@
 <body>
     <?php include ('./../assets/js/header.php'); ?>
         <!--Balance Calculator-->
-        <form class="main-balance">
-            <p class="Title-balance">Calculo de Balance</p>
-            <div class="PercentageContainer-balance PercentageContainer_Text-balance">
-                <p class="PercentageContainer_Text-balance" id="recibeBalance">$0</p>
+        <form class="BalanceCalculator">
+        <!--Titulo -->
+        <p class="BalanceCalculator_Title">Calculo de Balance</p>
+        <!--Balance-->
+        <p class="BalanceCalculator_Percentage-Text" id="recibeBalance">$0</p>
+        <!--Formulario-->
+        <div class="BalanceCalculator_FormContainer">
+            <div class="BalanceCalculator_InputContainer">
+                <label for="FechaIncio">Ingrese la fecha de Inicio:</label>
+                <input type="text" id='date_Inicio-balance' class="BalanceCalculator_Input" required>
             </div>
-            <div class="FormContainer-balance">
-                <div class="InputContainer-balance">
-                    <label for="FechaIncio">Ingrese la fecha de Inicio:</label>
-                    <input type="text" id='date_Inicio-balance'  class="Input-balance" required>
-                </div>
-                <div class="InputContainer-balance">
-                    <label for="FechaFin">Ingrese la fecha de Finalización:</label>
-                    <input type="text" id='date_Final-balance' class="Input-balance" required>
-                </div>
+            <div class="BalanceCalculator_InputContainer">
+                <label for="FechaFin">Ingrese la fecha de Finalización:</label>
+                <input type="text" id='date_Final-balance' class="BalanceCalculator_Input" required>
             </div>
-            <input type="submit" id="btn_Calcular-balance" class="ButtonCalcular-balance" value="Calcular el Balance">
-        </form>
+        </div>
+        <input type="submit" id="btn_Calcular-balance" class="BalanceCalculator_ButtonCalcular" value="Calcular el Balance">
+    </form>
         <!--Tabla Gastos-->
         <div class="container-fluid col-lg-12 col-sm-12 table-responsive mt-2" >
-
+        <h1 class="h3">Lista de gastos</h1>
         <table class="table table-borderer table-bordered table-hover align-middle">
             <thead>
                 <tr class="table-dark align-middle">
@@ -72,6 +73,7 @@
 
             </tbody>
         </table>
+        <h1 class="h3">Lista de ventas realizadas</h1>
         <table class="table table-borderer table-bordered table-hover align-middle">
             <thead>
                 <tr class="table-dark align-middle">

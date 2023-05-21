@@ -25,7 +25,7 @@
                   $art_deshabilitado = $fila['art_deshabilitado'];
                   $art_categoria = $fila['art_categoria'];
                   $art_materiales = $fila['art_materiales'];
-                  $art_imagen = $fila['art_imagen'];
+                  //$art_imagen = $fila['art_imagen'];
                   
                   $articulo->art_nom =$art_nom;
                   $articulo->art_desc =$art_desc;
@@ -36,7 +36,7 @@
                   $articulo->art_deshabilitado =$art_deshabilitado;
                   $articulo->art_categoria =$art_categoria;
                   $articulo->art_materiales =$art_materiales;
-                  $articulo->art_imagen =$art_imagen;
+                  //$articulo->art_imagen =$art_imagen;
 
                   
                 }
@@ -288,27 +288,29 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
 
     //Actualiza imagen del articulo seleccionado
     
-    
-    if(isset($_FILES['archivo']) && $_FILES['archivo']['error'] === UPLOAD_ERR_OK){
-      var_dump($_FILES);
-      echo '<br>';
-      //echo $_FILES['archivo']['idArticulo'];
-      //echo $_POST['idArticulo'];
-      if(isset($_POST['idArticulo'])){
+    //var_dump($_FILES);
+      //echo '<br>';
+      //$data = $_POST;
+/* 
+     $recibi = $_FILES;
+     print_r($_FILES);
+    if(isset($_FILES['images']) && $_FILES['images']['error'] === UPLOAD_ERR_OK){
+      
+      if(isset($_POST['idArt_imagen'])){
         //Taking the files from input
-        $file = $_FILES['archivo'];
+        $file = $_FILES['images'];
         //Getting the file name of the uploaded file
-        $fileName = $_FILES['archivo']['name'];
+        $fileName = $_FILES['images']['name'];
         //Getting the Temporary file name of the uploaded file
-        $fileTempName = $_FILES['archivo']['tmp_name'];
+        $fileTempName = $_FILES['images']['tmp_name'];
         //Getting the file size of the uploaded file
-        $fileSize = $_FILES['archivo']['size'];
+        $fileSize = $_FILES['images']['size'];
         //getting the no. of error in uploading the file
-        $fileError = $_FILES['archivo']['error'];
+        $fileError = $_FILES['images']['error'];
         //Getting the file type of the uploaded file
-        $fileType = $_FILES['archivo']['type'];
+        $fileType = $_FILES['images']['type'];
         
-        var_dump ($_POST['nombreImg']);
+        var_dump ($_POST['idArt_imagen']);
         //Getting the file ext
         $fileExt = explode('.',$fileName);
         $fileActualExt = strtolower(end($fileExt));
@@ -325,7 +327,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
               //Creating a unique name for file
               //$fileNemeNew = uniqid('',true).".".$fileActualExt;
               //File destination
-              $fileDestination = './../assets/images/'.$_POST['nombreImg'];
+              $fileDestination = './../assets/images/'.$_POST['idArt_imagen'];
                     //function to move temp location to permanent location
                     move_uploaded_file($fileTempName, $fileDestination);
                     //Message after success
@@ -333,8 +335,8 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
 
                       include('./../js/bd.php');
                       //$consulta = "CALL `cambiar_imagenArt`(@rutaImagen='".$fileDestination."', @idarticulo='".$_POST['idArticulo']."');";
-                      $consulta = 'UPDATE articulos SET articulos.art_imagen = "'.$fileDestination.'" WHERE articulos.art_id = '.$_POST["idArticulo"].'';
-                  
+                     // $consulta = 'UPDATE articulos SET articulos.art_imagen = "'.$fileDestination.'" WHERE articulos.art_id = '.$_POST["idArticulo"].'';
+                      $consulta = "INSERT INTO `art_imagenes`(`art_id`, `ruta_img`) VALUES ('".$_POST['idArt_imagen']."','".$fileDestination."'";
                       $datos= mysqli_query ($conexion,$consulta);
                       mysqli_close($conexion);
 
@@ -352,7 +354,53 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
         }
     }
     }
-    
+     */
+
+     
+// Acceder a los datos del archivo
+
+  // Acceder a los datos del archivo
+  if(isset($_FILES['images']) && isset($_POST['idArt_imagen'])) {
+      $archivos = $_FILES['images'];
+
+      // Iterar sobre los archivos subidos
+      foreach($archivos['name'] as $indice => $nombre) {
+          $tipo = $archivos['type'][$indice];
+          $ruta_temporal = $archivos['tmp_name'][$indice];
+          $error = $archivos['error'][$indice];
+          $tamano = $archivos['size'][$indice];
+
+          // Obtener la extensión del archivo original
+          $extension = pathinfo($nombre, PATHINFO_EXTENSION);
+
+          // Generar un nuevo nombre de archivo único con la extensión
+          $nuevo_nombre = md5($nombre) . '.' . $extension;
+
+          // Aquí puedes realizar validaciones adicionales si es necesario
+
+          // Mover el archivo a la ubicación deseada con el nuevo nombre
+          $destino = './../../assets/images/' . $nuevo_nombre;
+          $destinoQuery = './../assets/images/' . $nuevo_nombre;
+          if(move_uploaded_file($ruta_temporal, $destino)) {
+
+            include('./../js/bd.php');
+            $consulta = "INSERT INTO `art_imagenes` (`art_id`, `ruta_img`) VALUES ('".$_POST['idArt_imagen']."','".$destinoQuery."')";
+            $datos = mysqli_query($conexion, $consulta);
+            mysqli_close($conexion);
+            
+              // El archivo se ha subido exitosamente con el nuevo nombre y la extensión
+              echo "¡La imagen $nombre se ha subido correctamente con el nuevo nombre $nuevo_nombre!";
+          } else {
+              // Ocurrió un error al mover el archivo
+              echo "Error al subir la imagen $nombre. Inténtalo de nuevo.";
+          }
+      }
+  } else {
+      
+  }
+
+
+
 
     //Termina---Actualiza imagen del articulo seleccionado
 
@@ -469,7 +517,15 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
     //SELECT * FROM articulos WHERE articulos.art_nom LIKE ('%', palabra , '%');
     include('bd.php');
                       
-    $consulta ="SELECT * FROM articulos INNER JOIN categorias on articulos.art_categoria = categorias.cat_id WHERE articulos.art_nom Like '%".$_POST['buscar_ecommerce']."%' ORDER BY art_id DESC;";
+    $consulta ="SELECT articulos.*, categorias.*, primera_imagen.ruta_img AS art_imagen
+    FROM articulos 
+    INNER JOIN categorias ON articulos.art_categoria = categorias.cat_id 
+    LEFT JOIN (
+      SELECT art_id, ruta_img
+      FROM art_imagenes
+      GROUP BY art_id
+    ) AS primera_imagen ON articulos.art_id = primera_imagen.art_id 
+     WHERE articulos.art_nom Like '%".$_POST['buscar_ecommerce']."%' ORDER BY art_id DESC;";
     $datos= mysqli_query ($conexion,$consulta);
 
     $busqueda = new stdClass();
