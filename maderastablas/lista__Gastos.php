@@ -49,11 +49,11 @@
     </div>
     <!-- Contenedor de los buscadores-->
     <div class="container-fluid" id='contieneBuscador'>
-        <div class="container d-none mt-2" id='buscadorConcepto'>
-            <input type="search" id="txt_searchConcepto" class="InputSearch" placeholder="Buscar: Concepto ">
+        <div class="container-search d-none mt-2" id='buscadorConcepto'>
+            <input type="search" id="txt_searchConcepto" class="InputSearch-Gastos" placeholder="Buscar: Concepto ">
         </div>  
-        <div class="container d-none mt-2" id='buscadorProveedor'>
-            <input type="search" id="txt_searchProveedor" class="InputSearch" placeholder="Buscar: Proveedor ">
+        <div class="container-search d-none mt-2" id='buscadorProveedor'>
+            <input type="search" id="txt_searchProveedor" class="InputSearch-Gastos" placeholder="Buscar: Proveedor ">
         </div>
         <div class="container-fluid d-none" id='buscadorFechas'>
             <div class="row justify-content-center">

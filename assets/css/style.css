@@ -6,7 +6,8 @@
 }
 
 body {
-    background-image: url(../Icons/Background.svg);
+    background-image: url(../Icons/backanimated.svg);
+    
     /* backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px); */
 }
@@ -25,11 +26,23 @@ body::-webkit-scrollbar-thumb {
 .container {
     height: 100vh;
 }
-
+/*===============
+     Inputs de Lista gastos
+================*/
+.InputSearch-Gastos {
+    display: flex;
+    margin: 0 auto;
+    width: 80%;
+    height: 50px;
+    outline: none;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.555);
+    font-size: 16px;
+}
 /*===============
      NavBar
 ================*/
-
 .nav {
     display: flex;
     flex-direction: row;
@@ -37,7 +50,7 @@ body::-webkit-scrollbar-thumb {
     align-items: center;
     padding: 10px;
     flex-wrap: wrap;
-    background-color: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .TitleContainer {
@@ -93,6 +106,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 .Nav-Content-Container {
+    display: flex;
+    margin: 0 auto;
     flex-direction: row;
     width: 80%;
     display: none;
@@ -214,6 +229,73 @@ body::-webkit-scrollbar-thumb {
     height: 300px;
 }
 
+
+/*=======================
+    Add Product Image
+========================*/
+.AddProductImage_Container {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 20px;
+    padding: 10px;
+    background-color: #fff;
+    max-width: 900px;
+    
+}
+
+.AddProductImage_Carrousel {
+    box-shadow: 0px -3px 36px 0px rgba(0,0,0,0.1);
+    padding-left: 5px;
+    padding-right: 5px;
+    
+    width: 370px;
+    height: 315px;
+    display: flex;
+    flex-direction: row;
+    column-gap: 10px;
+    overflow: hidden;
+    overflow-x: scroll;
+    align-items: center;
+    padding-bottom: 30px;
+}
+
+.AddProductImage_Carrousel::-webkit-scrollbar {
+    height: 8px;
+    background-color: transparent;
+    border-radius: 15px;
+}
+
+.AddProductImage_Carrousel::-webkit-scrollbar-thumb {
+    background-color: grey;
+    border-radius: 10px;
+    
+}
+
+.AddProductImage_Carrousel-Card {
+    width: 370px;
+    height: 300px;
+    border: 1px solid #0000003b;
+    border-top: 10px;
+    margin-top: 32px;
+}
+
+.AddProductImage_Carrousel-Card-Img {
+    width: 300px;
+    aspect-ratio: 1;
+    border: 1px solid #00000017;
+}
+
+.AddProductImage-Submit {
+    background-color: transparent;
+    padding: 10px 25px 10px 25px;
+    outline: none;
+    border: 1.5px solid black;
+    border-radius: 5px;
+    font-size: 22px;
+    margin-top: 10px;
+}
 /*==================
     Products List 
 ===================*/
@@ -223,7 +305,7 @@ body::-webkit-scrollbar-thumb {
     grid-template-columns: repeat(2, max-content);
     justify-content: center;
     column-gap: 10px;
-    row-gap: 40px;
+    row-gap: 10px;
     margin-top: 40px;
 }
 
@@ -236,11 +318,12 @@ body::-webkit-scrollbar-thumb {
     background-color: #fff;
     border-radius: 10px;
     cursor: pointer;
+    box-shadow: 0 0 2px #00000047;
     transition: 0.2s linear;
 }
 
 .ProductsList_Card:hover {
-    box-shadow: 0 0 7px black;
+    box-shadow: 0 0 7px #00000047;
     transition: 0.2s ease-in-out;
 }
 
@@ -302,7 +385,7 @@ body::-webkit-scrollbar-thumb {
     justify-content: center;
     padding: 10px;
     border-radius: 10px;
-    border: 1px solid #0000001a;
+   
 }
 
 .ProductDetails_Main-Category {
@@ -789,6 +872,11 @@ body::-webkit-scrollbar-thumb {
     Responsive Tablet 
 =======================*/
 @media screen and (min-width: 768px) {
+    /*--Add Product Images--*/
+
+    .AddProductImage_Carrousel {
+        width: 650px;
+    }
     /*--Title--*/
 
     .Title {
@@ -799,7 +887,7 @@ body::-webkit-scrollbar-thumb {
 
     .ProductsList {
         grid-template-columns: repeat(3, max-content);
-        column-gap: 30px;
+        column-gap: 10px;
     }
 
     /*--Product Details Page--*/
@@ -877,6 +965,11 @@ body::-webkit-scrollbar-thumb {
     Responsive Laptop 
 =======================*/
 @media screen and (min-width: 1024px) {
+    /*--Add Product Images--*/
+
+    .AddProductImage_Carrousel {
+        width: 900px;
+    }
     /*--Nav--*/
 
     .nav {

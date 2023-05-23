@@ -136,8 +136,8 @@ function cargarCategorias()
       $categoriasCargadas->id = $id;
       $categoriasCargadas->nombre = $nombre;
 
-      echo '<option value="' . $fila[0] . '">' . $fila[1] . '</option>';
-    }
+      echo '<option class="text-center" value="' . $fila[0] . '">' . $fila[1] . '</option>';
+    } 
   }
   mysqli_close($conexion);
 }
@@ -424,21 +424,36 @@ function imagenes_articuloSeleccionado(){
 
     // 3) Ejecutar la orden y obtener datos
     $datos = mysqli_query($conexion, $consulta);
-
-
-    echo '
-            <main class="main">';
-
-    while ($fila = mysqli_fetch_array($datos)) {
-      $ruta_img = $fila['ruta_img'];
-
-      echo '
-          <div>
-            <img src="' . $ruta_img . '" class="ProductCarrousel__Img" >
+          
+    if (mysqli_num_rows($datos) == 0) {
+      echo '<div> No se encontraron imágenes </div>';
+  } else {
+      while ($fila = mysqli_fetch_array($datos)) {
+          $ruta_img = $fila['ruta_img'];
+      
+          echo '
+          <div class="AddProductImage_Carrousel-Card">
+              <img src="' . $ruta_img . '" class="AddProductImage_Carrousel-Card-Img" />
           </div>';
-    }
+      }
+  }
+   /*  while ($fila = mysqli_fetch_array($datos)) {
+        if(!empty($fila['ruta_img'])){
 
-    echo '</main>';
+          $ruta_img = $fila['ruta_img'];
+    
+          echo '
+          <div class="AddProductImage_Carrousel-Card">
+              <img src="' . $ruta_img . '" class="AddProductImage_Carrousel-Card-Img" />
+          </div>';
+        }else {
+          echo '<div> No se encontraron imagenes </div>';
+        }
+            
+      }
+     */
+
+    
 
     mysqli_close($conexion);
   }

@@ -35,17 +35,21 @@
 
 
 <body>
-    <?php include('./../assets/js/header.php');
+<?php include('./../assets/js/header.php');
     ?>
-    <h1>Subir imágenes</h1>
-    <?php echo '<div id="recibeID">'.$_GET['img_articleID'].'</div>'?>
-
-    <form method="POST" enctype="multipart/form-data" id='form_subirImagenes'>
+    <form method="POST" enctype="multipart/form-data" id='form_subirImagenes' class="AddProductImage_Container">
+        <!--Titulo-->
+        <h1>Agregar Imagenes a Articulo</h1>
+        <!--Id de Articulo-->
+        <?php echo '<div id="recibeID">Id de Articulo: ' . $_GET['img_articleID'] . '</div>'; ?>
+        <!--Carrousel de Imagenes-->
+        <div class="AddProductImage_Carrousel">
+            <?php imagenes_articuloSeleccionado(); ?>
+        </div>
         <input type="file" name="images[]" multiple>
-        <br><br>
-        <input type="button" onclick="subirImagen_articulo()" value="Subir imágenes">
+        <input type="button" onclick="subirImagen_articulo()" value="Subir imágenes" class="AddProductImage-Submit">
     </form>
-    <?php imagenes_articuloSeleccionado(); ?>
+    
 </body>
 <!--Importa librería jquery -->
 <!-- <script src="./../jQuery/jquery.min.js"></script> -->

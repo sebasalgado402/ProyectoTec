@@ -32,7 +32,7 @@ function subirImagen_articulo(){
         },
         success: function(response) {
             alert('Se subieron las fotos correctamente');
-            location.reload();
+            //location.reload();
         }
     })
 }
@@ -216,7 +216,8 @@ function buscar_proveedorLista__Gastos(text){
             data: { action: action, buscar_proveedorLista__Gastos: text },
 
             success: function (response) {
-                
+                console.log(response);
+                $('#recibeListado_Gastos').html('');
                 //let resultado = $.parseJSON(response);
                 if (response) {
                     $('#recibeListado_Gastos').html(response);
@@ -245,7 +246,7 @@ function buscar_conceptoLista__Gastos(text){
             data: { action: action, buscar_conceptoLista__Gastos: text },
 
             success: function (response) {
-                
+                $('#recibeListado_Gastos').html('');
                 //let resultado = $.parseJSON(response);
                 if (response) {
                     $('#recibeListado_Gastos').html(response);
@@ -749,12 +750,13 @@ $(function () {
     $('#txt_descripcion').keyup(function (e) {
         e.preventDefault();
 
-        let art = ($('#txt_descripcion').val()).trim();
+        //let art = ($('#txt_descripcion').val()).trim();
+        let art = $('#txt_descripcion').val();
         
         let articulo = art.trim();
         let action = 'searchArticulo';
 
-        if (!art == '') {
+        if (art.length > 0) {
             $.ajax({
                 url: './../assets/js/ajax.php',
                 type: "POST",
