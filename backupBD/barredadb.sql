@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-05-2023 a las 23:49:47
+-- Tiempo de generación: 24-05-2023 a las 03:46:25
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -93,20 +93,6 @@ CREATE TABLE `art_imagenes` (
   `art_id` int(11) NOT NULL,
   `ruta_img` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `art_imagenes`
---
-
-INSERT INTO `art_imagenes` (`art_id`, `ruta_img`) VALUES
-(67, './../assets/images/26100d5d3c9cd6169fddc6da410e4d8a.png'),
-(67, './../assets/images/74d30b373e4a019ca9eedd06281658be.png'),
-(67, './../assets/images/a56adde061ef9ecde88cc3fb3a33a406.png'),
-(67, './../assets/images/c38aa1e27de72a9cdaaff1d2096e956a.png'),
-(66, './../assets/images/26100d5d3c9cd6169fddc6da410e4d8a.png'),
-(66, './../assets/images/74d30b373e4a019ca9eedd06281658be.png'),
-(66, './../assets/images/a56adde061ef9ecde88cc3fb3a33a406.png'),
-(66, './../assets/images/c38aa1e27de72a9cdaaff1d2096e956a.png');
 
 -- --------------------------------------------------------
 

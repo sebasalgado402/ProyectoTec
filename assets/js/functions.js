@@ -21,7 +21,7 @@ function subirImagen_articulo(){
     let parametros = new FormData($('#form_subirImagenes')[0]);
     let idArt_imagen = $('#recibeID').html();
     parametros.append('idArt_imagen', idArt_imagen);
-    console.log(parametros);
+   
     $.ajax({
         data:parametros,
         url: './../assets/js/ajax.php',
@@ -32,7 +32,7 @@ function subirImagen_articulo(){
         },
         success: function(response) {
             alert('Se subieron las fotos correctamente');
-            //location.reload();
+            location.reload();
         }
     })
 }
@@ -216,7 +216,6 @@ function buscar_proveedorLista__Gastos(text){
             data: { action: action, buscar_proveedorLista__Gastos: text },
 
             success: function (response) {
-                console.log(response);
                 $('#recibeListado_Gastos').html('');
                 //let resultado = $.parseJSON(response);
                 if (response) {
@@ -613,7 +612,6 @@ $(function () {
                 }
                 if (data == 'exito') {
                     location.reload();
-                    console.log(response);
                   
                 }
 
@@ -995,9 +993,9 @@ $(function () {
                     if (response == 0) {
                         
                     } else {
+                        
                         let resultado = response;
                         $('.ProductsList').html(resultado);
-                        
                     }
 
                 },

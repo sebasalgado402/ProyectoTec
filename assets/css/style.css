@@ -6,7 +6,7 @@
 }
 
 body {
-    background-image: url(../Icons/backanimated.svg);
+    background-image: url(../Icons/Background.svg);
     
     /* backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px); */
@@ -306,7 +306,7 @@ body::-webkit-scrollbar-thumb {
     justify-content: center;
     column-gap: 10px;
     row-gap: 10px;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 .ProductsList_Card {

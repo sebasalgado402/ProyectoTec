@@ -34,11 +34,29 @@
         ?>
     </section>
     
-    </main>
-    <div class="container">
-        <!--Functions List-->
-        <main class="FuntionsContainer">
-            <a href="facturar.php" class="FuntionCard">
+</main>
+<div class="container">
+    <!--Functions List-->
+    <main class="FuntionsContainer">
+        <a href="articulos.php" class="FuntionCard">
+            <div class="FunctionCard-Content">
+                <p class="FuntionCard_Title">Lista de Articulos</p>
+                <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+            </div>
+            <div class="FuntionCard_Icon-Container">
+                <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
+            </div>
+        </a>
+        <a href="nuevo_articulo.php" class="FuntionCard">
+            <div class="FunctionCard-Content">
+                <p class="FuntionCard_Title">Nuevo Articulo</p>
+                <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+            </div>
+            <div class="FuntionCard_Icon-Container">
+                <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
+            </div>
+        </a>
+        <a href="facturar.php" class="FuntionCard">
                 <div class="FunctionCard-Content">
                     <p class="FuntionCard_Title">Facturacion</p>
                     <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
@@ -65,18 +83,9 @@
                     <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
                 </div>
             </a>
-            <a href="nuevo_articulo.php" class="FuntionCard">
+            <a href="lista__Gastos.php" class="FuntionCard">
                 <div class="FunctionCard-Content">
-                    <p class="FuntionCard_Title">Nuevo Articulo</p>
-                    <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-                <div class="FuntionCard_Icon-Container">
-                    <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
-                </div>
-            </a>
-            <a href="articulos.php" class="FuntionCard">
-                <div class="FunctionCard-Content">
-                    <p class="FuntionCard_Title">Lista de Articulos</p>
+                    <p class="FuntionCard_Title">Lista de gastos</p>
                     <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
                 </div>
                 <div class="FuntionCard_Icon-Container">
@@ -92,16 +101,7 @@
                     <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
                 </div>
             </a>
-            <a href="lista__Gastos.php" class="FuntionCard">
-                <div class="FunctionCard-Content">
-                    <p class="FuntionCard_Title">Lista de gastos</p>
-                    <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
-                </div>
-                <div class="FuntionCard_Icon-Container">
-                    <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
-                </div>
-            </a>
-        
+            
         </main>
     </div>
    

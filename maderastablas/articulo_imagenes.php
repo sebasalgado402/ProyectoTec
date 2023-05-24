@@ -41,7 +41,7 @@
         <!--Titulo-->
         <h1>Agregar Imagenes a Articulo</h1>
         <!--Id de Articulo-->
-        <?php echo '<div id="recibeID">Id de Articulo: ' . $_GET['img_articleID'] . '</div>'; ?>
+        <?php echo '<div>Id de Articulo:<span id="recibeID"> ' . $_GET['img_articleID'] . ' </span></div>'; ?>
         <!--Carrousel de Imagenes-->
         <div class="AddProductImage_Carrousel">
             <?php imagenes_articuloSeleccionado(); ?>

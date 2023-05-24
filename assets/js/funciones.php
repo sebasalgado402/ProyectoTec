@@ -86,31 +86,36 @@ function mostrarArticulos_Ecommerce()
   $datos = mysqli_query($conexion, $consulta);
 
   // 4) Ir Imprimiendo las filas resultantes
-  $i = 1;
-  while ($fila = mysqli_fetch_array($datos)) {
-    //<th scope="col-1">'.$i++.'</th>
-    echo '<div class="ProductsList_Card" id="art_Ecommerce" onclick="redireccionArticulo(' . $fila["art_id"] . ')">
-              <img src="';
-              if(strlen($fila['art_imagen'])>1) {
-              echo ''.$fila["art_imagen"] .'" alt="error al cargar imagen" class="ProductsList_Card-Img">
-              <div class="ProductsList_Card-Content">
-              <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
-              <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
-              <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
-              </div>
-              </div>';
-              }else{
-                echo './../assets/images/default.png" alt="error al cargar imagen" class="ProductsList_Card-Img">
-              <div class="ProductsList_Card-Content">
-              <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
-              <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
-              <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
-              </div>
-              </div>';
-              }
-            
-    
+ 
+  if ($fila = mysqli_num_rows($datos)>0) {
+    while ($fila = mysqli_fetch_array($datos)) {
+      //<th scope="col-1">'.$i++.'</th>
+      echo '<div class="ProductsList_Card" id="art_Ecommerce" onclick="redireccionArticulo(' . $fila["art_id"] . ')">
+                <img src="';
+                if(!empty($fila['art_imagen'])) {
+                echo ''.$fila["art_imagen"] .'" alt="error al cargar imagen" class="ProductsList_Card-Img">
+                <div class="ProductsList_Card-Content">
+                <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
+                <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
+                <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
+                </div>
+                </div>';
+                }else{
+                  echo './../assets/images/default.png" alt="error al cargar imagen" class="ProductsList_Card-Img">
+                <div class="ProductsList_Card-Content">
+                <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
+                <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
+                <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
+                </div>
+                </div>';
+                }
+              
+      
+    }
+  }else{
+    echo 'No se encontraron resultados';
   }
+  
 
   mysqli_close($conexion);
 }
