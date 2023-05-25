@@ -35,14 +35,14 @@
 
     <div class="container-fluid col-lg-6 col-sm-12 table-responsive mt-2">
         
-        <table class="table table-bordered align-middle">
+        <table class="table table-bordered  table-hover align-middle">
             <thead>
                 <tr class="table-dark align-middle">
                 <!-- <th scope="col">#</th> -->
-                <th class="align-middle p-2" scope="col">Número de factura</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">importe Total</th>
-                <th class="align-middle p-2" scope="col">Accion</th>
+                <th class="p-2 col-2 text-center" scope="col">Número de factura</th>
+                <th class='text-center' scope="col">Fecha</th>
+                <th class='text-center' scope="col">importe Total</th>
+                <th class='text-center' class="p-2" scope="col">Accion</th>
                 </tr>
             </thead>
             <tbody>

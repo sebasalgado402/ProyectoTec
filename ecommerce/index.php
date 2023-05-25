@@ -36,21 +36,16 @@
 
     <section id="section-product" class="section-product">
             <div class="ProductsList">
-                <!-- <div class="product">
-                    <div class="product-imagen">
-                        <img src="./../images/ejemploFactura.jpeg" alt="error al cargar img"> 
-                    </div>
-                    <div class="card-descripcion">
-                        <span>adiddas</span>
-                        <h5>Nombre Producto</h5>
-                        <h4>$78</h4>
-                    </div>
-                    <a href="#"><i class="bi bi-cart4 cart"></i></a>
-                </div> -->
+               
                  <?php mostrarArticulos_Ecommerce(); ?> 
             </div> 
     </section>
-    <?php include('./../assets/Components/footer.php')?>
+    <?php
+    
+    include('./../assets/Components/WhatsappButton.php');
+    include('./../assets/Components/footer.php');
+    
+    ?>
 </body>
  <!--Importa librería jquery -->
     <!-- <script src="./../jQuery/jquery.min.js"></script> -->

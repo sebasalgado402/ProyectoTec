@@ -36,109 +36,72 @@
         ?>
     </section>
     
-    <div class="container-fluid col-lg-6 col-sm-12 table-responsive mt-2">
-        
-        <table class="table table-bordered align-middle">
+    <div class="FacturarTable_Container">
+        <table class="FacturarTable table-bordered">
             <thead>
-                <tr class="table-dark align-middle">
-                <!-- <th scope="col">#</th> -->
-                <th scope="col">id_articulo</th>
-                <th scope="col">descripcion</th>
-                <th scope="col">precio</th>
-                <th scope="col">cantidad</th>
-                <th scope="col">Existencia</th>
-                <th scope="col">Precio Total</th>
+                <tr class="FacturarTable_Title-Container">
+                    <th class="FacturarTable_Title">Id Articulo</th>
+                    <th class="FacturarTable_Title">Descripcion</th>
+                    <th class="FacturarTable_Title">Precio</th>
+                    <th class="FacturarTable_Title">Cantidad</th>
+                    <th class="FacturarTable_Title">Stock</th>
+                    <th class="FacturarTable_Title">Precio Total</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <th scope="col-1" id="th_id_articulo">
-                        
+                <tr class="FacturarTable_Options-Container">
+                    <th class="FacturarTable_Options" id="th_id_articulo"></th>
+                    <th class="FacturarTable_Options">
+                        <input type="text" id="txt_descripcion" class="FacturarTable_Options-Input" placeholder="Escribe una Descripcion">
                     </th>
-                    <th scope="col-1">
-                        <input type="text" id="txt_descripcion" class="form-control col-12">
+                    <th class="FacturarTable_Options" id="th_precio"></th>
+                    <th class="FacturarTable_Options">
+                        <input type="number" value="0" id="txt_Cantidad" class="FacturarTable_Options-Input">
                     </th>
-                    <th scope="col-1" id="th_precio" class="text-center">
-                        
+                    <th class="FacturarTable_Options">
+                        <input type="number" value="0" id="txt_Stock" class="FacturarTable_Options-Input" disabled>
                     </th>
-                    <th scope="col-1">
-                        <input type="number" value="0" id="txt_Cantidad" class="form-control col-12" >
-                    </th>
-                    <th scope="col-1" id="th_existencia">
-                        <input type="text" value="0" id="txt_Stock" class="form-control col-12" disabled>
-                    </th>
-                    <th scope="col-1" id="th_precioTotal">
-                        <input type="text" value="0" id="txt_precioTotal" class="form-control col-12" disabled>
-                        
+                    <th class="FacturarTable_Options" id="th_precioTotal">
+                        <input type="text" value="0" id="txt_precioTotal" class="FacturarTable_Options-Input" disabled>
                     </th>
                 </tr>
-                
-            
-                </tbody>
-            </table>
-        </div>
-        <div class="container-fluid col-lg-6 col-sm-12">
+            </tbody>
+        </table>
+        <button type="button" class="FacturarTable_Submit" id="btnAgregarFactura" disabled>Agregar a la factura</button>
 
-            
-            <button type="button" class="btn btn-primary col-12 col-sm-12" id="btnAgregarFactura" disabled>Agregar a la factura</button>
-            
-            <table class="table table-bordered mt-2 col-lg-6 col-sm-12 text-center">
-                <thead>
-                    <tr class="table table-dark align-middle ">
-                        <!-- <th scope="col">#</th> -->
-                        <th scope="col">id_articulo</th>
-                        <th scope="col">descripcion</th>
-                        <th scope="col">cantidad</th>
-                        <th scope="col">SubTotal</th>
-                    </tr>
-                </thead>
-                <tbody id="tbody_detalle" class="align-middle">
-                    
-                    </tbody>
-                </table>
-        </div>
-            
-                
-        <div class="container offset-lg-6 offset-md-9 offset-sm-6 col-8 col-lg-3 col-md-3 col-sm-4">
-                    <table class="table">
-                        <tbody>
-                            
-                            
-                <tr>
-                    <th> 
-                        Total
+        <table class="FacturarTable table-bordered">
+            <thead>
+                <tr class="FacturarTable_Title-Container">
+                    <th class="FacturarTable_Title">Id Articulo</th>
+                    <th class="FacturarTable_Title">Descripcion</th>
+                    <th class="FacturarTable_Title">Cantidad</th>
+                    <th class="FacturarTable_Title">SubTotal</th>
+                </tr>
+            </thead>
+            <tbody id="tbody_detalle">
+               
+            </tbody>
+        </table>
+        <table class="FacturarTable_Total">
+            <tbody>
+                <tr class="FacturarTable_Total-Options">
+                    <th>
+                        Total: $
                     </th>
                     <th>
                         <input type="text" value="0" id="txt_subtotalDetalle" class="form-control col-3" disabled>
                     </th>
                 </tr>
-               <!--  <tr>
-                    <th> 
-                        IVA(%)
-                    </th>
-                    <th>
-                        <input type="text" value="0" id="txt_ivaDetalle" class="form-control col-3">
-                    </th>
-                </tr> -->
-                <!-- <tr>
-                    <th> 
-                        Total
-                    </th>
-                    <th>
-                        <input type="text" value="0" id="txt_totalDetalle" class="form-control col-3" disabled>
-                    </th>
-                </tr> -->
-                </tbody>
-            </table>
-            
-        </div>
-        
+            </tbody>
+        </table>
+
         <div class="container-fluid col-sm-12">
             <button type="submit" class="btn btn-success col-12 col-lg-6 offset-lg-3 " id="btnProcesarCompra" disabled>Procesar compra</button>
         </div>
         <div class="container-fluid col-sm-12">
-            <button type="submit"class="btn btn-danger col-12 col-lg-6 offset-lg-3" id="btnAnularCompra">Anular compra</button>
+            <button type="submit" class="btn btn-danger col-12 col-lg-6 offset-lg-3" id="btnAnularCompra">Anular compra</button>
         </div>
+    </div>
 
     
 

@@ -32,113 +32,47 @@
         <?php
         include('./../assets/js/header.php');
         ?>
-       <!--  <div class="container form-control col-12">
-            <form class="offset-2 col-9">
-                <h1 class="text-center display-4">Ingresar nuevo producto</h1>
-
-                <div class="row">
-                    <div class="col-2">
-                        <label for="codArticulo" class="form-label ">código de Artículo:<span style="color:red" title="Obligatorio">*</span></label>
-                        <input type="text" class="form-control" name="codArticulo" id="txt__codArticulo" required>
-                    </div>
-                    <div class="col-10">
-                        <label for="nombreArticulo" class="form-label">Nombre:<span style="color:red" title="Obligatorio">*</span></label>
-                        <input type="text" class="form-control" name="nombreArticulo" id="txt__nombreArticulo" required>
-                    </div>
-                </div>
-
-                <div class="row">
-
-                    <div class="col-4">
-                        <label for="precioArticulo" class="form-label">Precio:<span style="color:red" title="Obligatorio">*</span></label>
-                        <input type="number" class="form-control" name="precioArticulo" id="txt__precioArticulo" required>
-                    </div>
-                    <div class="col-4">
-                        <label for="cantidadArticulo">Stock:<span style="color:red" title="Obligatorio">*</span></label>
-                        <input type="number" class="form-control" class="form-label" name="cantidadArticulo" id="txt__cantidadArticulo" required>
-                    </div>
-                    <div class="col-4">
-                        <label for="costoCreacionArticulo">Costo de creación:<span style="color:red" title="Obligatorio">*</span></label>
-                        <input type="number" class="form-control" class="form-label" name="costoCreacionArticulo" id="txt__costoCreacionArticulo">
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="offset-1 col-9">
-                        <label for="categoria" class="form-label">Elija la categoria:<span style="color:red" title="Obligatorio">*</span></label>
-                        <select name="categoria" id="select__categoria" class="form-select">
-                            <option value="none">---</option>'
-                            
-                        </select>
-                    </div>
-                    <div class="row" id="container__btnCategoria">
-
-                        <div class="col-12">
-                            <button type="button" id="btnModal_nuevaCategoria" class="btn btn-primary form-control" data-bs-toggle="modal" data-bs-target="#modal_nuevaCategoria">
-                                Nueva Categoría
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row">
-
-                    <label for="descripcionArticulo">descripcion:</label>
-                    <input type="text" class="form-control" class="form-label" name="descripcionArticulo" id="txt__descripcionArticulo">
-
-                    <label for="MaterialesArticulo">Materiales:</label>
-                    <input type="text" class="form-control" class="form-label" name="MaterialesArticulo" id="txt__materialesArticulo">
-                </div>
-
-                <div class="row">
-                    <div class="col-2">
-                        <label for="proveedor" class="form-label ">Proveedor:<span style="color:red" title="Obligatorio">*</span></label>
-                        <input type="text" class="form-control" name="proveedor" id="txt__proveedor" required>
-                    </div>
-                    <div class="col-10">
-                        <label for="provConcepto" class="form-label">Concepto:<span style="color:red" title="Obligatorio">*</span></label>
-                        <input type="text" class="form-control" name="provConcepto" id="txt__provConcepto" required>
-                    </div>
-                    <div class="col-4">
-                        <label for="gastoTotal" class="form-label">Gasto Total:<span style="color:red" title="Obligatorio">*</span></label>
-                        <input type="number" class="form-control" name="gastoTotal" id="txt__gastoTotal" required>
-                    </div>
-
-                    <button type="submit" class="btn btn-outline-danger mt-2 " id="btn__ingresarArticulo">Ingresar articulo nuevo</button>
-                </div>
-
-            </form>
-        </div> -->
-
         <form action="" class="AddProduct_FormContainer">
             <p class="AddProduct_FormTitle">Ingresar Nuevo Articulo</p>
-            <!--Código de Artículo-->
-            <label for="CodArt">Codigo de Articulo:<span class="AddProduct_Obligatory">*</span></label>
-            <input type="text" name="codArticulo" id="txt__codArticulo" class="AddProduct_Input" required>
-            <!--Nombre Articulo-->
-            <label for="NomArt">Nombre de Articulo:<span class="AddProduct_Obligatory">*</span></label>
-            <input type="text" name="nombreArticulo" id="txt__nombreArticulo" class="AddProduct_Input" required>
-            <!--Precio Articulo-->
-            <label for="PrecioArt">Precio de Articulo:</label>
-            <input type="number" name="precioArticulo" id="txt__precioArticulo" class="AddProduct_Input">
-            <!--Stock Articulo-->
-            <label for="StockArt">Stock de Articulo:<span class="AddProduct_Obligatory">*</span></label>
-            <input type="number" name="cantidadArticulo" id="txt__cantidadArticulo" class="AddProduct_Input" required>
-            <!--Costo Creacion Articulo-->
-            <label for="CreaArticulo">Costo de Creacion de Articulo:</label>
-            <input type="number" name="costoCreacionArticulo" id="txt__costoCreacionArticulo" class="AddProduct_Input">
+            <div class="AddProduct_FormContainer-Row">
+                <!--Código de Artículo-->
+                <div class="AddProduct_InputContainer">
+                    <label for="CodArt">Codigo de Articulo:<span class="AddProduct_Obligatory">*</span></label>
+                    <input type="text" name="codArticulo" id="txt__codArticulo" class="AddProduct_Input" required>
+                </div>
+                <!--Nombre Articulo-->
+                <div class="AddProduct_InputContainer">
+                    <label for="NomArt">Nombre de Articulo:<span class="AddProduct_Obligatory">*</span></label>
+                    <input type="text" name="nombreArticulo" id="txt__nombreArticulo" class="AddProduct_Input" required>
+                </div>
+            </div>
+            <div class="AddProduct_FormContainer-Row">
+                <!--Precio Articulo-->
+                <div class="AddProduct_InputContainer">
+                    <label for="PrecioArt">Precio de Articulo:</label>
+                    <input type="number" name="precioArticulo" id="txt__precioArticulo" class="AddProduct_Input">
+                </div>
+                <!--Stock Articulo-->
+                <div class="AddProduct_InputContainer">
+                    <label for="StockArt">Stock de Articulo:<span class="AddProduct_Obligatory">*</span></label>
+                    <input type="number" name="cantidadArticulo" id="txt__cantidadArticulo" class="AddProduct_Input" required>
+                </div>
+                <!--Costo Creacion Articulo-->
+                <div class="AddProduct_InputContainer">
+                    <label for="costoCreacionArticulo">Costo de Creacion:</label>
+                    <input type="number" name="costoCreacionArticulo" id="txt__costoCreacionArticulo" class="AddProduct_Input">
+                </div>
+            </div>
             <!--Categoria Articulo-->
             <div class="AddProduct_CategoryInput-Container">
                 <label for="categoria">Elije la Categoria:</label>
                 <div class="dropdown AddProduct_CategoryContainer">
-                    
+
                     <select name="categoria" id="select__categoria" class="form-select bg-transparent border-2 text-black">
-                            <option value="none">---</option>'
-                            <?php
-                            cargarCategorias();
-                            ?>
+                        <option value="none">---</option>'
+                        <?php
+                        cargarCategorias();
+                        ?>
                     </select>
                 </div>
                 <!--Boton Categoria-->
@@ -158,15 +92,18 @@
             <!--Proveedor-->
             <label for="MatsArt">Proveedor:</label>
             <input type="text" name="proveedor" id="txt__proveedor" class="AddProduct_Input">
-
-            <!--Concepto Articulo-->
-            <label for="MatsArt">Concepto:</label>
-            <input type="text"  name="provConcepto" id="txt__provConcepto" class="AddProduct_Input">
-
-            <!--Gasto Total-->
-            <label for="MatsArt">Gasto Total:</label>
-            <input type="number" name="gastoTotal" id="txt__gastoTotal" class="AddProduct_Input">
-
+            <div class="AddProduct_FormContainer-Row">
+                <div class="AddProduct_InputContainer">
+                    <!--Concepto Articulo-->
+                    <label for="MatsArt">Concepto:</label>
+                    <input type="text" name="provConcepto" id="txt__provConcepto" class="AddProduct_Input">
+                </div>
+                <div class="AddProduct_InputContainer">
+                    <!--Gasto Total-->
+                    <label for="MatsArt">Gasto Total:</label>
+                    <input type="number" name="gastoTotal" id="txt__gastoTotal" class="AddProduct_Input">
+                </div>
+            </div>
             <!--Boton Enviar-->
             <input type="submit" value="Ingresar Nuevo Articulo" id="btn__ingresarArticulo" class="AddProduct_BotonEnviar">
         </form>
