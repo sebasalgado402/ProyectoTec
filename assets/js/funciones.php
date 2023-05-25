@@ -253,18 +253,16 @@ function mostrarFacturas()
     //<th scope="col-1">'.$i++.'</th>
 
     echo '
-                      <tr>
-                        
-                          <th>' . $fila["fact_id"] . '</th>
-                          <th>' . $fila["fact_fecha"] . '</th>
-                          <th>' . $fila["precioTotal"] . '</th>
-                         
-                        <th class="align-middle text-center">
-                          <a role="button" id="imprimir_Factura' . $fila["fact_id"] . '" class="btn btn-primary" data-fact_id=' . $fila['fact_id'] . '>
-                          <i class="bi bi-printer-fill"></i>
-                          </a>
-                        </th>
-                      </tr>';
+  <tr>
+      <th class="text-center">' . $fila["fact_id"] . '</th>
+      <th class="text-center">' . $fila["fact_fecha"] . '</th>
+      <th class="text-center">$' . $fila["precioTotal"] . '</th>
+  <th class="align-middle text-center">
+    <a role="button" id="imprimir_Factura' . $fila["fact_id"] . '" class="btn btn-primary" data-fact_id=' . $fila['fact_id'] . '>
+    <i class="bi bi-printer-fill"></i>
+    </a>
+  </th>
+</tr>';
   }
 
 
@@ -439,6 +437,9 @@ function imagenes_articuloSeleccionado(){
           echo '
           <div class="AddProductImage_Carrousel-Card">
               <img src="' . $ruta_img . '" class="AddProductImage_Carrousel-Card-Img" />
+              <button class="AddProductImage_Carrousel-Card-Button">
+                <img src="../assets/icons/basura.png" class="AddProductImage_Carrousel-Card-Button-Icon" />
+              </button>
           </div>';
       }
   }

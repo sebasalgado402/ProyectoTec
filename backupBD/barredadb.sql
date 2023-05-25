@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 24-05-2023 a las 03:46:25
+-- Tiempo de generación: 25-05-2023 a las 03:54:06
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -76,12 +76,12 @@ CREATE TABLE `articulos` (
 --
 
 INSERT INTO `articulos` (`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_deshabilitado`, `art_categoria`, `art_materiales`, `art_notas`) VALUES
-(63, 'axadasd', 'asdasd', 'asdasd', 2142, 424, 2411, 'S', 'S', 11, 'asdasd', ''),
-(64, 'zzz', 'zzz', 'asdasd', 222, 22, 22, 'S', 'S', 11, 'asdasd', ''),
-(65, 'jjjj', 'jjjj', 'asdasd', 24, 424, 4124, 'S', 'S', 11, 'asdsad', ''),
-(66, 'asdasd', 'asdasd4', 'asdasd', 4124, 2424, 424, 'S', 'S', 11, 'asdasd', ''),
-(67, 'hjjjj', 'jjjg', 'sdfsdf', 1000, 345235, 523, 'S', 'S', 8, 'sdfsdf', ''),
-(70, 'aasd', '4dasd', 'prueba', 232, 4, 42, 'S', 'S', 13, 'asdasd', '');
+(63, 'axadasd', 'caja6', 'asdasd', 2142, 0, 2411, '', '', 11, 'asdasd', ''),
+(64, 'zzz', 'caja5', 'asdasd', 222, 22, 22, '', '', 11, 'asdasd', ''),
+(65, 'jjjj', 'caja4', 'asdasd', 24, 424, 4124, '', '', 11, 'asdsad', ''),
+(66, 'asdasd', 'caja3', 'asdasd', 4124, 0, 424, '', '', 11, 'asdasd', ''),
+(67, 'hjjjj', 'caja2', 'sdfsdf', 1000, 345235, 523, '', '', 8, 'sdfsdf', ''),
+(70, 'aasd', 'caja1 con repuestos y madera f', 'prueba', 232, 4, 42, '', '', 13, 'asdasd', '');
 
 -- --------------------------------------------------------
 
@@ -121,7 +121,9 @@ INSERT INTO `categorias` (`cat_id`, `cat_nom`, `cat_obs`) VALUES
 (12, 'Marcos', NULL),
 (13, 'Otros accesorios', NULL),
 (14, 'Tablas y Cuencos', 'tablas de picar y de asado, cuencos para servir'),
-(15, 'Pinos Navidad', 'Tamaños varios');
+(15, 'Pinos Navidad', 'Tamaños varios'),
+(26, 'Navidad', 'cosas de navidad'),
+(27, 'cosas de navidad', '');
 
 -- --------------------------------------------------------
 
@@ -144,7 +146,9 @@ CREATE TABLE `detalle_factura` (
 INSERT INTO `detalle_factura` (`dfact_renglon`, `fact_id`, `art_id`, `dfact_cantidad`, `dfact_precio`) VALUES
 (1, 107, 59, 2, 2000),
 (1, 108, 59, 25, 25000),
-(1, 109, 62, 4, 1996);
+(1, 109, 62, 4, 1996),
+(1, 110, 66, 2424, 9996580),
+(1, 111, 63, 424, 908208);
 
 -- --------------------------------------------------------
 
@@ -164,7 +168,9 @@ CREATE TABLE `factura` (
 INSERT INTO `factura` (`fact_id`, `fact_fecha`) VALUES
 (107, '2023-05-14'),
 (108, '2023-05-14'),
-(109, '2023-05-14');
+(109, '2023-05-14'),
+(110, '2023-05-25'),
+(111, '2023-05-25');
 
 -- --------------------------------------------------------
 
@@ -287,13 +293,13 @@ ALTER TABLE `articulos`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `cat_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `cat_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `fact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=110;
+  MODIFY `fact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
 
 --
 -- AUTO_INCREMENT de la tabla `gastos`
