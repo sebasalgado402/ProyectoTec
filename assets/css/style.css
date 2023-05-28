@@ -10,6 +10,8 @@ body {
     
     /* backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px); */
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 body::-webkit-scrollbar {
@@ -52,7 +54,6 @@ body::-webkit-scrollbar-thumb {
     align-items: center;
     padding: 10px;
     flex-wrap: wrap;
-    background-color: #fff;
 }
 
 .TitleContainer {
@@ -108,7 +109,6 @@ body::-webkit-scrollbar-thumb {
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
 .LoginButton__Icon {

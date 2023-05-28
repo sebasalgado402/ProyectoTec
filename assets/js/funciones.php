@@ -35,22 +35,22 @@ function mostrarArticulos()
 
     echo '
                 <tr>
-                    <th class="align-middle p-0" >
+                    <th class="align-middle text-center p-0" >
                       <a role="button" id="imgProducto" onclick="redireccionArticulo_Imagenes(' . $fila["art_id"] . ')">Modificar imagenes</a>
                     </th>
-                    <th class="align-middle p-0" >' . $fila["art_id"] . '</th>
-                    <th class="align-middle p-0">' . $fila["art_cod"] . '</th>
-                    <th class="align-middle p-0">' . $fila["art_nom"] . '</th>
-                    <th class="align-middle p-0">$' . $fila["art_precio"] . '</th>
-                    <th class="align-middle p-0">' . $fila["art_stock"] . '</th>
-                    <th class="align-middle p-0">$' . $fila["art_costo"] . '</th>
+                    <th class="align-middle p-0 text-center">' . $fila["art_id"] . '</th>
+                    <th class="align-middle p-0 text-center">' . $fila["art_cod"] . '</th>
+                    <th class="align-middle p-0 text-center">' . $fila["art_nom"] . '</th>
+                    <th class="align-middle p-0 text-center">$' . $fila["art_precio"] . '</th>
+                    <th class="align-middle p-0 text-center">' . $fila["art_stock"] . '</th>
+                    <th class="align-middle p-0 text-center">$' . $fila["art_costo"] . '</th>
                     
                     
-                    <th class="align-middle p-0">' . $fila["cat_nom"] . '</th>
-                    <th class="align-middle p-0">' . $fila["art_desc"] . '</th>
-                    <th class="align-middle p-0">' . $fila["art_materiales"] . '</th>
-                    <th class="align-middle p-0">' . $fila["art_notas"] . '</th>
-                    <th class="align-middle ">
+                    <th class="align-middle p-0 text-center">' . $fila["cat_nom"] . '</th>
+                    <th class="align-middle p-0 text-center">' . $fila["art_desc"] . '</th>
+                    <th class="align-middle p-0 text-center">' . $fila["art_materiales"] . '</th>
+                    <th class="align-middle p-0 text-center">' . $fila["art_notas"] . '</th>
+                    <th class="align-middle text-center">
                     
                     <a role="button" id="modificar__Articulo' . $fila["art_id"] . '" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_modificarArticulo" data-art_id=' . $fila['art_id'] . ' >
                     <i class="bi bi-pencil-fill"></i>
@@ -429,18 +429,22 @@ function imagenes_articuloSeleccionado(){
     $datos = mysqli_query($conexion, $consulta);
           
     if (mysqli_num_rows($datos) == 0) {
-      echo '<div> No se encontraron imágenes </div>';
+      echo '<div style="
+      display: flex;
+      margin: auto;
+      font-size: 20px;"> No se encontraron imágenes </div>';
   } else {
+    $contador = 1;
       while ($fila = mysqli_fetch_array($datos)) {
           $ruta_img = $fila['ruta_img'];
-      
           echo '
           <div class="AddProductImage_Carrousel-Card">
               <img src="' . $ruta_img . '" class="AddProductImage_Carrousel-Card-Img" />
-              <button class="AddProductImage_Carrousel-Card-Button">
+              <button id="btn_eliminarImagen_Seleccionada'.$contador.'" type="button" class="AddProductImage_Carrousel-Card-Button"  data="' . $ruta_img . '" />
                 <img src="../assets/icons/basura.png" class="AddProductImage_Carrousel-Card-Button-Icon" />
               </button>
           </div>';
+        $contador=$contador+1;
       }
   }
    /*  while ($fila = mysqli_fetch_array($datos)) {

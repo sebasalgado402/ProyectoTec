@@ -11,6 +11,42 @@ let cantidad_articuloAgregar;
 let precio_articuloAgregar;
 
 let precioArticulo;
+//Parte eliminar img seleccionada
+function eliminar_imgSeleccionada(objet) {
+    
+     let dataValue = $(objet).attr('data');
+     let action = 'eliminar_imgSeleccionada';
+    console.log('esto es '+dataValue);
+    $.ajax({
+        url: './../assets/js/ajax.php',
+        type: "POST",
+        async: true,
+        data: { action: action, eliminar_imgSeleccionada : dataValue },
+
+
+        success: function (response) {
+            console.log(response);
+            //data = $.parseJSON(response);
+           
+            if (response !== 0) {
+                location.reload();
+            } else {
+                alert("Hubo un error al eliminar");
+            }
+
+
+        },
+        error: function (error) {
+
+        }
+    }); 
+   
+}
+$(".AddProductImage_Carrousel-Card-Button").click(function() {
+    var boton = $(this);
+    var ruta_img = boton.attr("data");
+    eliminar_imgSeleccionada(boton);
+  });
 
 //Parte balance - fechas
 let fechaInicio = $("#date_Inicio-balance");
@@ -733,12 +769,6 @@ $(function () {
     });
 
 
-
-
-
-
-
-
     //Termina---Boton que cambia imagen
 
     //Termina---Cambiar imagen producto
@@ -781,8 +811,8 @@ $(function () {
 
 
                         $("#txt_descripcion").change(function (e) {
-
-                            art = ($('#txt_descripcion').val()).trim();
+                            e.preventDefault();
+                            art = ($('#txt_descripcion').val());
                             if (!art == '') {
                                 articulo = art.trim();
                                 action = 'searchArticulo';
@@ -803,7 +833,7 @@ $(function () {
 
                                             let data = $.parseJSON(response);
                                             let datosCargar = data;
-
+                                            console.log(datosCargar);
                                             let found = false;
 
                                             for (var id in datosCargar.id) {
@@ -813,12 +843,12 @@ $(function () {
                                                 }
                                             }
 
-                                            if (found) {
+                                            if (found || $('#txt_descripcion').val() == '' ) {
                                                 vaciarCampos();
                                                
                                             } else {
                                                
-                                                $("#txt_descripcion").html(datosCargar.nombre);
+                                                $("#txt_descripcion").val(datosCargar.nombre);
                                                 $("#th_id_articulo").html(datosCargar.id);
                                                 $("#th_precio").html(datosCargar.precio);
                                                 $("#txt_Stock").val(datosCargar.stock);
@@ -896,18 +926,18 @@ $(function () {
        
         textoInsertado = `
                 <tr>
-                <th scope="col-1" class="align-middle" id="${contadorBotonFactura}idArticulo_detalle">
+                <th scope="col-1" class="align-middle text-center" id="${contadorBotonFactura}idArticulo_detalle">
                 ${id_articuloAgregar} 
                 </th>
-                <th scope="col-1" class="align-middle" id="${contadorBotonFactura}descripcion_detalle">
+                <th scope="col-1" class="align-middle text-center" id="${contadorBotonFactura}descripcion_detalle">
                 ${nombre_articuloAgregar}
                 </th>
                 
-                <th scope="col-1" class="align-middle" id="${contadorBotonFactura}cantidad_detalle"> 
+                <th scope="col-1" class="align-middle text-center" id="${contadorBotonFactura}cantidad_detalle"> 
                 ${cantidad_articuloAgregar}
                 </th>
                 
-                <th scope="col-1" class="align-middle" id="${contadorBotonFactura}precioTotal_detalle">
+                <th scope="col-1" class="align-middle text-center" id="${contadorBotonFactura}precioTotal_detalle">
                 ${precio_articuloAgregar}
                 </th>
                 </tr>
@@ -1349,11 +1379,43 @@ $(function () {
 
     //Termina --- Buscador por concepto en Lista__Gastos
 
-    //
+    //Comienza --- Eliminar imagen seleccionada en "Articulo_imagenes"
 
+    /* $("#btn_eliminarImagen_Seleccionada").click(function (e) {
+    e.preventDefault();
     
+    let dataValue = $(this).attr('data');
+    console.log('esto es '+dataValue);
+    let action = 'eliminar_imgSeleccionada';
 
-    //
+         $.ajax({
+            url: './../assets/js/ajax.php',
+            type: "POST",
+            async: true,
+            data: { action: action, eliminar_imgSeleccionada : dataValue },
+
+
+            success: function (response) {
+                console.log(response);
+                //data = $.parseJSON(response);
+               
+                if (response == 'exito') {
+                    alert(response);
+                    location.reload();
+                } else {
+                    alert('Húbo un error al Eliminar');
+                }
+
+
+            },
+            error: function (error) {
+
+            }
+        }); 
+    }); */
+        
+
+    //Termina --- Eliminar imagen seleccionada en "Articulo_imagenes"
 
 });
 

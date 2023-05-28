@@ -525,7 +525,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
       FROM art_imagenes
       GROUP BY art_id
     ) AS primera_imagen ON articulos.art_id = primera_imagen.art_id 
-     WHERE articulos.art_nom Like '".$_POST['buscar_ecommerce']."%' ORDER BY art_id DESC;";
+     WHERE articulos.art_nom Like '%".$_POST['buscar_ecommerce']."%' ORDER BY art_id DESC;";
     $datos= mysqli_query ($conexion,$consulta);
 
     $busqueda = new stdClass();
@@ -904,5 +904,27 @@ WHERE
 
 //Termina --- Busqueda proveedor lista_Gastos
 
+//Comienza --- Eliminar imagen seleccionada del articulo
+
+if((isset($_POST['action'])) && $_POST['action']=='eliminar_imgSeleccionada'){
+  //SELECT * FROM articulos WHERE articulos.art_nom LIKE ('%', palabra , '%');
+  include('bd.php');
+                    
+  $consulta ="DELETE FROM `art_imagenes` WHERE ruta_img ='".$_POST['eliminar_imgSeleccionada']."'";
+  $datos= mysqli_query ($conexion,$consulta) or die($mysqli->error);
+
+  mysqli_close($conexion);
+  
+  if($datos){
+    $data = 'Se eliminó correctamente';
+  }else{
+    $data= 0;
+  }
+
+  echo json_encode($data,JSON_UNESCAPED_UNICODE);
+  exit; 
+}
+
+//Termina --- Eliminar imagen seleccionada del articulo
 
 ?>
