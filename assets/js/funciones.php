@@ -30,9 +30,9 @@ function mostrarArticulos()
 
   // 4) Ir Imprimiendo las filas resultantes
   $i = 1;
+  if ($fila = mysqli_num_rows($datos)>0) {
   while ($fila = mysqli_fetch_array($datos)) {
     //<th scope="col-1">'.$i++.'</th>
-
     echo '
                 <tr>
                     <th class="align-middle text-center p-0" >
@@ -60,6 +60,9 @@ function mostrarArticulos()
                     </a>
                   </th>
                 </tr>';
+    }
+  }else{
+    echo 'No se encontraron resultados..';
   }
 
   mysqli_close($conexion);

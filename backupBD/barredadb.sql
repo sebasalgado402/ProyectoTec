@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 25-05-2023 a las 03:54:06
+-- Tiempo de generación: 29-05-2023 a las 03:43:45
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -66,22 +66,10 @@ CREATE TABLE `articulos` (
   `art_costo` int(20) NOT NULL,
   `art_vendible` varchar(1) NOT NULL DEFAULT 'S',
   `art_deshabilitado` varchar(1) DEFAULT NULL,
-  `art_categoria` int(20) NOT NULL,
+  `art_categoria` int(20) DEFAULT NULL,
   `art_materiales` varchar(50) NOT NULL,
   `art_notas` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `articulos`
---
-
-INSERT INTO `articulos` (`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_deshabilitado`, `art_categoria`, `art_materiales`, `art_notas`) VALUES
-(63, 'axadasd', 'caja6', 'asdasd', 2142, 0, 2411, '', '', 11, 'asdasd', ''),
-(64, 'zzz', 'caja5', 'asdasd', 222, 22, 22, '', '', 11, 'asdasd', ''),
-(65, 'jjjj', 'caja4', 'asdasd', 24, 424, 4124, '', '', 11, 'asdsad', ''),
-(66, 'asdasd', 'caja3', 'asdasd', 4124, 0, 424, '', '', 11, 'asdasd', ''),
-(67, 'hjjjj', 'caja2', 'sdfsdf', 1000, 345235, 523, '', '', 8, 'sdfsdf', ''),
-(70, 'aasd', 'caja1 con repuestos y madera f', 'prueba', 232, 4, 42, '', '', 13, 'asdasd', '');
 
 -- --------------------------------------------------------
 
@@ -119,7 +107,6 @@ INSERT INTO `categorias` (`cat_id`, `cat_nom`, `cat_obs`) VALUES
 (8, 'Estanterias', '---'),
 (11, 'Descuentos', NULL),
 (12, 'Marcos', NULL),
-(13, 'Otros accesorios', NULL),
 (14, 'Tablas y Cuencos', 'tablas de picar y de asado, cuencos para servir'),
 (15, 'Pinos Navidad', 'Tamaños varios'),
 (26, 'Navidad', 'cosas de navidad'),
@@ -148,7 +135,8 @@ INSERT INTO `detalle_factura` (`dfact_renglon`, `fact_id`, `art_id`, `dfact_cant
 (1, 108, 59, 25, 25000),
 (1, 109, 62, 4, 1996),
 (1, 110, 66, 2424, 9996580),
-(1, 111, 63, 424, 908208);
+(1, 111, 63, 424, 908208),
+(1, 112, 67, 345235, 345235000);
 
 -- --------------------------------------------------------
 
@@ -170,7 +158,8 @@ INSERT INTO `factura` (`fact_id`, `fact_fecha`) VALUES
 (108, '2023-05-14'),
 (109, '2023-05-14'),
 (110, '2023-05-25'),
-(111, '2023-05-25');
+(111, '2023-05-25'),
+(112, '2023-05-28');
 
 -- --------------------------------------------------------
 
@@ -201,7 +190,11 @@ INSERT INTO `gastos` (`gas_id`, `gas_fecha`, `gas_proveedor`, `gas_concepto`, `g
 (15, '2023-05-12', 'martin', 'alquiler', 424, 1000),
 (16, '2023-05-12', 'luis', 'deudas', 2424, 300.34),
 (17, '2023-05-12', 'amelia', 'que se yo', 345235, 2352),
-(24, '2023-05-21', 'asdasd', 'adasd', 4, 412421);
+(24, '2023-05-21', 'asdasd', 'adasd', 4, 412421),
+(25, '2023-05-28', 'Barreda', 'spdokmaspd', 5, 1000),
+(26, '2023-05-29', 'asdasd', '424', 4, 4444),
+(27, '2023-05-29', 'asdasd', 'asdasd', 424, 54254),
+(28, '2023-05-29', 'dasddsa', 'asdasd', 12412, 4444);
 
 -- --------------------------------------------------------
 
@@ -287,7 +280,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  MODIFY `art_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `art_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
@@ -299,13 +292,13 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `fact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `fact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 
 --
 -- AUTO_INCREMENT de la tabla `gastos`
 --
 ALTER TABLE `gastos`
-  MODIFY `gas_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `gas_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
@@ -321,7 +314,7 @@ ALTER TABLE `usuarios`
 -- Filtros para la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  ADD CONSTRAINT `articulos_ibfk_1` FOREIGN KEY (`art_categoria`) REFERENCES `categorias` (`cat_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `articulos_ibfk_1` FOREIGN KEY (`art_categoria`) REFERENCES `categorias` (`cat_id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Filtros para la tabla `art_imagenes`

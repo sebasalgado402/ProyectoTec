@@ -117,7 +117,7 @@ function mostrarLista_gastosFechas_parametros(fecha1,fecha2) {
                   });
 
             } else {
-                $('#recibeResultados_Gastos').html('No se encontraron resultados');
+                $('#recibeResultados_Gastos').html("No se encontraron resultados");
             }
 
 
@@ -361,8 +361,9 @@ $(function () {
         let costo = $('#modalArt__modificarCosto').val();
         let descripcion = $('#modalArt__modificarDescripcion').val();
         let materiales = $('#modalArt__modificarMateriales').val();
+        let notas = $('#modalArt__modificarNotas').val();
 
-        arrModificar.push(id, categoria, nombre, precio, stock, costo, descripcion, materiales);
+        arrModificar.push(id, categoria, nombre, precio, stock, costo, descripcion, materiales,notas);
 
 
 
@@ -456,6 +457,8 @@ $(function () {
 
                     <label class="form-label" for="descripcionArticulo" >Descripcion:</label>
                     <textarea class="form-control" name="descripcionArticulo" rows="4" cols="50" id="modalArt__modificarDescripcion">${data.art_desc}</textarea>
+                    <label class="form-label" for="notasArticulo" >Notas:</label>
+                    <textarea class="form-control" name="notasArticulo" rows="4" cols="50" id="modalArt__modificarNotas">${data.art_notas}</textarea>
                     <label class="form-label" for="MaterialesArticulo">Materiales:</label>
                     <textarea class="form-control" name="MaterialesArticulo" rows="4" cols="50" id="modalArt__modificarMateriales">${data.art_materiales}</textarea>
 
@@ -1026,6 +1029,38 @@ $(function () {
                         
                         let resultado = response;
                         $('.ProductsList').html(resultado);
+                    }
+
+                },
+                error: function (error) {
+                }
+            });
+        } else {
+
+        }
+
+    });
+
+    //Termina --- Buscador Ecommerce
+     //Buscador Ecommerce 
+     $("#txt_search_listaArticulos").keyup(function (e) {
+        e.preventDefault();
+        let action = 'buscar_listaArticulos';
+        let buscar = $("#txt_search_listaArticulos").val();
+        if (buscar.length >= 0) {
+            $.ajax({
+                url: './../assets/js/ajax.php',
+                type: "POST",
+                async: true,
+                data: { action: action, buscar_listaArticulos: buscar },
+
+                success: function (response) {
+                    if (response == 0) {
+                        
+                    } else {
+                        
+                        let resultado = response;
+                        $('#recibe_listaArticulos').html(resultado);
                     }
 
                 },

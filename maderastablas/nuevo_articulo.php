@@ -68,7 +68,7 @@
                 <label for="categoria">Elije la Categoria:</label>
                 <div class="dropdown AddProduct_CategoryContainer">
 
-                    <select name="categoria" id="select__categoria" class="form-select bg-transparent border-2 text-black">
+                    <select name="categoria" id="select__categoria" class="form-select bg-light border-2 text-black">
                         <option value="none">---</option>'
                         <?php
                         cargarCategorias();

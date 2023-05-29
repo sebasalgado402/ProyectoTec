@@ -7,11 +7,11 @@
 
 body {
     background-image: url(../Icons/Background.svg);
-    
-    /* backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px); */
     background-repeat: no-repeat;
     background-size: cover;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
 body::-webkit-scrollbar {
@@ -32,6 +32,20 @@ body::-webkit-scrollbar-thumb {
      Inputs de Lista gastos
 ================*/
 .InputSearch-Gastos {
+    display: flex;
+    margin: 0 auto;
+    width: 80%;
+    height: 50px;
+    outline: none;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.555);
+    font-size: 16px;
+}
+/*===============
+     Inputs de Lista Articulos
+================*/
+.InputSearch-Articulos {
     display: flex;
     margin: 0 auto;
     width: 80%;
@@ -608,7 +622,6 @@ body::-webkit-scrollbar-thumb {
 =====================*/
 
 .AddProduct_FormContainer {
-    background-color: #fff;
     width: 100%;
     max-width: 900px;
     display: flex;
@@ -1067,6 +1080,7 @@ body::-webkit-scrollbar-thumb {
     Responsive Tablet 
 =======================*/
 @media screen and (min-width: 768px) {
+    
     /*--Add Product Images--*/
 
     .AddProductImage_Carrousel {

@@ -2,7 +2,7 @@
 
 <footer class="footer">
         <div class="FooterMain">
-            <img src="./../assets/icons/logomt.jpg" class="FooterIcon">
+            <img src="./../assets/icons/icon.png" class="FooterIcon">
             <p class="FooterTitle">De Madera</p>
         </div>
         <div class="FooterContentContainer">

@@ -55,9 +55,9 @@
         <input type="submit" id="btn_Calcular-balance" class="BalanceCalculator_ButtonCalcular" value="Calcular el Balance">
     </form>
         <!--Tabla Gastos-->
-        <div class="container-fluid col-lg-12 col-sm-12 table-responsive mt-2" >
-        <h1 class="h3">Lista de gastos</h1>
-        <table class="table table-borderer table-bordered table-hover align-middle">
+        <div class="container-fluid col-lg-6 col-sm-6 table-responsive mt-2" >
+        <h1 class="h3 text-center">Lista de gastos</h1>
+        <table class="table table-borderer table-bordered table-hover align-middle ">
             <thead>
                 <tr class="table-dark align-middle">
                     <!-- <th scope="col">#</th> -->
@@ -73,8 +73,8 @@
 
             </tbody>
         </table>
-        <h1 class="h3">Lista de ventas realizadas</h1>
-        <table class="table table-borderer table-bordered table-hover align-middle">
+        <h1 class="h3 text-center">Lista de ventas realizadas</h1>
+        <table class="table table-borderer table-bordered table-hover align-middle ">
             <thead>
                 <tr class="table-dark align-middle">
                     <!-- <th scope="col">#</th> -->

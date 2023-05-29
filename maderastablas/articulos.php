@@ -59,7 +59,7 @@
             </div>
            
                 <div class="col-12 cargaModal">
-                  no se cargaron los datos
+                  Cargando...
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
@@ -114,7 +114,7 @@
 
                     <label for="txt__observacion_nuevaCategoria" class="form-label">Observacion</label>
                   <input type="text" name="txt__observacion_nuevaCategoria" id="txt__observacion_nuevaCategoria" class="form-control">
-                    
+
                 </div>
             </div>
             <div class="modal-footer">
@@ -128,80 +128,37 @@
          
     <!-- Termina Nueva Categoría -->
 
-<!-- MODAL cambiar Imagen producto-->
-        
-<div class="modal fade" id="modal_cambiarIMG" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_cambiarIMG" aria-hidden="true">
-  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modal_cambiarIMG">Cambiar Imagen</h5>
-                
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-                <div class="modal-body p-5 pt-1 pb-1" id="datos_modalProductoIMG">
-            
-                </div>
-
-            <form enctype="multipart/form-data" id="form_cambiarImagen" method="post">
-            <h1 id='idarticuloIMG' name='idArticulo'></h1>
-                Añadir imagen: <input name="archivo" id="archivo" type="file"/><br>
-                <div class="alert alert-success" id='txt_avisoMensaje'>...</div>
-                
-                <input type="hidden" id='recibeNombre_img' name='nombreImg' />
-                
-                <input type="submit" name="subir" value="Subir_imagen"/> <br>
-            </form>
-            
-            
-                
-                    
-        </div>
-    </div>
-</div>
-         
-<!-- Termina cambiar Imagen producto -->
-
-
     
     <section>
         <?php
          include("./../assets/js/header.php");
-         include("./../assets/js/buscador.php");
+         include("./../assets/js/buscador_listaArticulos.php");
         ?>
     </section>
-    
-    <?php 
-       /*  if(isset($_POST['codArticulo']) && isset($_POST['nombreArticulo']) && isset($_POST['precioArticulo']) && isset($_POST['cantidadArticulo']) && isset($_POST['costoCreacionArticulo']) && isset($_POST['categoria']) && isset($_POST['descripcionArticulo']) && isset($_POST['MaterialesArticulo'])){
-                nuevoArticulo($_POST['codArticulo'],$_POST['nombreArticulo'],$_POST['precioArticulo'],$_POST['cantidadArticulo'],$_POST['costoCreacionArticulo'],$_POST['categoria'],$_POST['descripcionArticulo'],$_POST['MaterialesArticulo']); 
-        } */
-
-    ?>
 
 
     <div class="container-fluid table-responsive ">
         <table class="table table-bordered table-primary table-sm vertical-align middle-align table-hover">
         <thead class="table-dark">
             <tr >
-            <!-- <th scope="col-1">#</th> -->
             
-            <th scope="col-1">Foto</th>
-            <th scope="col-1">Id_Art</th>
-            <th scope="col-1">Cod</th>
-            <th scope="col-1">Nombre</th>
-            <th scope="col-1">Precio</th>
-            <th scope="col-1">Stock</th>
-            <th scope="col-1">Costo creacion</th>
+            <th class="text-center" scope="col-1">Foto</th>
+            <th class="text-center" scope="col-1">Id_Art</th>
+            <th class="text-center" scope="col-1">Cod</th>
+            <th class="text-center" scope="col-1">Nombre</th>
+            <th class="text-center" scope="col-1">Precio</th>
+            <th class="text-center" scope="col-1">Stock</th>
+            <th class="text-center" scope="col-1">Costo creacion</th>
             
             
-            <th scope="col-1">Categoria</th>
-            <th scope="col-1">Observacion</th>
-            <th scope="col-1">Materiales</th>
-            <th scope="col-1">Notas</th>
-            <th scope="col-1">Acción</th>
+            <th class="text-center" scope="col-1">Categoria</th>
+            <th class="text-center" scope="col-1">Observacion</th>
+            <th class="text-center" scope="col-1">Materiales</th>
+            <th class="text-center" scope="col-1">Notas</th>
+            <th class="text-center" scope="col-1">Acción</th>
             
         </thead>
-        <tbody class="text-center col-12">
+        <tbody class="text-center col-12" id='recibe_listaArticulos'>
             <?php
                 mostrarArticulos();
             ?>

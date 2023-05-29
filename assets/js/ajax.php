@@ -25,8 +25,8 @@
                   $art_deshabilitado = $fila['art_deshabilitado'];
                   $art_categoria = $fila['art_categoria'];
                   $art_materiales = $fila['art_materiales'];
-                  //$art_imagen = $fila['art_imagen'];
-                  
+                  $art_notas = $fila['art_notas'];
+                 
                   $articulo->art_nom =$art_nom;
                   $articulo->art_desc =$art_desc;
                   $articulo->art_precio =$art_precio;
@@ -36,8 +36,8 @@
                   $articulo->art_deshabilitado =$art_deshabilitado;
                   $articulo->art_categoria =$art_categoria;
                   $articulo->art_materiales =$art_materiales;
-                  //$articulo->art_imagen =$art_imagen;
-
+                  $articulo->art_notas =$art_notas;
+                 
                   
                 }
 
@@ -67,7 +67,7 @@
         if(!empty($modificarArticulo)){  
                   include('./../js/bd.php');
                  
-                    $consulta = "UPDATE `articulos` SET `art_nom`='".$modificarArticulo[2]."',`art_desc`='".$modificarArticulo[6]."',`art_precio`='".$modificarArticulo[3]."',`art_stock`='".$modificarArticulo[4]."',`art_costo`='".$modificarArticulo[5]."',`art_vendible`='',`art_deshabilitado`='',`art_categoria`='".$modificarArticulo[1]."',`art_materiales`='".$modificarArticulo[7]."' where `art_id` = '".$modificarArticulo[0]."' ";
+                    $consulta = "UPDATE `articulos` SET `art_nom`='".$modificarArticulo[2]."',`art_desc`='".$modificarArticulo[6]."',`art_precio`='".$modificarArticulo[3]."',`art_stock`='".$modificarArticulo[4]."',`art_costo`='".$modificarArticulo[5]."',`art_vendible`='',`art_deshabilitado`='',`art_categoria`='".$modificarArticulo[1]."',`art_materiales`='".$modificarArticulo[7]."' , `art_notas`='".$modificarArticulo[8]."' where `art_id` = '".$modificarArticulo[0]."' ";
                     //$db = mysqli_select_db( $conexion, $nombreBD ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
                     $datos= mysqli_query ($conexion,$consulta);
           
@@ -283,83 +283,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
           
           }        
 
-    //Termina Cargar imagen de producto al modal de modificar
+//Termina Cargar imagen de producto al modal de modificar
 
-
-    //Actualiza imagen del articulo seleccionado
-    
-    //var_dump($_FILES);
-      //echo '<br>';
-      //$data = $_POST;
-/* 
-     $recibi = $_FILES;
-     print_r($_FILES);
-    if(isset($_FILES['images']) && $_FILES['images']['error'] === UPLOAD_ERR_OK){
-      
-      if(isset($_POST['idArt_imagen'])){
-        //Taking the files from input
-        $file = $_FILES['images'];
-        //Getting the file name of the uploaded file
-        $fileName = $_FILES['images']['name'];
-        //Getting the Temporary file name of the uploaded file
-        $fileTempName = $_FILES['images']['tmp_name'];
-        //Getting the file size of the uploaded file
-        $fileSize = $_FILES['images']['size'];
-        //getting the no. of error in uploading the file
-        $fileError = $_FILES['images']['error'];
-        //Getting the file type of the uploaded file
-        $fileType = $_FILES['images']['type'];
-        
-        var_dump ($_POST['idArt_imagen']);
-        //Getting the file ext
-        $fileExt = explode('.',$fileName);
-        $fileActualExt = strtolower(end($fileExt));
-        
-        //Array of Allowed file type
-        $allowedExt = array("jpg","jpeg","png");
-        
-        //Checking, Is file extentation is in allowed extentation array
-        if(in_array($fileActualExt, $allowedExt)){
-          //Checking, Is there any file error
-          if($fileError == 0){
-            //Checking,The file size is bellow than the allowed file size
-            if($fileSize < 10000000){
-              //Creating a unique name for file
-              //$fileNemeNew = uniqid('',true).".".$fileActualExt;
-              //File destination
-              $fileDestination = './../assets/images/'.$_POST['idArt_imagen'];
-                    //function to move temp location to permanent location
-                    move_uploaded_file($fileTempName, $fileDestination);
-                    //Message after success
-                    echo "File Uploaded successfully";
-
-                      include('./../js/bd.php');
-                      //$consulta = "CALL `cambiar_imagenArt`(@rutaImagen='".$fileDestination."', @idarticulo='".$_POST['idArticulo']."');";
-                     // $consulta = 'UPDATE articulos SET articulos.art_imagen = "'.$fileDestination.'" WHERE articulos.art_id = '.$_POST["idArticulo"].'';
-                      $consulta = "INSERT INTO `art_imagenes`(`art_id`, `ruta_img`) VALUES ('".$_POST['idArt_imagen']."','".$fileDestination."'";
-                      $datos= mysqli_query ($conexion,$consulta);
-                      mysqli_close($conexion);
-
-                }else{
-                    //Message,If file size greater than allowed size
-                    echo "File Size Limit beyond acceptance";
-                }
-            }else{
-                //Message, If there is some error
-                echo "Something Went Wrong Please try again!";
-            }
-        }else{
-            //Message,If this is not a valid file type
-            echo "You can't upload this extention of file";
-        }
-    }
-    }
-     */
-
-     
 // Acceder a los datos del archivo
 
-  // Acceder a los datos del archivo
   if(isset($_FILES['images']) && isset($_POST['idArt_imagen'])) {
       $archivos = $_FILES['images'];
 
@@ -551,11 +478,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
                   </div>
                   </div>';
                   }
-                
-        
       }
     }else{
-      echo 'No se encontraron resultados';
+      echo '<div class="h3 mb-5 pb-5 mt-0">No se encontraron resultados</div>';
     }
     exit;
     mysqli_close($conexion);
@@ -926,5 +851,64 @@ if((isset($_POST['action'])) && $_POST['action']=='eliminar_imgSeleccionada'){
 }
 
 //Termina --- Eliminar imagen seleccionada del articulo
+
+//Buscador Lista Articulos
+
+if((isset($_POST['action'])) && $_POST['action']=='buscar_listaArticulos'){
+  //SELECT * FROM articulos WHERE articulos.art_nom LIKE ('%', palabra , '%');
+  include('bd.php');
+  $consulta ="SELECT articulos.*, categorias.*, primera_imagen.ruta_img AS art_imagen
+  FROM articulos 
+  INNER JOIN categorias ON articulos.art_categoria = categorias.cat_id 
+  LEFT JOIN (
+    SELECT art_id, ruta_img
+    FROM art_imagenes
+    GROUP BY art_id
+  ) AS primera_imagen ON articulos.art_id = primera_imagen.art_id 
+   WHERE articulos.art_nom Like '%".$_POST['buscar_listaArticulos']."%' ORDER BY art_id DESC;";
+  $datos= mysqli_query ($conexion,$consulta);
+
+  $busqueda = new stdClass();
+  if ($fila = mysqli_num_rows($datos)>0) {
+    while ($fila = mysqli_fetch_array($datos)) {
+      //<th scope="col-1">'.$i++.'</th>
+      echo '
+                <tr>
+                    <th class="align-middle text-center p-0" >
+                      <a role="button" id="imgProducto" onclick="redireccionArticulo_Imagenes(' . $fila["art_id"] . ')">Modificar imagenes</a>
+                    </th>
+                    <th class="align-middle p-0 text-center">' . $fila["art_id"] . '</th>
+                    <th class="align-middle p-0 text-center">' . $fila["art_cod"] . '</th>
+                    <th class="align-middle p-0 text-center">' . $fila["art_nom"] . '</th>
+                    <th class="align-middle p-0 text-center">$' . $fila["art_precio"] . '</th>
+                    <th class="align-middle p-0 text-center">' . $fila["art_stock"] . '</th>
+                    <th class="align-middle p-0 text-center">$' . $fila["art_costo"] . '</th>
+                    
+                    
+                    <th class="align-middle p-0 text-center">' . $fila["cat_nom"] . '</th>
+                    <th class="align-middle p-0 text-center">' . $fila["art_desc"] . '</th>
+                    <th class="align-middle p-0 text-center">' . $fila["art_materiales"] . '</th>
+                    <th class="align-middle p-0 text-center">' . $fila["art_notas"] . '</th>
+                    <th class="align-middle text-center">
+                    
+                    <a role="button" id="modificar__Articulo' . $fila["art_id"] . '" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_modificarArticulo" data-art_id=' . $fila['art_id'] . ' >
+                    <i class="bi bi-pencil-fill"></i>
+                    </a>
+                    <a role="button" id="eliminar__Articulo' . $fila["art_id"] . '" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_eliminarArticulo" data-art_id=' . $fila['art_id'] . '>
+                    <i class="bi bi-x-square"></i>
+                    </a>
+                  </th>
+                </tr>';
+                
+    }
+  }else{
+   echo 'No se encontraron resultados';
+  }
+  exit;
+  mysqli_close($conexion);
+}
+
+
+//Termina---Buscador Lista Articulos
 
 ?>
