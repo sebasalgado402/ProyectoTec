@@ -87,6 +87,7 @@ body::-webkit-scrollbar-thumb {
     height: 60px;
     margin-left: 10px;
     opacity: 0.6;
+    cursor: pointer;
 }
 
 .Title {
@@ -126,6 +127,13 @@ body::-webkit-scrollbar-thumb {
 }
 
 .LoginButton__Icon {
+    scale: 1.5;
+    width: 35px;
+    height: 35px;
+    filter: drop-shadow(0 0 1px gray);
+    opacity: 0.5;
+}
+.LoginButton__IconS {
     width: 35px;
     height: 35px;
     filter: drop-shadow(0 0 1px gray);
@@ -378,6 +386,7 @@ body::-webkit-scrollbar-thumb {
 
 .ProductsList_Card-Name {
     font-size: 20px;
+    word-break: break-all;
 }
 
 /*====================
@@ -720,11 +729,11 @@ body::-webkit-scrollbar-thumb {
 .footer {
     background-color: #e2e8f0;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     padding: 12px;
-    margin-top: 20px;
+    margin-top: auto;
     row-gap: 10px;
 }
 
@@ -752,9 +761,10 @@ body::-webkit-scrollbar-thumb {
 
 .FooterContentContainer {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     row-gap: 12px;
+    column-gap: 30px;
     align-items: center;
 }
 
@@ -768,12 +778,13 @@ body::-webkit-scrollbar-thumb {
 }
 
 .FooterContentIcon {
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
 }
 
 .Footer-ContentTitle {
     margin-bottom: 0;
+    display: none;
 }
 
 /*================
@@ -1166,7 +1177,11 @@ body::-webkit-scrollbar-thumb {
     .FooterContentContainer {
         display: flex;
         row-gap: 10px;
-        flex-direction: column;
+        flex-direction: row;
+    }
+
+    .Footer-ContentTitle {
+        display: block;
     }
 }
 
@@ -1291,17 +1306,18 @@ body::-webkit-scrollbar-thumb {
         place-items: center;
     }
 
-    /*--Footer--*/
 
-    .footer {
-        padding-left: 10%;
-        padding-right: 10%;
-    }
+   /*--Footer--*/
 
-    .FooterContentContainer {
-        flex-direction: row;
-        column-gap: 20px;
-    }
+   .footer {
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+.FooterContentContainer {
+    flex-direction: row;
+    column-gap: 20px;
+}
 }
 
 /*===========================

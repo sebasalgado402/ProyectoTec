@@ -35,7 +35,7 @@
 
 
 <body>
-<?php include('./../assets/js/header.php');
+<?php include('./../assets/Components/Nav_articulo.php');
     ?>
     <form method="POST" enctype="multipart/form-data" id='form_subirImagenes' class="AddProductImage_Container">
         <!--Titulo-->

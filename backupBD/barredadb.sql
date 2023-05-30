@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-05-2023 a las 03:43:45
+-- Tiempo de generación: 30-05-2023 a las 03:27:05
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -69,7 +69,7 @@ CREATE TABLE `articulos` (
   `art_categoria` int(20) DEFAULT NULL,
   `art_materiales` varchar(50) NOT NULL,
   `art_notas` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ;
 
 -- --------------------------------------------------------
 
@@ -126,18 +126,6 @@ CREATE TABLE `detalle_factura` (
   `dfact_precio` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Volcado de datos para la tabla `detalle_factura`
---
-
-INSERT INTO `detalle_factura` (`dfact_renglon`, `fact_id`, `art_id`, `dfact_cantidad`, `dfact_precio`) VALUES
-(1, 107, 59, 2, 2000),
-(1, 108, 59, 25, 25000),
-(1, 109, 62, 4, 1996),
-(1, 110, 66, 2424, 9996580),
-(1, 111, 63, 424, 908208),
-(1, 112, 67, 345235, 345235000);
-
 -- --------------------------------------------------------
 
 --
@@ -148,18 +136,6 @@ CREATE TABLE `factura` (
   `fact_id` int(11) NOT NULL,
   `fact_fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `factura`
---
-
-INSERT INTO `factura` (`fact_id`, `fact_fecha`) VALUES
-(107, '2023-05-14'),
-(108, '2023-05-14'),
-(109, '2023-05-14'),
-(110, '2023-05-25'),
-(111, '2023-05-25'),
-(112, '2023-05-28');
 
 -- --------------------------------------------------------
 
@@ -175,26 +151,6 @@ CREATE TABLE `gastos` (
   `gas_cantidad` int(20) NOT NULL,
   `gas_total` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `gastos`
---
-
-INSERT INTO `gastos` (`gas_id`, `gas_fecha`, `gas_proveedor`, `gas_concepto`, `gas_cantidad`, `gas_total`) VALUES
-(9, '2023-05-01', 'luis', 'clavos', 5, 10000),
-(10, '2023-05-01', 'ricardo', 'tablon de madera de ceibo', 1, 500),
-(11, '2023-05-01', 'manuel', 'martillo', 1, 10),
-(12, '2023-05-12', 'luis', 'clavelos', 56, 99.99),
-(13, '2023-05-12', 'papa', 'pc', 424, 1000),
-(14, '2023-05-12', 'alex', 'usb', 22, 2000),
-(15, '2023-05-12', 'martin', 'alquiler', 424, 1000),
-(16, '2023-05-12', 'luis', 'deudas', 2424, 300.34),
-(17, '2023-05-12', 'amelia', 'que se yo', 345235, 2352),
-(24, '2023-05-21', 'asdasd', 'adasd', 4, 412421),
-(25, '2023-05-28', 'Barreda', 'spdokmaspd', 5, 1000),
-(26, '2023-05-29', 'asdasd', '424', 4, 4444),
-(27, '2023-05-29', 'asdasd', 'asdasd', 424, 54254),
-(28, '2023-05-29', 'dasddsa', 'asdasd', 12412, 4444);
 
 -- --------------------------------------------------------
 
@@ -218,7 +174,7 @@ INSERT INTO `usuarios` (`usu_id`, `usu_nombre`, `usu_contraseña`, `usu_rol`) VA
 (2, 'seba', 'seba', 1),
 (3, 'emilia', 'emilia', 1),
 (4, 'gaston', 'gaston', 1),
-(5, 'jero', 'jero', 2),
+(5, 'jero', 'jero', 1),
 (6, 'juanpablo', 'juanpablo', 1);
 
 --
@@ -280,7 +236,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  MODIFY `art_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `art_id` int(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
@@ -292,13 +248,13 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `fact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
+  MODIFY `fact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
 
 --
 -- AUTO_INCREMENT de la tabla `gastos`
 --
 ALTER TABLE `gastos`
-  MODIFY `gas_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `gas_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

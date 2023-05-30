@@ -1,6 +1,10 @@
 let imgProductoID;
 let i = 1;
 
+//Ir a la pagina anterior
+function irPaginaAnterior() {
+    history.back();
+}
 //Validacion de boton "ingresar articulo nuevo"
 let verificacion_codigoArt ;
 let verificacion_nombreArt ;
@@ -990,16 +994,16 @@ $(function () {
 
             success: function (response) {
                 if (response == 0) {
-                    alert('Húbo un error al enviar articulos 1');
+                    alert('Húbo un error al enviar articulos ');
                 }
 
                 let data = $.parseJSON(response);
                
-                if (data == true) {
-                    alert('Venta realizada con éxito');
-                    window.location.href = "./principal.php";
+                if (data) {
+                    alert(data);
+                    //window.location.href = "./principal.php";
                 } else {
-                    alert('Húbo un error al realizar venta');
+                    alert(data);
                 }
             },
             error: function (error) {

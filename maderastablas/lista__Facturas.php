@@ -29,7 +29,7 @@
 <body>
     <section>
         <?php
-            include('./../assets/js/header.php');
+            include("./../assets/Components/Nav_articulo.php");
         ?>
     </section>
 

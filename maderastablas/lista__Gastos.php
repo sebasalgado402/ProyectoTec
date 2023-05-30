@@ -32,7 +32,7 @@
 <body>
     <section>
         <?php
-        include('./../assets/js/header.php');
+        include("./../assets/Components/Nav_articulo.php");
         ?>
     </section>
 
@@ -49,10 +49,10 @@
     </div>
     <!-- Contenedor de los buscadores-->
     <div class="container-fluid" id='contieneBuscador'>
-        <div class="container-search d-none mt-2" id='buscadorConcepto'>
+        <div class="container-search d-none mt-4 mb-3 col-sm-12 col-lg-8 m-auto" id='buscadorConcepto'>
             <input type="search" id="txt_searchConcepto" class="InputSearch-Gastos" placeholder="Buscar: Concepto ">
         </div>  
-        <div class="container-search d-none mt-2" id='buscadorProveedor'>
+        <div class="container-search d-none mt-4 mb-3 col-sm-12 col-lg-8 m-auto" id='buscadorProveedor'>
             <input type="search" id="txt_searchProveedor" class="InputSearch-Gastos" placeholder="Buscar: Proveedor ">
         </div>
         <div class="container-fluid d-none" id='buscadorFechas'>
@@ -80,7 +80,7 @@
     </div>
     
 
-    <div class="container-fluid col-lg-12 col-sm-12 table-responsive mt-2" id='recibeResultados'>
+    <div class="container-fluid col-lg-6 col-sm-12 table-responsive mt-2" id='recibeResultados'>
 
         <table class="table table-borderer table-bordered table-hover align-middle">
             <thead>

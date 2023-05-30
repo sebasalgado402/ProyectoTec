@@ -1,5 +1,3 @@
-
-
 <footer class="footer">
         <div class="FooterMain">
             <img src="./../assets/icons/icon.png" class="FooterIcon">
@@ -12,7 +10,7 @@
             </a>
             <a href="https://www.instagram.com/demaderatablas/" class="FooterContent" target="_blank">
                 <img src="./../assets/icons/instagram.svg" class="FooterContentIcon">
-                <p class="Footer-ContentTitle">@demaderatablas</p>
+                <p class="Footer-ContentTitle">@demadera</p>
             </a>
         </div>
 </footer>

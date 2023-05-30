@@ -465,7 +465,9 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
                   echo ''.$fila["art_imagen"] .'" alt="error al cargar imagen" class="ProductsList_Card-Img">
                   <div class="ProductsList_Card-Content">
                   <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
+                  <div style="width:100%; max-height:50px; overflox:hidden;">
                   <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
+                  </div>
                   <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
                   </div>
                   </div>';

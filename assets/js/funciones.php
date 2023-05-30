@@ -99,7 +99,9 @@ function mostrarArticulos_Ecommerce()
                 echo ''.$fila["art_imagen"] .'" alt="error al cargar imagen" class="ProductsList_Card-Img">
                 <div class="ProductsList_Card-Content">
                 <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
+                <div style="width:100%; max-height:50px; overflox:hidden;">
                 <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
+                </div>
                 <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
                 </div>
                 </div>';
@@ -204,11 +206,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'procesarVenta') {
 
       $arrayVenta = $_POST['detalleF'];
       for ($i = 0; $i < count($arrayVenta); $i++) {
-        //print_r($arrayVenta[$i]['id_articulo']);
         echo "<br>";
-        //insertarDetalle($arrayVenta[$i]['nroRenglon'],$idFactura,$arrayVenta[$i]['id_articulo'],$arrayVenta[$i]['cantidad'],$arrayVenta[$i]['precioTotal']);
-
-
         include('./../assets/js/bd.php');
         $consulta = "INSERT INTO `detalle_factura`(`nroRenglon`, `id_factura`, `id_articulo`, `cantidad`, `precio`) VALUES (" . $arrayVenta[$i]['nroRenglon'] . "," . $idFactura . "," . $arrayVenta[$i]['id_articulo'] . "," . $arrayVenta[$i]['cantidad'] . "," . $arrayVenta[$i]['precioTotal'] . ")";
 
@@ -217,16 +215,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'procesarVenta') {
 
         mysqli_close($conexion);
       }
-
-      echo '
-                    <div class="alert alert-success text-center" role="alert">
-                    generando factura!..
-                    </div>';
+      $data='<div class="alert alert-success text-center" role="alert">generando factura!..</div>';
+      echo json_encode($data,JSON_UNESCAPED_UNICODE);
     } else {
-      echo '
-                    <div class="alert alert-danger text-center" role="alert">
-                    no se pudo!..
-                    </div>';
+      $data='<div class="alert alert-danger text-center" role="alert">no se pudo!..</div>';
+      echo json_encode($data,JSON_UNESCAPED_UNICODE);
     }
     exit;
   }

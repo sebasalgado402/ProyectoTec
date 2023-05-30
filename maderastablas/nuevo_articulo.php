@@ -30,7 +30,7 @@
 
     <body>
         <?php
-        include('./../assets/js/header.php');
+        include("./../assets/Components/Nav_articulo.php");
         ?>
         <form action="" class="AddProduct_FormContainer">
             <p class="AddProduct_FormTitle">Ingresar Nuevo Articulo</p>
@@ -48,7 +48,7 @@
             </div>
             <div class="AddProduct_FormContainer-Row">
                 <!--Precio Articulo-->
-                <div class="AddProduct_InputContainer">
+                <div class="AddProduct_InputContainer" style="margin-top: 3px;">
                     <label for="PrecioArt">Precio de Articulo:</label>
                     <input type="number" name="precioArticulo" id="txt__precioArticulo" class="AddProduct_Input">
                 </div>
@@ -58,7 +58,7 @@
                     <input type="number" name="cantidadArticulo" id="txt__cantidadArticulo" class="AddProduct_Input" required>
                 </div>
                 <!--Costo Creacion Articulo-->
-                <div class="AddProduct_InputContainer">
+                <div class="AddProduct_InputContainer" style="margin-top: 3px;">
                     <label for="costoCreacionArticulo">Costo de Creacion:</label>
                     <input type="number" name="costoCreacionArticulo" id="txt__costoCreacionArticulo" class="AddProduct_Input">
                 </div>

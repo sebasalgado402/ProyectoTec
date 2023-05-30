@@ -34,7 +34,7 @@
 </head>
 
 <body>
-    <?php include ('./../assets/js/header.php'); ?>
+    <?php include("./../assets/Components/Nav_articulo.php"); ?>
         <!--Balance Calculator-->
         <form class="BalanceCalculator">
         <!--Titulo -->

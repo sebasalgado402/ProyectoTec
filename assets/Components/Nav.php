@@ -47,8 +47,8 @@ if (isset($_SESSION["usuarioActivo"]) && $_SESSION['usu_rol'] == 1) {
             </div>
             <!--Login Button-->
         <div class="NavButtons_Container">
-            <a href="./../maderastablas/index.php"" class="LoginButton">
-                <img src="./../assets/icons/user.svg" class="LoginButton__Icon" loading="lazy">
+            <a href="./../maderastablas/index.php" class="LoginButton">
+                <img src="./../assets/icons/user.svg" class="LoginButton__IconS" loading="lazy">
             </a>
         </div>
         </nav>';
@@ -75,7 +75,7 @@ if (isset($_SESSION["usuarioActivo"]) && $_SESSION['usu_rol'] == 1) {
             <!--Login Button-->
         <div class="NavButtons_Container">
             <a href="./../maderastablas/index.php" class="LoginButton">
-                <img src="./../assets/icons/user.svg" class="LoginButton__Icon" loading="lazy">
+                <img src="./../assets/icons/user.svg" class="LoginButton__IconS" loading="lazy">
             </a>
         </div>
         </nav>';
