@@ -99,7 +99,7 @@ function mostrarArticulos_Ecommerce()
                 echo ''.$fila["art_imagen"] .'" alt="error al cargar imagen" class="ProductsList_Card-Img">
                 <div class="ProductsList_Card-Content">
                 <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
-                <div style="width:100%; max-height:50px; overflox:hidden;">
+                <div class="ProductsList_Card-Name_Container">
                 <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
                 </div>
                 <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
@@ -109,7 +109,9 @@ function mostrarArticulos_Ecommerce()
                   echo './../assets/images/default.png" alt="error al cargar imagen" class="ProductsList_Card-Img">
                 <div class="ProductsList_Card-Content">
                 <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
+                <div class="ProductsList_Card-Name_Container">
                 <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
+                </div>
                 <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
                 </div>
                 </div>';

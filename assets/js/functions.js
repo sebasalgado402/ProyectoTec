@@ -1030,9 +1030,39 @@ $(function () {
                     if (response == 0) {
                         
                     } else {
-                        
                         let resultado = response;
                         $('.ProductsList').html(resultado);
+                        $(".Menu_Search-Input").val($("#txt_search").val());
+                    }
+
+                },
+                error: function (error) {
+                }
+            });
+        } else {
+
+        }
+
+    });
+    //Con el buscador de Menu
+    $(".Menu_Search-Input").keyup(function (e) {
+        e.preventDefault();
+        let action = 'buscar_ecommerce';
+        let buscar = $(".Menu_Search-Input").val();
+        if (buscar.length >= 0) {
+            $.ajax({
+                url: './../assets/js/ajax.php',
+                type: "POST",
+                async: true,
+                data: { action: action, buscar_ecommerce: buscar },
+
+                success: function (response) {
+                    if (response == 0) {
+                        
+                    } else {
+                        let resultado = response;
+                        $('.ProductsList').html(resultado);
+                        $("#txt_search").val($(".Menu_Search-Input").val());
                     }
 
                 },
@@ -1458,4 +1488,19 @@ $(function () {
 
 });
 
+/*--Funcion de Menu--*/
+
+const MenuButton = document.querySelector(".Nav_Menu-Open");
+
+const Menu = document.querySelector(".Menu");
+
+MenuButton.addEventListener("click", () => {
+if (Menu.classList.contains("MenuActive")) {
+    Menu.classList.remove("MenuActive");
+} else {
+    Menu.classList.add("MenuActive");
+}
+});
+
+/*---------------------------------*/
 

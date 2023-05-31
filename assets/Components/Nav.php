@@ -18,7 +18,7 @@ if (isset($_SESSION["usuarioActivo"]) && $_SESSION['usu_rol'] == 1) {
                            cargarCategorias();
               echo'</select>
             </div>
-            <input type="search" name="txt_search" id="txt_search" class="Nav-InputSearch" placeholder="Buscar: ">
+            <input type="search" name="txt_search" id="txt_search" class="Nav-InputSearch search_ecommerce" placeholder="Buscar: ">
         </div>
         <a href="./../maderastablas/principal.php">
             <img src="./../assets/icons/admin.png" class="LoginButton__Icon" />
@@ -43,7 +43,7 @@ if (isset($_SESSION["usuarioActivo"]) && $_SESSION['usu_rol'] == 1) {
                cargarCategorias();
         echo'</select>
                 </div>
-                <input type="search" name="txt_search" id="txt_search" class="Nav-InputSearch" placeholder="Buscar: ">
+                <input type="search" name="txt_search" id="txt_search" class="Nav-InputSearch search_ecommerce" placeholder="Buscar: ">
             </div>
             <!--Login Button-->
         <div class="NavButtons_Container">
@@ -70,7 +70,7 @@ if (isset($_SESSION["usuarioActivo"]) && $_SESSION['usu_rol'] == 1) {
                cargarCategorias();
         echo'</select>
                 </div>
-                <input type="search" name="txt_search" id="txt_search" class="Nav-InputSearch" placeholder="Buscar: ">
+                <input type="search" name="txt_search" id="txt_search" class="Nav-InputSearch search_ecommerce" placeholder="Buscar: ">
             </div>
             <!--Login Button-->
         <div class="NavButtons_Container">
