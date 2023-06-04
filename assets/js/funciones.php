@@ -36,7 +36,7 @@ function mostrarArticulos()
     echo '
                 <tr>
                     <th class="align-middle text-center p-0" >
-                      <a role="button" id="imgProducto" onclick="redireccionArticulo_Imagenes(' . $fila["art_id"] . ')">Modificar imagenes</a>
+                      <a role="button" id="imgProducto" class="btn btn-primary" onclick="redireccionArticulo_Imagenes(' . $fila["art_id"] . ')"><i class="bi bi-images"></i></a>
                     </th>
                     <th class="align-middle p-0 text-center">' . $fila["art_id"] . '</th>
                     <th class="align-middle p-0 text-center">' . $fila["art_cod"] . '</th>
@@ -54,6 +54,9 @@ function mostrarArticulos()
                     
                     <a role="button" id="modificar__Articulo' . $fila["art_id"] . '" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_modificarArticulo" data-art_id=' . $fila['art_id'] . ' >
                     <i class="bi bi-pencil-fill"></i>
+                    </a>
+                    <a role="button" id="insertarStock' . $fila["art_id"] . '" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal_insertarStock" data-art_id=' . $fila['art_id'] . '>
+                    <i class="bi bi-plus-circle"></i>
                     </a>
                     <a role="button" id="eliminar__Articulo' . $fila["art_id"] . '" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_eliminarArticulo" data-art_id=' . $fila['art_id'] . '>
                     <i class="bi bi-x-square"></i>
@@ -94,24 +97,34 @@ function mostrarArticulos_Ecommerce()
     while ($fila = mysqli_fetch_array($datos)) {
       //<th scope="col-1">'.$i++.'</th>
       echo '<div class="ProductsList_Card" id="art_Ecommerce" onclick="redireccionArticulo(' . $fila["art_id"] . ')">
+            <div class="contain-imgCard">
                 <img src="';
                 if(!empty($fila['art_imagen'])) {
                 echo ''.$fila["art_imagen"] .'" alt="error al cargar imagen" class="ProductsList_Card-Img">
+                </div>
                 <div class="ProductsList_Card-Content">
                 <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
                 <div class="ProductsList_Card-Name_Container">
                 <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
                 </div>
+                <div class="text-center"> Disponibles: <span style="
+                color: red;
+                /* font-style: revert; */
+                /* font-weight: 100; */
+                font-size: large;
+                ">' . $fila["art_stock"] . '</span> </div>
                 <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
                 </div>
                 </div>';
                 }else{
                   echo './../assets/images/default.png" alt="error al cargar imagen" class="ProductsList_Card-Img">
+                </div>
                 <div class="ProductsList_Card-Content">
                 <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
                 <div class="ProductsList_Card-Name_Container">
                 <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
                 </div>
+                <div class="text-center">Disponibles:' . $fila["art_stock"] . '</div>
                 <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
                 </div>
                 </div>';
@@ -126,6 +139,8 @@ function mostrarArticulos_Ecommerce()
 
   mysqli_close($conexion);
 }
+
+
 
 
 
@@ -399,15 +414,85 @@ function mostrarArticuloSeleccionado()
     </main>';
 
     }
-    
-
-            
-
     mysqli_close($conexion);
   }
 }
-
 //Termina--- mostrar articulo seleccionado
+
+//Empieza --- Mostar Carrousel de Articulos de Misma Categoria
+function mostrarArticulosMismaCategoria()
+{
+  if (isset($_GET['articleID'])) {
+    include('./../assets/js/bd.php');
+    // 2) Preparar la orden SQL
+    $art_categoria = 'SELECT art_categoria FROM `articulos` WHERE art_id = "' . $_GET["articleID"] . '" ';
+
+    $query_categoria = mysqli_query($conexion, $art_categoria);
+
+    $resultado_categoria = mysqli_fetch_array($query_categoria);
+
+    $query_relacionados = 'SELECT a.*, primera_imagen.ruta_img
+    FROM articulos a
+    INNER JOIN categorias c ON c.cat_id = a.art_categoria
+    LEFT JOIN (
+        SELECT art_id, ruta_img
+        FROM art_imagenes
+        GROUP BY art_id
+    ) AS primera_imagen ON a.art_id = primera_imagen.art_id
+    WHERE c.cat_id = '.$resultado_categoria[0].'
+    AND a.art_id <> "'.$_GET['articleID'].'"
+    AND a.art_id NOT IN (
+        SELECT art_id
+        FROM articulos
+        WHERE art_categoria = '.$resultado_categoria[0].'
+        AND art_id = "'.$_GET['articleID'].'"
+    )
+    ORDER BY a.art_id DESC;';
+   
+    
+    $articulos_relacionados = mysqli_query($conexion, $query_relacionados);
+    $contadorFilas = mysqli_num_rows($articulos_relacionados);
+    
+    
+    if ($contadorFilas > 0) {
+      while ($art_rel = mysqli_fetch_array($articulos_relacionados)) {
+        
+        echo '
+        <div class="ProductsList_Card" id="art_Ecommerce" onclick="redireccionArticulo(' . $art_rel["art_id"] . ')">
+          <div class="contain-imgCard">
+                  <img src="';
+        if (!empty($art_rel['ruta_img'])) {
+          echo '' . $art_rel["ruta_img"] . '" alt="error al cargar imagen" class="ProductsList_Card-Img">
+          </div>
+        <div class="ProductsList_Card-Content">
+        <span class="ProductsList_Card-Cat"></span>
+        <div class="ProductsList_Card-Name_Container">
+        <h5 class="ProductsList_Card-Name">' . $art_rel["art_nom"] . '</h5>
+        </div>
+        <h4 class="ProductsList_Card-Price">$' . $art_rel["art_precio"] . '</h4>
+        </div>
+        </div>';
+        } else {
+          echo './../assets/images/default.png" alt="error al cargar imagen" class="ProductsList_Card-Img">
+                  <div class="ProductsList_Card-Content">
+                  <span class="ProductsList_Card-Cat">'.$art_rel["art_categoria"].'</span>
+                  <div class="ProductsList_Card-Name_Container">
+                  <h5 class="ProductsList_Card-Name">' . $art_rel["art_nom"] . '</h5>
+                  </div>
+                  <h4 class="ProductsList_Card-Price">$' . $art_rel["art_precio"] . '</h4>
+                  </div>
+                  </div>';
+        }
+      }
+    }
+
+    mysqli_close($conexion);
+   
+  }
+}
+//Termina --- Mostar Carrousel de Articulos de Misma Categoria
+
+
 
 //Comienza --- cargar imagenes en subir imagen segun id articulo
 
@@ -445,23 +530,6 @@ function imagenes_articuloSeleccionado(){
         $contador=$contador+1;
       }
   }
-   /*  while ($fila = mysqli_fetch_array($datos)) {
-        if(!empty($fila['ruta_img'])){
-
-          $ruta_img = $fila['ruta_img'];
-    
-          echo '
-          <div class="AddProductImage_Carrousel-Card">
-              <img src="' . $ruta_img . '" class="AddProductImage_Carrousel-Card-Img" />
-          </div>';
-        }else {
-          echo '<div> No se encontraron imagenes </div>';
-        }
-            
-      }
-     */
-
-    
 
     mysqli_close($conexion);
   }

@@ -31,6 +31,10 @@
    
     <!--Product Content-->
     <?php mostrarArticuloSeleccionado();?>
+    <!--Category Products Carrousel-->
+    <div class="ProductDetails_CategoryList__Container m-auto">
+        <?php mostrarArticulosMismaCategoria(); ?>
+    </div>
     <!--Footer-->
     <?php include('./../assets/Components/footer.php')?>
 </body>

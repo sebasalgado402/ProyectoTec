@@ -1,6 +1,6 @@
 let imgProductoID;
 let i = 1;
-
+let art_id;
 //Ir a la pagina anterior
 function irPaginaAnterior() {
     history.back();
@@ -356,6 +356,7 @@ $(function () {
     //Boton que modifica el articulo en modal
     $("#modalModificar").click(function (e) {
         e.preventDefault();
+     
         let arrModificar = [];
         let id = art_id;
         let categoria = $('#modal_modificiarArticulo__Categoria').val();
@@ -1448,59 +1449,138 @@ $(function () {
 
     //Termina --- Buscador por concepto en Lista__Gastos
 
-    //Comienza --- Eliminar imagen seleccionada en "Articulo_imagenes"
-
-    /* $("#btn_eliminarImagen_Seleccionada").click(function (e) {
-    e.preventDefault();
     
-    let dataValue = $(this).attr('data');
-    console.log('esto es '+dataValue);
-    let action = 'eliminar_imgSeleccionada';
+//ABRIR MODAL FORMULARIO INSERTAR STOCK POR ID
 
-         $.ajax({
+$("[id^='insertarStock']").click(function (e) {
+    e.preventDefault();
+    art_id = $(this).attr('data-art_id');
+
+    
+
+    let action = 'insertarStock';
+
+    $.ajax({
+        url: './../assets/js/ajax.php',
+        type: "POST",
+        async: true,
+        data: { action: action, insertarStock: art_id },
+
+
+        success: function (response) {
+
+
+            if (response == 0) {
+                
+            }
+            let data = $.parseJSON(response);
+            
+            let innerHTML = `
+            <form>
+            <div class="col text-center">
+            <label for="" class="">ID del Artículo:<span id='modal-insertarStock_ID'>${data.art_id}</span></label>
+            </div>
+          <div class="row mb-3 text-center">
+            <div class="col">
+              <label for="inputArticulo" class="form-label">Nombre de articulo: </label>
+              <input type="text" class="form-control" id="modal-insertarStock_nombre" disabled value='${data.art_nom}'>
+            </div>
+            <div class="col">
+              <label for="inputStock" class="form-label">Stock:</label>
+              <input type="number" class="form-control" id="modal-insertarStock_cantidad" placeholder="Ingrese cantidad" required>
+            </div>
+          </div>
+          <hr>
+          <div class="mb-3">
+          <label for="MatsArt">Concepto:</label>
+          <input type="text" name="Concepto" id="modal-insertarStock_concepto" class="form-control" required>
+          <div class="AddProduct_FormContainer-Row">
+          <!--Concepto Articulo-->
+              <div class="AddProduct_InputContainer">
+                    <label for="MatsArt">Proveedor:</label>
+                    <input type="text" name="proveedor" id="modal-insertarStock_proveedor" class="form-control" required>
+                 
+              </div>
+              <div class="AddProduct_InputContainer">
+                  <!--Gasto Total-->
+                  <label for="MatsArt">Gasto Total:</label>
+                  <input type="number" name="gastoTotal" id="modal-insertarStock_gasto" class="form-control" required>
+              </div>
+          </div>
+          </div>
+        </form>`;
+            $('#recibe_data-insertarStock').html(innerHTML);
+        },
+        error: function (error) {
+            alert(error);
+        }
+    });
+
+});
+//Termina -ABRIR MODAL FORMULARIO INSERTAR STOCK POR ID
+//Boton que ELIMINA ARTICULO EN MODAL
+$("#modal-insertarStock-btn").click(function (e) {
+    e.preventDefault();
+    if ($("#modal-insertarStock_cantidad").val().trim() !== "" && $("#modal-insertarStock_concepto").val().trim() !== ""  && $("#modal-insertarStock_proveedor").val().trim() !== ""  && $("#modal-insertarStock_gasto").val().trim() !== ""  ) {
+        art_id = $("#modal-insertarStock_ID").html();
+        let cantidad = $("#modal-insertarStock_cantidad").val();
+        let concepto = $("#modal-insertarStock_concepto").val();
+        let proveedor= $("#modal-insertarStock_proveedor").val();
+        let gasto = $("#modal-insertarStock_gasto").val();
+        let action = 'insertar_cantidadStock';
+        let arrayInsertarStock = [];
+        arrayInsertarStock.push(art_id, cantidad ,concepto,proveedor,gasto);
+        
+        $.ajax({
             url: './../assets/js/ajax.php',
             type: "POST",
             async: true,
-            data: { action: action, eliminar_imgSeleccionada : dataValue },
-
-
+            data: { action: action, insertar_cantidadStock: arrayInsertarStock},
             success: function (response) {
-                console.log(response);
-                //data = $.parseJSON(response);
-               
-                if (response == 'exito') {
-                    alert(response);
+                data = $.parseJSON(response);
+                if (data == 'exito') {
                     location.reload();
                 } else {
-                    alert('Húbo un error al Eliminar');
+                    alert('Húbo un error al Insertar stock');
                 }
-
-
             },
             error: function (error) {
-
             }
-        }); 
-    }); */
-        
-
-    //Termina --- Eliminar imagen seleccionada en "Articulo_imagenes"
-
+        });
+    }else{
+        alert('Debe completar todos los campos');
+    }
 });
+
+//Termina---Boton que ELIMINA ARTICULO EN MODAL
+
+//
+
+$("#select__categoria").on('change',function (e) {
+    var selectedValue = $(this).val();
+    console.log(selectedValue + 'hubo un cambio');
+});
+
+//
 
 /*--Funcion de Menu--*/
+if (document.querySelector(".Nav_Menu-Open")) {
+    const MenuButton = document.querySelector(".Nav_Menu-Open");
 
-const MenuButton = document.querySelector(".Nav_Menu-Open");
+    const Menu = document.querySelector(".Menu");
 
-const Menu = document.querySelector(".Menu");
-
-MenuButton.addEventListener("click", () => {
-if (Menu.classList.contains("MenuActive")) {
-    Menu.classList.remove("MenuActive");
-} else {
-    Menu.classList.add("MenuActive");
+    MenuButton.addEventListener("click", () => {
+        if (Menu.classList.contains("MenuActive")) {
+        Menu.classList.remove("MenuActive");
+        } else {
+        Menu.classList.add("MenuActive");
+        }
+    });
 }
-});
 
 /*---------------------------------*/
+
+
+});
+
 

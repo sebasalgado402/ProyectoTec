@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-05-2023 a las 03:27:05
+-- Tiempo de generación: 04-06-2023 a las 05:51:52
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -59,7 +59,7 @@ DELIMITER ;
 CREATE TABLE `articulos` (
   `art_id` int(20) NOT NULL,
   `art_cod` varchar(20) NOT NULL,
-  `art_nom` varchar(30) NOT NULL,
+  `art_nom` varchar(255) NOT NULL,
   `art_desc` varchar(255) NOT NULL,
   `art_precio` float NOT NULL,
   `art_stock` int(20) NOT NULL,
@@ -70,6 +70,17 @@ CREATE TABLE `articulos` (
   `art_materiales` varchar(50) NOT NULL,
   `art_notas` text NOT NULL
 ) ;
+
+--
+-- Volcado de datos para la tabla `articulos`
+--
+
+INSERT INTO `articulos` (`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_deshabilitado`, `art_categoria`, `art_materiales`, `art_notas`) VALUES
+(77, 'aaa', 'aasdasd', 'asdasd', 424, 17, 424, '', '', 2, 'asdasda', ''),
+(78, 'vvv', 'fsafdas', 'asdasd', 14214, 4214, 424, '', '', 2, 'asdasd', ''),
+(79, 'ggg', 'asdasd', 'asdasd', 4214, 20, 4124, '', '', 2, 'asdasd', ''),
+(80, 'hhhh', 'ggdf', 'asdasd', 2424, 24, 424, '', '', 2, 'gggg', ''),
+(81, 'asvv', 'Una silla super comoda para que te sientes', 'asdasd', 424, 603, 4242, '', '', 1, 'asdasd', '');
 
 -- --------------------------------------------------------
 
@@ -151,6 +162,25 @@ CREATE TABLE `gastos` (
   `gas_cantidad` int(20) NOT NULL,
   `gas_total` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `gastos`
+--
+
+INSERT INTO `gastos` (`gas_id`, `gas_fecha`, `gas_proveedor`, `gas_concepto`, `gas_cantidad`, `gas_total`) VALUES
+(31, '2023-06-02', 'asdasd', 'asdasdsadsad', 4, 12414),
+(32, '2023-06-03', 'asdasd', 'asdasd', 4214, 24124),
+(33, '2023-06-03', 'asdasd', 'asdasd', 424, 4524),
+(34, '2023-06-03', 'sdafas', 'gfgasd', 4, 24124),
+(35, '2023-06-03', 'asdasd', 'asdasd', 24, 21442),
+(36, '0000-00-00', 'Proveedor C', 'Publicidad', 0, 300),
+(37, '0000-00-00', 'asdasd', 'asdasd', 0, 55),
+(38, '0000-00-00', 'dfgdfg', 'asdas', 0, 1000),
+(39, '0000-00-00', 'asdasd', 'asda', 0, 444),
+(40, '0000-00-00', 'asdasd', 'asdasd', 0, 4124120),
+(41, '2023-06-04', 'mi madre', 'le puse ggdf', 0, 10000),
+(42, '2023-06-04', 'dasd', '    s', 0, 1244),
+(43, '2023-06-04', 'asdoa', 'ssoda', 0, 100);
 
 -- --------------------------------------------------------
 
@@ -254,7 +284,7 @@ ALTER TABLE `factura`
 -- AUTO_INCREMENT de la tabla `gastos`
 --
 ALTER TABLE `gastos`
-  MODIFY `gas_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `gas_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

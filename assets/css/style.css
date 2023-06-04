@@ -358,7 +358,7 @@ body::-webkit-scrollbar-thumb {
     display: flex;
     flex-direction: column;
     width: 200px;
-    height: 300px;
+    height: 100%;
     padding: 10px;
     background-color: #fff;
     border-radius: 10px;
@@ -373,10 +373,9 @@ body::-webkit-scrollbar-thumb {
 }
 
 .ProductsList_Card-Img {
-    align-self: center;
-    width: 180px;
-    height: 180px;
-    object-fit: contain;
+        width: 100%; /* Ancho del 100% del contenedor */
+        height: 100%; /* Altura del 100% del contenedor */
+        object-fit: cover; /* La imagen se ajustará al contenedor sin perder su relación de aspecto */
 }
 
 .ProductsList_Card-Content {
@@ -394,8 +393,15 @@ body::-webkit-scrollbar-thumb {
 }
 
 .ProductsList_Card-Name {
+    font-family: "Segoe UI";
     font-size: 20px;
     word-break: break-all;
+    text-align: center;
+    
+}
+.contain-imgCard{
+    width: 180px !important; /* Ancho deseado del contenedor */
+    height: 180px !important; /* Altura deseada del contenedor */
 }
 
 /*====================
@@ -472,7 +478,15 @@ body::-webkit-scrollbar-thumb {
     text-decoration: none;
     color: black;
 }
-
+.ProductsList_Card-Cat{
+    color: #737373;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+.ProductsList_Card-Price{
+    text-align: center;
+    font-family: fantasy;
+    color: brown;
+}
 /*--Category Products List--*/
 
 .ProductDetails_CategoryList {

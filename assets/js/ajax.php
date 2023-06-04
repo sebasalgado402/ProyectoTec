@@ -460,27 +460,37 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
       while ($fila = mysqli_fetch_array($datos)) {
         //<th scope="col-1">'.$i++.'</th>
         echo '<div class="ProductsList_Card" id="art_Ecommerce" onclick="redireccionArticulo(' . $fila["art_id"] . ')">
-                  <img src="';
-                  if(!empty($fila['art_imagen'])) {
-                  echo ''.$fila["art_imagen"] .'" alt="error al cargar imagen" class="ProductsList_Card-Img">
-                  <div class="ProductsList_Card-Content">
-                  <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
-                  <div class="ProductsList_Card-Name_Container">
-                  <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
-                  </div>
-                  <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
-                  </div>
-                  </div>';
-                  }else{
-                    echo './../assets/images/default.png" alt="error al cargar imagen" class="ProductsList_Card-Img">
-                  <div class="ProductsList_Card-Content">
-                  <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
-                  <div class="ProductsList_Card-Name_Container">
-                  <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
-                  </div>
-                  <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
-                  </div>
-                  </div>';
+        <div class="contain-imgCard">
+            <img src="';
+            if(!empty($fila['art_imagen'])) {
+            echo ''.$fila["art_imagen"] .'" alt="error al cargar imagen" class="ProductsList_Card-Img">
+            </div>
+            <div class="ProductsList_Card-Content">
+            <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
+            <div class="ProductsList_Card-Name_Container">
+            <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
+            </div>
+            <div class="text-center"> Disponibles: <span style="
+            color: red;
+            /* font-style: revert; */
+            /* font-weight: 100; */
+            font-size: large;
+            ">' . $fila["art_stock"] . '</span> </div>
+            <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
+            </div>
+            </div>';
+            }else{
+              echo './../assets/images/default.png" alt="error al cargar imagen" class="ProductsList_Card-Img">
+            </div>
+            <div class="ProductsList_Card-Content">
+            <span class="ProductsList_Card-Cat">' . $fila["cat_nom"] . '</span>
+            <div class="ProductsList_Card-Name_Container">
+            <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
+            </div>
+            <div class="text-center">Disponibles:' . $fila["art_stock"] . '</div>
+            <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
+            </div>
+            </div>';
                   }
       }
     }else{
@@ -879,7 +889,7 @@ if((isset($_POST['action'])) && $_POST['action']=='buscar_listaArticulos'){
       echo '
                 <tr>
                     <th class="align-middle text-center p-0" >
-                      <a role="button" id="imgProducto" onclick="redireccionArticulo_Imagenes(' . $fila["art_id"] . ')">Modificar imagenes</a>
+                      <a role="button" id="imgProducto" class="btn btn-primary" onclick="redireccionArticulo_Imagenes(' . $fila["art_id"] . ')"><i class="bi bi-images"></i></a>
                     </th>
                     <th class="align-middle p-0 text-center">' . $fila["art_id"] . '</th>
                     <th class="align-middle p-0 text-center">' . $fila["art_cod"] . '</th>
@@ -898,6 +908,9 @@ if((isset($_POST['action'])) && $_POST['action']=='buscar_listaArticulos'){
                     <a role="button" id="modificar__Articulo' . $fila["art_id"] . '" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_modificarArticulo" data-art_id=' . $fila['art_id'] . ' >
                     <i class="bi bi-pencil-fill"></i>
                     </a>
+                    <a role="button" id="insertarStock' . $fila["art_id"] . '" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modal_insertarStock" data-art_id=' . $fila['art_id'] . '>
+                    <i class="bi bi-plus-circle"></i>
+                    </a>
                     <a role="button" id="eliminar__Articulo' . $fila["art_id"] . '" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_eliminarArticulo" data-art_id=' . $fila['art_id'] . '>
                     <i class="bi bi-x-square"></i>
                     </a>
@@ -914,5 +927,86 @@ if((isset($_POST['action'])) && $_POST['action']=='buscar_listaArticulos'){
 
 
 //Termina---Buscador Lista Articulos
+
+//Cargar datos al modal InsertarStock
+if(isset($_POST['action']) && $_POST['action'] == 'insertarStock'){
+  $insertarStock = $_POST['insertarStock'];
+    if(!empty($insertarStock)){
+      
+      include('./../js/bd.php');
+      
+        $consulta = "SELECT * FROM `articulos` WHERE art_id = ".$insertarStock."";
+    
+        $datos= mysqli_query ($conexion,$consulta);
+        
+        $articulo = new stdClass();
+        
+        mysqli_close($conexion);
+        // 4) Ir Imprimiendo las filas resultantes
+        while ($fila =mysqli_fetch_array($datos)){
+          $art_id = $fila['art_id'];
+          $art_nom = $fila['art_nom'];
+
+          $articulo->art_id =$art_id;
+          $articulo->art_nom = $art_nom;
+          
+        }
+
+        if($articulo){
+              $data = $articulo;
+            }else{
+              $data = 0;
+            }
+
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+      
+      }        
+
+//Termina Cargar datos al modal InsertarStock
+
+//Insertar stock con lo recibido del formulario
+if(isset($_POST['action']) && $_POST['action'] == 'insertar_cantidadStock'){
+  $insertar_cantidadStock = $_POST['insertar_cantidadStock'];
+    if(!empty($insertar_cantidadStock[0]) || !empty($insertar_cantidadStock[1]) || !empty($insertar_cantidadStock[2]) || !empty($insertar_cantidadStock[3]) || !empty($insertar_cantidadStock[4])){
+      $fechaActual = date('Y-m-d');
+      include('./../js/bd.php');
+      
+      try {
+      
+      $query_insertarStock = 
+      'UPDATE articulos
+      SET art_stock = art_stock + '.$_POST["insertar_cantidadStock"][1].'
+      WHERE art_id = '.$_POST["insertar_cantidadStock"][0].';';
+      $query_insertarGasto = 'INSERT INTO gastos (gas_fecha,gas_concepto, gas_proveedor, gas_total)
+      VALUES ("'.$fechaActual.'","'.$_POST["insertar_cantidadStock"][2].'", "'.$_POST["insertar_cantidadStock"][3].'", '.$_POST["insertar_cantidadStock"][4].');';
+
+      $resultado_stock= mysqli_query ($conexion,$query_insertarStock);
+      $resultado_gasto= mysqli_query ($conexion,$query_insertarGasto);
+      
+    } catch (\Throwable $th) {
+      $conexion->rollback();
+      $data = $conexion->connect_errno;
+    }
+           
+      mysqli_close($conexion);
+
+      if($resultado_stock && $resultado_gasto ){
+            $data = 'exito';
+          }else{
+            $data = $conexion->connect_errno;
+          }
+
+          echo json_encode($data,JSON_UNESCAPED_UNICODE);
+          exit;
+        }else{
+          echo json_encode('error',JSON_UNESCAPED_UNICODE);
+          exit;
+        }
+    
+    }        
+
+//Termina --- Insertar stock con lo recibido del formulario
 
 ?>

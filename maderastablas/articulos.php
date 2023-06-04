@@ -34,7 +34,45 @@
     <title>Articulos</title>
 </head>
 <body>
-   
+<!-- MODAL Insertar Stock-->
+        
+<div class="modal fade" id="modal_insertarStock" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="" aria-hidden="true">
+  <div class="modal-dialog modal-dialog modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="">Insertar Stock</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-5 pt-1 pb-1" id='recibe_data-insertarStock'>
+        <form>
+          <div class="row mb-3">
+            <div class="col">
+              <label for="inputArticulo" class="form-label">ID del Artículo:</label>
+              <input type="text" class="form-control" id="inputArticulo" placeholder="Ingrese el ID del artículo">
+            </div>
+            <div class="col">
+              <label for="inputStock" class="form-label">Stock:</label>
+              <input type="text" class="form-control" id="inputStock" placeholder="Ingrese el stock">
+            </div>
+          </div>
+          <hr>
+          <div class="mb-3">
+            <label for="inputGasto" class="form-label">Gasto:</label>
+            <input type="text" class="form-control" id="inputGasto" placeholder="Ingrese el gasto">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-success" id="modal-insertarStock-btn">Insertar Stock</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+    
+    <!-- Termina MODAL Insertar Stock -->
    
 <!-- MODAL MODIFICAR ARTICULO-->
         
@@ -132,6 +170,7 @@
     <section>
         <?php
          include("./../assets/Components/Nav_articulo.php");
+         echo '<p class="AddProduct_FormTitle">Listado de articulos</p>';
          include("./../assets/js/buscador_listaArticulos.php");
         ?>
     </section>
@@ -142,20 +181,20 @@
         <thead class="table-dark">
             <tr >
             
-            <th class="text-center" scope="col-1">Foto</th>
-            <th class="text-center" scope="col-1">Id_Art</th>
-            <th class="text-center" scope="col-1">Cod</th>
-            <th class="text-center" scope="col-1">Nombre</th>
-            <th class="text-center" scope="col-1">Precio</th>
-            <th class="text-center" scope="col-1">Stock</th>
-            <th class="text-center" scope="col-1">Costo creacion</th>
+            <th class="text-center align-middle" scope="col-1">Foto</th>
+            <th class="text-center align-middle" scope="col-1">Id_Art</th>
+            <th class="text-center align-middle" scope="col-1">Cod</th>
+            <th class="text-center align-middle" scope="col-1">Nombre</th>
+            <th class="text-center align-middle" scope="col-1">Precio</th>
+            <th class="text-center align-middle" scope="col-1">Stock</th>
+            <th class="text-center align-middle" scope="col-1">Costo creacion</th>
             
             
-            <th class="text-center" scope="col-1">Categoria</th>
-            <th class="text-center" scope="col-1">Observacion</th>
-            <th class="text-center" scope="col-1">Materiales</th>
-            <th class="text-center" scope="col-1">Notas</th>
-            <th class="text-center" scope="col-1">Acción</th>
+            <th class="text-center align-middle" scope="col-1">Categoria</th>
+            <th class="text-center align-middle" scope="col-1">Observacion</th>
+            <th class="text-center align-middle" scope="col-1">Materiales</th>
+            <th class="text-center align-middle" scope="col-1">Notas</th>
+            <th class="text-center align-middle" scope="col-1">Acción</th>
             
         </thead>
         <tbody class="text-center col-12" id='recibe_listaArticulos'>
