@@ -817,75 +817,6 @@ $(function () {
                             source: datosCargar.nombre
                         });
 
-
-                        $("#txt_descripcion").change(function (e) {
-                            e.preventDefault();
-                            art = ($('#txt_descripcion').val());
-                            if (!art == '') {
-                                articulo = art.trim();
-                                action = 'searchArticulo';
-                                $.ajax({
-                                    url: './../assets/js/ajax.php',
-                                    type: "POST",
-                                    async: true,
-                                    data: { action: action, articulo: articulo },
-
-
-                                    success: function (response) {
-
-
-                                        if (response == 0) {
-                                            
-
-                                        } else {
-
-                                            let data = $.parseJSON(response);
-                                            let datosCargar = data;
-                                            
-                                            let found = false;
-
-                                           /*  for (var id in datosCargar.id) {
-                                                if (id === "1") {
-                                                    found = true;
-                                                    break;
-                                                }
-                                            } */
-                                            console.log(datosCargar[0]);
-                                                $("#txt_descripcion").val(datosCargar.nombre);
-                                                $("#th_id_articulo").html(datosCargar.id);
-                                                $("#th_precio").html(datosCargar.precio);
-                                                $("#txt_Stock").val(datosCargar.stock);
-                                                $("#txt_precioTotal").html(datosCargar.precio);
-                                                precioArticulo = parseInt(datosCargar.precio);
-
-                                                id_articuloAgregar = datosCargar.id;
-                                                nombre_articuloAgregar = datosCargar.nombre;
-                                            if (found || $('#txt_descripcion').val() == '' ) {
-                                                vaciarCampos();
-                                               
-                                            } else {
-                                                
-                                            }
-
-
-
-
-                                        }
-                                    },
-                                    error: function (error) {
-
-                                    }
-                                });
-                            } else {
-                                vaciarCampos();
-                            }
-
-
-                        });
-
-
-
-
                     }
                 },
                 error: function (error) {
@@ -894,6 +825,74 @@ $(function () {
             });
         }
 
+        $("#txt_descripcion").change(function (e) {
+            e.preventDefault();
+            art = ($('#txt_descripcion').val());
+            if (!art == '') {
+                articulo = art.trim();
+                action = 'searchArticuloChange';
+                $.ajax({
+                    url: './../assets/js/ajax.php',
+                    type: "POST",
+                    async: true,
+                    data: { action: action, articulo: articulo },
+
+
+                    success: function (response) {
+
+
+                        if (response == 0) {
+                            
+
+                        } else {
+
+                            let data = $.parseJSON(response);
+                            let datosCargar = data;
+                            
+                            let found = false;
+
+                            for (var id in datosCargar.id) {
+                                if (id === "1") {
+                                    found = true;
+                                    break;
+                                }
+                            }
+
+                            if (found || $('#txt_descripcion').val() == '' ) {
+                                vaciarCampos();
+                            }else{
+
+                                console.log(datosCargar[0]);
+                                $("#txt_descripcion").val(datosCargar.nombre);
+                                $("#th_id_articulo").html(datosCargar.id);
+                                $("#th_precio").html(datosCargar.precio);
+                                $("#txt_Stock").val(datosCargar.stock);
+                                $("#txt_precioTotal").html(datosCargar.precio);
+                                precioArticulo = parseInt(datosCargar.precio);
+                                
+                                id_articuloAgregar = datosCargar.id;
+                                nombre_articuloAgregar = datosCargar.nombre;
+                            }
+                            
+                            if (found || $('#txt_descripcion').val() == '' ) {
+                                vaciarCampos();
+                               
+                            } else {
+                                
+                            }
+
+                        }
+                    },
+                    error: function (error) {
+
+                    }
+                });
+            } else {
+                vaciarCampos();
+            }
+
+
+        });
 
     });
     //Termina---Buscar articulo por nombre en FACTURACIÓN

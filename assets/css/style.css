@@ -28,6 +28,7 @@ body::-webkit-scrollbar-thumb {
 .container {
     height: 100vh;
 }
+
 /*===============
      Inputs de Lista gastos
 ================*/
@@ -42,6 +43,7 @@ body::-webkit-scrollbar-thumb {
     border: 1px solid rgba(128, 128, 128, 0.555);
     font-size: 16px;
 }
+
 /*===============
      Inputs de Lista Articulos
 ================*/
@@ -133,6 +135,7 @@ body::-webkit-scrollbar-thumb {
     filter: drop-shadow(0 0 1px gray);
     opacity: 0.5;
 }
+
 .LoginButton__IconS {
     width: 35px;
     height: 35px;
@@ -258,6 +261,7 @@ body::-webkit-scrollbar-thumb {
     color: black;
     text-decoration: none;
 }
+
 /*===============
      Banner
 ================*/
@@ -274,10 +278,10 @@ body::-webkit-scrollbar-thumb {
     height: 300px;
 }
 
-
 /*=======================
     Add Product Image
 ========================*/
+
 .AddProductImage_Container {
     margin: 0 auto;
     display: flex;
@@ -287,14 +291,14 @@ body::-webkit-scrollbar-thumb {
     padding: 10px;
     background-color: #fff;
     max-width: 900px;
-    
+
 }
 
 .AddProductImage_Carrousel {
-    box-shadow: 0px -3px 36px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px -3px 36px 0px rgba(0, 0, 0, 0.1);
     padding-left: 5px;
     padding-right: 5px;
-    
+
     width: 370px;
     height: 315px;
     display: flex;
@@ -315,7 +319,7 @@ body::-webkit-scrollbar-thumb {
 .AddProductImage_Carrousel::-webkit-scrollbar-thumb {
     background-color: grey;
     border-radius: 10px;
-    
+
 }
 
 .AddProductImage_Carrousel-Card {
@@ -341,6 +345,7 @@ body::-webkit-scrollbar-thumb {
     font-size: 22px;
     margin-top: 10px;
 }
+
 /*==================
     Products List 
 ===================*/
@@ -373,9 +378,12 @@ body::-webkit-scrollbar-thumb {
 }
 
 .ProductsList_Card-Img {
-        width: 100%; /* Ancho del 100% del contenedor */
-        height: 100%; /* Altura del 100% del contenedor */
-        object-fit: cover; /* La imagen se ajustará al contenedor sin perder su relación de aspecto */
+    width: 100%;
+    /* Ancho del 100% del contenedor */
+    height: 100%;
+    /* Altura del 100% del contenedor */
+    object-fit: cover;
+    /* La imagen se ajustará al contenedor sin perder su relación de aspecto */
 }
 
 .ProductsList_Card-Content {
@@ -397,11 +405,14 @@ body::-webkit-scrollbar-thumb {
     font-size: 20px;
     word-break: break-all;
     text-align: center;
-    
+
 }
-.contain-imgCard{
-    width: 180px !important; /* Ancho deseado del contenedor */
-    height: 180px !important; /* Altura deseada del contenedor */
+
+.contain-imgCard {
+    width: 180px !important;
+    /* Ancho deseado del contenedor */
+    height: 180px !important;
+    /* Altura deseada del contenedor */
 }
 
 /*====================
@@ -418,8 +429,8 @@ body::-webkit-scrollbar-thumb {
 }
 
 .ProductDetails_Main {
-    width: 270px;
-    height: 290px;
+    width: 330px;
+    height: 350px;
     background-color: #fff;
     display: flex;
     align-self: center;
@@ -434,7 +445,7 @@ body::-webkit-scrollbar-thumb {
     width: 100%;
     height: 240px;
     object-fit: contain;
-    
+
 }
 
 .ProductDetails_Main-Content {
@@ -444,7 +455,7 @@ body::-webkit-scrollbar-thumb {
     justify-content: center;
     padding: 10px;
     border-radius: 10px;
-   
+
 }
 
 .ProductDetails_Main-Category {
@@ -478,29 +489,19 @@ body::-webkit-scrollbar-thumb {
     text-decoration: none;
     color: black;
 }
-.ProductsList_Card-Cat{
+
+.ProductsList_Card-Cat {
     color: #737373;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
-.ProductsList_Card-Price{
+
+.ProductsList_Card-Price {
     text-align: center;
     font-family: fantasy;
     color: brown;
 }
+
 /*--Category Products List--*/
-
-.ProductDetails_CategoryList {
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
-    padding: 10px;
-    margin-top: 30px;
-    margin-bottom: 30px;
-}
-
-.ProductDetails_CategoryList__Title {
-    font-size: 22px;
-}
 
 .ProductDetails_CategoryList__Container {
     display: flex;
@@ -508,7 +509,9 @@ body::-webkit-scrollbar-thumb {
     column-gap: 15px;
     overflow: hidden;
     overflow-x: scroll;
-    padding-bottom: 15px;
+    padding-bottom: 30px;
+    margin: 30px auto 30px;
+    max-width: 380px;
 }
 
 .ProductDetails_CategoryList__Container::-webkit-scrollbar {
@@ -557,7 +560,7 @@ body::-webkit-scrollbar-thumb {
 .FuntionCard:hover {
     box-shadow: 0 0 10px gray;
     transition: 0.2s ease-in-out;
-    transform: scale(1.01,1.01);
+    transform: scale(1.01, 1.01);
 }
 
 .FunctionCard-Content {
@@ -639,14 +642,14 @@ body::-webkit-scrollbar-thumb {
     border-radius: 50px;
     background-color: transparent;
     border: 1px solid #0000003d;
-    transition: 0.2s ease-in-out;    
+    transition: 0.2s ease-in-out;
     cursor: pointer;
 }
 
 .BalanceCalculator_ButtonCalcular:hover {
     transition: 0.2s ease-in-out;
     border: 2px solid black;
-    transform: scale(1.01,1.01);
+    transform: scale(1.01, 1.01);
 }
 
 /*=====================
@@ -836,7 +839,7 @@ body::-webkit-scrollbar-thumb {
     position: sticky;
     bottom: 30px;
     left: 95%;
-    
+
     border-radius: 50px;
     display: flex;
     align-items: center;
@@ -864,7 +867,7 @@ body::-webkit-scrollbar-thumb {
     padding: 10px;
     row-gap: 20px;
     justify-content: center;
-    
+
     backdrop-filter: blur(6px);
 }
 
@@ -942,6 +945,7 @@ body::-webkit-scrollbar-thumb {
     font-weight: bold;
     text-decoration: none;
 }
+
 .LoginContainer_Home-Link:hover {
     color: rgb(213, 0, 0);
     font-weight: bold;
@@ -1114,12 +1118,13 @@ body::-webkit-scrollbar-thumb {
     Responsive Tablet 
 =======================*/
 @media screen and (min-width: 768px) {
-    
+
     /*--Add Product Images--*/
 
     .AddProductImage_Carrousel {
         width: 650px;
     }
+
     /*--Title--*/
 
     .Title {
@@ -1135,17 +1140,14 @@ body::-webkit-scrollbar-thumb {
 
     /*--Product Details Page--*/
 
+    .ProductDetails {
+        flex-direction: row;
+        column-gap: 30px;
+    }
+
     .ProductDetails_Main {
         width: 300px;
-        height: 320px;
-        background-color: #fff;
-        display: flex;
-        align-self: center;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 0 2px black;
-        border-radius: 10px;
-        position: relative;
+        height: 340px;
     }
 
     .ProductDetails_Main-Img {
@@ -1157,6 +1159,12 @@ body::-webkit-scrollbar-thumb {
 
     .ProductDetails_Main-Button {
         align-self: center;
+    }
+
+    /*--Product Details Category List--*/
+
+    .ProductDetails_CategoryList__Container {
+        max-width: 600px;
     }
 
     /*--Funtions Page--*/
@@ -1212,15 +1220,18 @@ body::-webkit-scrollbar-thumb {
     Responsive Laptop 
 =======================*/
 @media screen and (min-width: 1024px) {
+
     /*--Add Product---*/
     .AddProduct_FormContainer-Row {
         flex-direction: row;
     }
+
     /*--Add Product Images--*/
 
     .AddProductImage_Carrousel {
         width: 900px;
     }
+
     /*--Nav--*/
 
     .nav {
@@ -1320,6 +1331,12 @@ body::-webkit-scrollbar-thumb {
         font-size: 25px;
     }
 
+    /*--Product Details Category List--*/
+
+    .ProductDetails_CategoryList__Container {
+        max-width: none;
+    }
+
     /*--Funtions Page--*/
 
     .FuntionsContainer {
@@ -1330,17 +1347,17 @@ body::-webkit-scrollbar-thumb {
     }
 
 
-   /*--Footer--*/
+    /*--Footer--*/
 
-   .footer {
-    padding-left: 10%;
-    padding-right: 10%;
-}
+    .footer {
+        padding-left: 10%;
+        padding-right: 10%;
+    }
 
-.FooterContentContainer {
-    flex-direction: row;
-    column-gap: 20px;
-}
+    .FooterContentContainer {
+        flex-direction: row;
+        column-gap: 20px;
+    }
 }
 
 /*===========================
