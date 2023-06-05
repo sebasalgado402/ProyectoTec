@@ -336,7 +336,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
     if(isset($_POST['action']) && $_POST['action'] == 'searchArticulo'){
       if(!empty($_POST['articulo'])){
         include('./../js/bd.php');
-        $consulta = "SELECT * FROM `articulos` WHERE art_nom LIKE '%".$_POST['articulo']."%';";
+        $consulta = "SELECT * FROM `articulos` WHERE art_nom LIKE '".$_POST['articulo']."%';";
         $db = mysqli_select_db( $conexion, $nombreBD ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
         
         $datos= mysqli_query ($conexion,$consulta);
@@ -374,10 +374,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
 
   //Procesar venta en facturacion
     $idFactura;
-    if(isset($_POST['action']) && $_POST['action'] == 'procesarVenta'){
+    /* if(isset($_POST['action']) && $_POST['action'] == 'procesarVenta'){
       if(!empty($_POST['procesarVenta'])){
         include('./../js/bd.php');
-
+        
         $formated_DATE = date('Y-m-d');
 
         $consulta = "INSERT INTO `factura`(`fact_id`, `fact_fecha`) VALUES (null,'$formated_DATE')";
@@ -392,7 +392,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
                     $idFactura = $row[0];
                     
                     
-                    mysqli_close($conexion);
+                    //mysqli_close($conexion);
                     
                     if($idFactura>0){
                       //$arrayVenta = $_POST['procesarVenta'];
@@ -400,7 +400,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
                       for ($i=0; $i < count($_POST['procesarVenta']) ; $i++) { 
                         
                         $venta_renglon=$_POST['procesarVenta'][$i]['nroRenglon'];
-                        $venta_articulo=$_POST['procesarVenta'][$i]['id_articulo'][0];
+                        $venta_articulo=$_POST['procesarVenta'][$i]['id_articulo'];
                         $venta_cantidad=$_POST['procesarVenta'][$i]['cantidad'];
                         $venta_precio=$_POST['procesarVenta'][$i]['precioTotal'];
                       
@@ -409,14 +409,23 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
                         $consulta ="INSERT INTO `detalle_factura`(`dfact_renglon`, `fact_id`, `art_id`, `dfact_cantidad`, `dfact_precio`) VALUES ('$venta_renglon','$idFactura','$venta_articulo','$venta_cantidad','$venta_precio')";
                         $datos= mysqli_query ($conexion,$consulta);
                       
-                        mysqli_close($conexion);
+                        
                         if($datos){
                           include('bd.php');
+                          $consultaStock = "call `restar_stock`($venta_articulo,$venta_cantidad);";
+                          $datosStock= mysqli_query ($conexion,$consultaStock);
+                         
+                          // Imprimir los datos
+                          
+                         if ($datosStock) {
+                          echo json_encode(print_r($_POST['procesarVenta']),JSON_UNESCAPED_UNICODE);
+                          exit;
+                         }else{
+                          echo json_encode('error stock',JSON_UNESCAPED_UNICODE);
+                          exit;
+                         }
                         
-                          $consulta ="CALL `restar_stock`($venta_articulo, $venta_cantidad)";
-                          $datos= mysqli_query ($conexion,$consulta);
-                        
-                          mysqli_close($conexion);
+                         
                         }
 
                         
@@ -424,6 +433,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
                       }
                       
                     }
+                    mysqli_close($conexion);
                     if($idFactura){
                       $data = $datos;
                     }else{
@@ -435,7 +445,57 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
               }
         
             }
-    }
+    } */
+  
+    if (isset($_POST['action']) && $_POST['action'] == 'procesarVenta') {
+      if (!empty($_POST['procesarVenta'])) {
+          include('./../js/bd.php');
+  
+          $formated_DATE = date('Y-m-d');
+  
+          $consulta = "INSERT INTO `factura`(`fact_id`, `fact_fecha`) VALUES (null,'$formated_DATE')";
+          $insertFactura = mysqli_query($conexion, $consulta) or die($mysqli->error);
+  
+          if ($insertFactura) {
+              $idFactura = mysqli_insert_id($conexion);
+  
+              if ($idFactura) {
+                  foreach ($_POST['procesarVenta'] as $venta) {
+                      $venta_renglon = $venta['nroRenglon'];
+                      $venta_articulo = $venta['id_articulo'];
+                      $venta_cantidad = $venta['cantidad'];
+                      $venta_precio = $venta['precioTotal'];
+  
+                      $consulta = "INSERT INTO `detalle_factura`(`dfact_renglon`, `fact_id`, `art_id`, `dfact_cantidad`, `dfact_precio`) VALUES ('$venta_renglon', '$idFactura', '$venta_articulo', '$venta_cantidad', '$venta_precio')";
+                      $datos = mysqli_query($conexion, $consulta);
+  
+                      if ($datos) {
+                          $consultaStock = "CALL `restar_stock`('$venta_articulo', '$venta_cantidad')";
+                          $datosStock = mysqli_query($conexion, $consultaStock);
+  
+                          if ($datosStock) {
+                              echo json_encode($_POST['procesarVenta'], JSON_UNESCAPED_UNICODE);
+                          } else {
+                              echo json_encode('Error al restar stock', JSON_UNESCAPED_UNICODE);
+                          }
+                      } else {
+                          echo json_encode('Error al insertar en detalle_factura', JSON_UNESCAPED_UNICODE);
+                      }
+                  }
+              } else {
+                  echo json_encode('Error al obtener ID de factura', JSON_UNESCAPED_UNICODE);
+              }
+          } else {
+              echo json_encode('Error al insertar factura', JSON_UNESCAPED_UNICODE);
+          }
+  
+          mysqli_close($conexion);
+          exit;
+      }
+  }
+  
+
+
   //Termina---Procesar venta en facturacion
 
    //Buscador Ecommerce

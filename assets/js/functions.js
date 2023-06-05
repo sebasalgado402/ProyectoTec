@@ -841,21 +841,16 @@ $(function () {
 
                                             let data = $.parseJSON(response);
                                             let datosCargar = data;
-                                            console.log(datosCargar);
+                                            
                                             let found = false;
 
-                                            for (var id in datosCargar.id) {
+                                           /*  for (var id in datosCargar.id) {
                                                 if (id === "1") {
                                                     found = true;
                                                     break;
                                                 }
-                                            }
-
-                                            if (found || $('#txt_descripcion').val() == '' ) {
-                                                vaciarCampos();
-                                               
-                                            } else {
-                                               
+                                            } */
+                                            console.log(datosCargar[0]);
                                                 $("#txt_descripcion").val(datosCargar.nombre);
                                                 $("#th_id_articulo").html(datosCargar.id);
                                                 $("#th_precio").html(datosCargar.precio);
@@ -865,6 +860,11 @@ $(function () {
 
                                                 id_articuloAgregar = datosCargar.id;
                                                 nombre_articuloAgregar = datosCargar.nombre;
+                                            if (found || $('#txt_descripcion').val() == '' ) {
+                                                vaciarCampos();
+                                               
+                                            } else {
+                                                
                                             }
 
 
@@ -925,7 +925,7 @@ $(function () {
     let arraySubtotal = [];
 
 
-    $("#btnAgregarFactura").click(function (e) {
+   /*  $("#btnAgregarFactura").click(function (e) {
         //let idArticulo = $('#th_id_articulo').val();
         let descripcion = $('#txt_descripcion').val();
         let cantidad = $('#txt_Cantidad').val();
@@ -952,7 +952,7 @@ $(function () {
                 `;
         $('#tbody_detalle').append(textoInsertado);
         articulo = new Object();
-        //articulo.idCliente = idClienteVenta;
+        
         articulo.nroRenglon = i;
         articulo.id_articulo = id_articuloAgregar;
         articulo.nombre = nombre_articuloAgregar;
@@ -970,22 +970,84 @@ $(function () {
         let subTotal = arraySubtotal.reduce((a, b) => a + b, 0);
         $('#txt_subtotalDetalle').val(subTotal);
 
-        let porcentajeIva = $('#txt_ivaDetalle').val();
-        let ivaConcatenado = '1.' + porcentajeIva;
-        let totalIva = (subTotal) * (ivaConcatenado);
-        $('#txt_totalDetalle').val(totalIva);
-
-        $('#txt_ivaDetalle').keyup(function (e) {
-            porcentajeIva = $('#txt_ivaDetalle').val();
-            ivaConcatenado = '1.' + porcentajeIva;
-            totalIva = (subTotal) * (ivaConcatenado);
-            $('#txt_totalDetalle').val(totalIva);
+        
+    }); */
+    $("#btnAgregarFactura").click(function (e) {
+        let descripcion = $('#txt_descripcion').val();
+        let cantidad = $('#txt_Cantidad').val();
+    
+        let idArticuloConcatenado = id_articuloAgregar + "idArticulo_detalle";
+    
+        // Verificar si el artículo ya existe en la tabla
+        let articuloExistente = false;
+        let filaExistente;
+        $('#tbody_detalle tr').each(function () {
+            let idArticulo = $(this).find('th').eq(0).attr('id');
+            if (idArticulo === idArticuloConcatenado) {
+                articuloExistente = true;
+                filaExistente = $(this);
+                return false; // Salir del bucle each
+            }
         });
+    
+        if (articuloExistente) {
+            // Si el artículo ya existe, reemplazar sus valores en la tabla
+            filaExistente.find('th').eq(1).text(nombre_articuloAgregar);
+            filaExistente.find('th').eq(2).text(cantidad_articuloAgregar);
+            filaExistente.find('th').eq(3).text(precio_articuloAgregar);
+        } else {
+            // Si el artículo no existe, agregarlo a la tabla
+            textoInsertado = `
+                <tr>
+                <th scope="col-1" class="align-middle text-center" id="${idArticuloConcatenado}">
+                ${id_articuloAgregar} 
+                </th>
+                <th scope="col-1" class="align-middle text-center">
+                ${nombre_articuloAgregar}
+                </th>
+                
+                <th scope="col-1" class="align-middle text-center"> 
+                ${cantidad_articuloAgregar}
+                </th>
+                
+                <th scope="col-1" class="align-middle text-center">
+                ${precio_articuloAgregar}
+                </th>
+                </tr>
+            `;
+            $('#tbody_detalle').append(textoInsertado);
+        articulo = new Object();
+        
+        articulo.nroRenglon = i;
+        articulo.id_articulo = id_articuloAgregar;
+        articulo.nombre = nombre_articuloAgregar;
+        articulo.cantidad = cantidad_articuloAgregar;
+        articulo.precioTotal = precio_articuloAgregar;
+        arrayArticulos.push(articulo);
+        arraySubtotal.push(precio_articuloAgregar);
+        }
+    
+        // Resto del código...
+    
+        // Habilitar el botón de procesar compra
+        $('#btnProcesarCompra').attr('disabled', false);
+    
+        // Calcular subtotal y actualizar el campo correspondiente
+        let subTotal = 0;
+        $('#tbody_detalle tr').each(function () {
+            let precioTotal = parseInt($(this).find('th').eq(3).text());
+            subTotal += precioTotal;
+        });
+        $('#txt_subtotalDetalle').val(subTotal);
+        limpiarCamposArt();
     });
+    
+    
+    
     //Termina---Funcionamiento de botón que agrega el articulo a la factura
 
     //Boton que procesa la factura
-    $("#btnProcesarCompra").click(function (e) {
+    /* $("#btnProcesarCompra").click(function (e) {
         let action = 'procesarVenta';
         $.ajax({
             url: './../assets/js/ajax.php',
@@ -1010,7 +1072,51 @@ $(function () {
             error: function (error) {
             }
         });
+    }); */
+    $("#btnProcesarCompra").click(function (e) {
+        let action = 'procesarVenta';
+    
+        // Actualizar el array de artículos
+        let arrayArticulos = [];
+        $('#tbody_detalle tr').each(function () {
+            let articulo = {
+                nroRenglon: $(this).index(),
+                id_articulo: $(this).find('th').eq(0).text().trim().replace(/\n/g, ""),
+                nombre: $(this).find('th').eq(1).text().trim().replace(/\n/g, ""),
+                cantidad: $(this).find('th').eq(2).text().trim().replace(/\n/g, ""),
+                precioTotal: $(this).find('th').eq(3).text().trim().replace(/\n/g, "")
+            };
+            arrayArticulos.push(articulo);
+            console.log(arrayArticulos);
+        });
+    
+        // Realizar la llamada AJAX
+        $.ajax({
+            url: './../assets/js/ajax.php',
+            type: "POST",
+            async: true,
+            data: { action: action, procesarVenta: arrayArticulos },
+    
+            success: function (response) {
+                if (response == 0) {
+                    alert('Hubo un error al enviar los artículos.');
+                }
+    
+                let data = $.parseJSON(response);
+    
+                if (data) {
+                    alert(data);
+                    //window.location.href = "./principal.php";
+                } else {
+                    alert(data);
+                }
+            },
+            error: function (error) {
+            }
+        });
     });
+    
+    
     //Termina---Boton que procesa la factura
 
     

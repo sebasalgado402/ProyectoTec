@@ -203,7 +203,7 @@ if (isset($_POST['idAction']) && $_POST['idAction'] == 'searchIdArticulo') {
     echo json_encode($articulo, JSON_UNESCAPED_UNICODE);
   }
 }
-
+/* 
 if (isset($_POST['action']) && $_POST['action'] == 'procesarVenta') {
 
   $formated_DATE = date('Y-m-d');
@@ -245,7 +245,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'procesarVenta') {
 
   ///////////
 }
-
+ */
 
 ////////------------------------------////////////////
 
