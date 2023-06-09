@@ -61,7 +61,7 @@
             <thead>
                 <tr class="table-dark align-middle">
                     <!-- <th scope="col">#</th> -->
-                    <th class="text-center" scope="col">Numeracion</th>
+                    <!-- <th class="text-center" scope="col">Numeracion</th> -->
                     <th class="text-center" scope="col">Concepto</th>
                     <th class="text-center" scope="col">Proveedor</th>
                     <th class="text-center" scope="col">Fecha</th>
@@ -78,7 +78,7 @@
             <thead>
                 <tr class="table-dark align-middle">
                     <!-- <th scope="col">#</th> -->
-                    <th class="text-center" scope="col">Numeracion</th>
+                    <!-- <th class="text-center" scope="col">Numeracion</th> -->
                     <th class="text-center" scope="col">ID Factura</th>
                     <th class="text-center" scope="col">Fecha de venta</th>
                     <th class="text-center" scope="col">Venta Total</th>

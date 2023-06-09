@@ -105,9 +105,9 @@ function mostrarLista_gastosFechas_parametros(fecha1,fecha2) {
             if (data.length > 1) {
                 $('#recibeResultados_Gastos').html('');
                 $.each(data, function(index, objeto) {
+                    //<th>${objeto.gas_num}</th>
                     const fila = `
                       <tr>
-                        <th>${objeto.gas_num}</th>
                         <th>${objeto.gas_concepto}</th>
                         <th>${objeto.gas_proveedor}</th>
                         <th>${objeto.gas_fecha}</th>
@@ -219,9 +219,9 @@ function mostrarLista_gastosFechas() {
             if (data.length > 1) {
                 $('#recibeListado_Gastos').html('');
                 $.each(data, function(index, objeto) {
+                    //<th>${objeto.gas_num}</th>
                     const fila = `
                       <tr>
-                        <th>${objeto.gas_num}</th>
                         <th>${objeto.gas_concepto}</th>
                         <th>${objeto.gas_proveedor}</th>
                         <th>${objeto.gas_fecha}</th>
@@ -407,7 +407,7 @@ $(function () {
     //MODAL FORMULARIO MODIFICAR POR ID
 
     let imagenActual;
-    $("[id^='modificar__Articulo']").click(function (e) {
+    $('#myBody').on('click', "[id^='modificar__Articulo']", function(e) {
         e.preventDefault();
         art_id = $(this).attr('data-art_id');
 
@@ -553,7 +553,7 @@ $(function () {
     //Termina - Botón de nuevo Artículo
 
     //MODAL FORMULARIO ELIMINAR POR ID
-    $("[id^='eliminar__Articulo']").click(function (e) {
+    $('#myBody').on('click', "[id^='eliminar__Articulo']", function(e) {
         e.preventDefault();
         art_id = $(this).attr('data-art_id');
       
@@ -923,54 +923,6 @@ $(function () {
     let arrayArticulos = [];
     let arraySubtotal = [];
 
-
-   /*  $("#btnAgregarFactura").click(function (e) {
-        //let idArticulo = $('#th_id_articulo').val();
-        let descripcion = $('#txt_descripcion').val();
-        let cantidad = $('#txt_Cantidad').val();
-        //let precioTotal = $('#th_precioTotal').val();
-
-       
-        textoInsertado = `
-                <tr>
-                <th scope="col-1" class="align-middle text-center" id="${contadorBotonFactura}idArticulo_detalle">
-                ${id_articuloAgregar} 
-                </th>
-                <th scope="col-1" class="align-middle text-center" id="${contadorBotonFactura}descripcion_detalle">
-                ${nombre_articuloAgregar}
-                </th>
-                
-                <th scope="col-1" class="align-middle text-center" id="${contadorBotonFactura}cantidad_detalle"> 
-                ${cantidad_articuloAgregar}
-                </th>
-                
-                <th scope="col-1" class="align-middle text-center" id="${contadorBotonFactura}precioTotal_detalle">
-                ${precio_articuloAgregar}
-                </th>
-                </tr>
-                `;
-        $('#tbody_detalle').append(textoInsertado);
-        articulo = new Object();
-        
-        articulo.nroRenglon = i;
-        articulo.id_articulo = id_articuloAgregar;
-        articulo.nombre = nombre_articuloAgregar;
-        articulo.cantidad = cantidad_articuloAgregar;
-        articulo.precioTotal = precio_articuloAgregar;
-        arrayArticulos.push(articulo);
-        arraySubtotal.push(precio_articuloAgregar);
-       
-        i += 1;
-        limpiarCamposArt();
-
-        $('#btnAgregarFactura').attr('disabled', true);
-        $('#btnProcesarCompra').attr('disabled', false);
-
-        let subTotal = arraySubtotal.reduce((a, b) => a + b, 0);
-        $('#txt_subtotalDetalle').val(subTotal);
-
-        
-    }); */
     $("#btnAgregarFactura").click(function (e) {
         let descripcion = $('#txt_descripcion').val();
         let cantidad = $('#txt_Cantidad').val();
@@ -1046,32 +998,7 @@ $(function () {
     //Termina---Funcionamiento de botón que agrega el articulo a la factura
 
     //Boton que procesa la factura
-    /* $("#btnProcesarCompra").click(function (e) {
-        let action = 'procesarVenta';
-        $.ajax({
-            url: './../assets/js/ajax.php',
-            type: "POST",
-            async: true,
-            data: { action: action, procesarVenta: arrayArticulos },
-
-            success: function (response) {
-                if (response == 0) {
-                    alert('Húbo un error al enviar articulos ');
-                }
-
-                let data = $.parseJSON(response);
-               
-                if (data) {
-                    alert(data);
-                    //window.location.href = "./principal.php";
-                } else {
-                    alert(data);
-                }
-            },
-            error: function (error) {
-            }
-        });
-    }); */
+   
     $("#btnProcesarCompra").click(function (e) {
         let action = 'procesarVenta';
     
@@ -1104,10 +1031,9 @@ $(function () {
                 let data = $.parseJSON(response);
     
                 if (data) {
-                    alert(data);
-                    //window.location.href = "./principal.php";
+                    window.location.href = "./principal.php";
                 } else {
-                    alert(data);
+                    console.log(data);
                 }
             },
             error: function (error) {
@@ -1121,8 +1047,18 @@ $(function () {
     
 
      //Buscador Ecommerce 
+     
      $("#txt_search").keyup(function (e) {
         e.preventDefault();
+    
+        let dropdownMenu = $("#select__categoria");
+        let opcionDeseada = dropdownMenu.find("option").eq(0).val();
+        dropdownMenu.val(opcionDeseada);
+
+        let dropdownMenuMobile = $("#seleccionarOpcionMenu");
+        let opcionDeseadaMobile = dropdownMenuMobile.find("option").eq(0).val();
+        dropdownMenuMobile.val(opcionDeseadaMobile);
+        
         let action = 'buscar_ecommerce';
         let buscar = $("#txt_search").val();
         if (buscar.length >= 0) {
@@ -1150,9 +1086,19 @@ $(function () {
         }
 
     });
-    //Con el buscador de Menu
-    $(".Menu_Search-Input").keyup(function (e) {
+        //Buscador ecommerce Con el buscador mobile
+    $('.Menu_Search-Input').on('keyup', function(e) {
+   
         e.preventDefault();
+
+        let dropdownMenuMobile = $("#seleccionarOpcionMenu");
+        let opcionDeseadaMobile = dropdownMenuMobile.find("option").eq(0).val();
+        dropdownMenuMobile.val(opcionDeseadaMobile);
+
+        let dropdownMenu = $("#select__categoria");
+        let opcionDeseada = dropdownMenu.find("option").eq(0).val();
+        dropdownMenu.val(opcionDeseada);
+        
         let action = 'buscar_ecommerce';
         let buscar = $(".Menu_Search-Input").val();
         if (buscar.length >= 0) {
@@ -1180,9 +1126,10 @@ $(function () {
         }
 
     });
+        //Buscador ecommerce Con el buscador mobile
 
     //Termina --- Buscador Ecommerce
-     //Buscador Ecommerce 
+     //Comienza --- Buscador lista de articulos 
      $("#txt_search_listaArticulos").keyup(function (e) {
         e.preventDefault();
         let action = 'buscar_listaArticulos';
@@ -1213,7 +1160,7 @@ $(function () {
 
     });
 
-    //Termina --- Buscador Ecommerce
+    //Termina --- Buscador lista de articulos
 
     //Comienza --- Visor de imagenes en articulo seleccionado
 
@@ -1255,12 +1202,16 @@ $(function () {
                         $('#txt__codArticulo').removeAttr("class");
                         $('#txt__codArticulo').addClass('form-control border border-danger');
                         
+                        $("#txt__codArticulo_error").removeAttr("class");
+                        $("#txt__codArticulo_error").addClass("text-danger d-block");
 
                     } else {
                         verificacion_codigoArt = 'no';
                         $('#txt__codArticulo').removeAttr("class");
                         $('#txt__codArticulo').addClass('form-control border border-success');
                         
+                        $("#txt__codArticulo_error").removeAttr("class");
+                        $("#txt__codArticulo_error").addClass("text-danger d-none");
                         
                     }
 
@@ -1301,12 +1252,15 @@ $(function () {
                         $('#txt__nombreArticulo').removeAttr("class");
                         $('#txt__nombreArticulo').addClass('form-control border border-danger');
                         
-
+                        $("#txt__nombreArticulo_error").removeAttr("class");
+                        $("#txt__nombreArticulo_error").addClass("text-danger d-block");
                     } else if (data == 'noExiste') {
                         verificacion_nombreArt = 'no';
                         $('#txt__nombreArticulo').removeAttr("class");
                         $('#txt__nombreArticulo').addClass('form-control border border-success');
                         
+                        $("#txt__nombreArticulo_error").removeAttr("class");
+                        $("#txt__nombreArticulo_error").addClass("text-danger d-none");
                     }
 
                 },
@@ -1556,8 +1510,8 @@ $(function () {
 
     
 //ABRIR MODAL FORMULARIO INSERTAR STOCK POR ID
-
-$("[id^='insertarStock']").click(function (e) {
+$('#myBody').on('click', "[id^='insertarStock']", function(e) {
+  
     e.preventDefault();
     art_id = $(this).attr('data-art_id');
 
@@ -1624,6 +1578,9 @@ $("[id^='insertarStock']").click(function (e) {
 });
 //Termina -ABRIR MODAL FORMULARIO INSERTAR STOCK POR ID
 //Boton que ELIMINA ARTICULO EN MODAL
+
+    
+
 $("#modal-insertarStock-btn").click(function (e) {
     e.preventDefault();
     if ($("#modal-insertarStock_cantidad").val().trim() !== "" && $("#modal-insertarStock_concepto").val().trim() !== ""  && $("#modal-insertarStock_proveedor").val().trim() !== ""  && $("#modal-insertarStock_gasto").val().trim() !== ""  ) {
@@ -1666,7 +1623,116 @@ $("#select__categoria").on('change',function (e) {
     console.log(selectedValue + 'hubo un cambio');
 });
 
+//Empieza --- Mandar el ID de la categoria seleccionada
+
+$("#select__categoria").on("change", function (e) {
+    e.preventDefault();
+    let cat_id = $(this).val();
+
+    let action = "seleccionaCategoria";
+
+    let dropdownMenu = $("#seleccionarOpcionMenu");
+    dropdownMenu.val(cat_id);
+
+    if (cat_id !== 'none') {
+        $.ajax({
+            type: "POST",
+            async: true,
+            url: "./../assets/js/ajax.php",
+            data: { action: action, seleccionaCategoria: cat_id },
+            success: function (response) {
+              if (response == 0) {
+              } else {
+                let resultado = response;
+                $('.ProductsList').html(resultado);
+              }
+            },
+            error: function (error) {
+              // Manejar el error en caso de que ocurra
+              console.error(error);
+            },
+          });
+    }else{
+        cat_id ='';
+        $.ajax({
+            type: "POST",
+            async: true,
+            url: "./../assets/js/ajax.php",
+            data: { action: action, seleccionaCategoria: cat_id },
+            success: function (response) {
+              if (response == 0) {
+              } else {
+                let resultado = response;
+                $('.ProductsList').html(resultado);
+              }
+            },
+            error: function (error) {
+              // Manejar el error en caso de que ocurra
+              console.error(error);
+            },
+          });
+    }
+    
+  });
+  $("#seleccionarPrimerElemento").click(function() {
+    var dropdownMenu = $("#dropdownMenu");
+    var primerElemento = dropdownMenu.find("a.dropdown-item").eq(0);
+    primerElemento.addClass("active");
+  });
+
+  //Termina --- Mandar el ID de la categoria seleccionada
+
+ //-- Dropdown Mobile
+
+ $("#seleccionarOpcionMenu").on("change", function (e) {
+    e.preventDefault();
+    let cat_id = $(this).val();
+
+    let action = "seleccionaCategoria";
+
+    let dropdown = $("#select__categoria");
+    dropdown.val(cat_id);
+
 //
+    if (cat_id !== "none") {
+      $.ajax({
+        type: "POST",
+        async: true,
+        url: "./../assets/js/ajax.php",
+        data: { action: action, seleccionaCategoria: cat_id },
+        success: function (response) {
+          if (response == 0) {
+          } else {
+            let resultado = response;
+            $(".ProductsList").html(resultado);
+          }
+        },
+        error: function (error) {
+          // Manejar el error en caso de que ocurra
+          console.error(error);
+        },
+      });
+    } else {
+      cat_id = "";
+      $.ajax({
+        type: "POST",
+        async: true,
+        url: "./../assets/js/ajax.php",
+        data: { action: action, seleccionaCategoria: cat_id },
+        success: function (response) {
+          if (response == 0) {
+          } else {
+            let resultado = response;
+            $(".ProductsList").html(resultado);
+          }
+        },
+        error: function (error) {
+          // Manejar el error en caso de que ocurra
+          console.error(error);
+        },
+      });
+    }
+  });
 
 /*--Funcion de Menu--*/
 if (document.querySelector(".Nav_Menu-Open")) {

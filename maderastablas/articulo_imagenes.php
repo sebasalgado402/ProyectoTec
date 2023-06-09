@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="./../jQueryUI/jquery-ui.theme.css">
 
 
-    <title>Balance</title>
+    <title>Cambiar imagen Articulo</title>
 </head>
 
 

@@ -496,12 +496,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
             <div class="ProductsList_Card-Name_Container">
             <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
             </div>
-            <div class="text-center"> Disponibles: <span style="
-            color: red;
-            /* font-style: revert; */
-            /* font-weight: 100; */
-            font-size: large;
-            ">' . $fila["art_stock"] . '</span> </div>
+            <div class="text-center"> Disponibles:<span style="color: red; font-size: large;">' . $fila["art_stock"] . '</span></div>
             <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
             </div>
             </div>';
@@ -513,7 +508,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
             <div class="ProductsList_Card-Name_Container">
             <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
             </div>
-            <div class="text-center">Disponibles:' . $fila["art_stock"] . '</div>
+            <div class="text-center">Disponibles:<span style="color: red; font-size: large;">' . $fila["art_stock"] . '</span></div>
             <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
             </div>
             </div>';
@@ -651,25 +646,25 @@ if(isset($_POST['action']) && $_POST['action'] == 'busqueda_Fecha_Gastos'){
                 if ($busqueda_Fecha_Gastos[0] !== $busqueda_Fecha_Gastos[1]) {
 
                 $consulta = "SELECT
-                ROW_NUMBER() OVER (ORDER BY gas_id) AS numeracion,
+                ROW_NUMBER() OVER (ORDER BY gas_fecha DESC) AS numeracion,
                 gas_id,
                 gas_proveedor,
                 gas_fecha,
                 gas_concepto,
                 gas_total
                 FROM
-                Gastos where gas_fecha BETWEEN '".$busqueda_Fecha_Gastos[0]."' AND '".$busqueda_Fecha_Gastos[1]."'";
+                Gastos where gas_fecha BETWEEN '".$busqueda_Fecha_Gastos[0]."' AND '".$busqueda_Fecha_Gastos[1]." ORDER BY numeracion ASC'";
                 
                 }else {
                 $consulta = "SELECT
-                ROW_NUMBER() OVER (ORDER BY gas_id) AS numeracion,
+                ROW_NUMBER() OVER (ORDER BY gas_fecha) AS numeracion,
                 gas_id,
                 gas_proveedor,
                 gas_fecha,
                 gas_concepto,
                 gas_total
                 FROM
-                Gastos where gas_fecha= '".$busqueda_Fecha_Gastos[0]."'";
+                Gastos where gas_fecha= '".$busqueda_Fecha_Gastos[0]." ORDER BY numeracion'";
                 }
                 
 
@@ -718,7 +713,7 @@ if(isset($_POST['action']) && $_POST['action'] == 'busqueda_ventasFechas'){
                 
                 if ($busqueda_ventasFechas[0] == $busqueda_ventasFechas[1]) {
                 $consulta = "SELECT
-                ROW_NUMBER() OVER (ORDER BY factura.fact_id) AS numeracion,
+                ROW_NUMBER() OVER (ORDER BY factura.fact_fecha) AS numeracion,
                 factura.fact_id,
                 factura.fact_fecha,
                 total_factura.precioTotal
@@ -736,12 +731,10 @@ if(isset($_POST['action']) && $_POST['action'] == 'busqueda_ventasFechas'){
                     total_factura.fact_id = factura.fact_id
                 WHERE
                     factura.fact_fecha = '".$busqueda_ventasFechas[0]."'
-                ORDER BY
-                    numeracion ASC
-                ";
+                ORDER BY numeracion ASC ";
                 }else {
                   $consulta = "SELECT
-                ROW_NUMBER() OVER (ORDER BY factura.fact_id) AS numeracion,
+                ROW_NUMBER() OVER (ORDER BY factura.fact_fecha) AS numeracion,
                 factura.fact_id,
                 factura.fact_fecha,
                 total_factura.precioTotal
@@ -805,7 +798,7 @@ if((isset($_POST['action'])) && $_POST['action']=='buscar_conceptoLista__Gastos'
   include('bd.php');
                     
   $consulta ="SELECT
-  ROW_NUMBER() OVER (ORDER BY gas_id) AS numeracion,
+  ROW_NUMBER() OVER (ORDER BY gas_fecha) AS numeracion,
   gas_id,
   gas_proveedor,
   gas_fecha,
@@ -814,14 +807,14 @@ if((isset($_POST['action'])) && $_POST['action']=='buscar_conceptoLista__Gastos'
 FROM
   Gastos
 WHERE
-  gas_concepto LIKE '".$_POST['buscar_conceptoLista__Gastos']."%' ORDER BY numeracion ASC;";
+  gas_concepto LIKE '".$_POST['buscar_conceptoLista__Gastos']."%' ORDER BY numeracion DESC;";
   $datos= mysqli_query ($conexion,$consulta);
 
   $busqueda = new stdClass();
   while ($fila =mysqli_fetch_assoc($datos)){
+   // <th class="col-1 text-center">'.$fila ["numeracion"].'</th>
     echo'
       <tr>
-        <th class="col-1 text-center">'.$fila ["numeracion"].'</th>
         <th>'.$fila ["gas_concepto"].'</th>
         <th>'.$fila ["gas_proveedor"].'</th>
         <th class="col-2 text-center">'.$fila ["gas_fecha"].'</th>
@@ -840,7 +833,7 @@ if((isset($_POST['action'])) && $_POST['action']=='buscar_proveedorLista__Gastos
   include('bd.php');
                     
   $consulta ="SELECT
-  ROW_NUMBER() OVER (ORDER BY gas_id) AS numeracion,
+  ROW_NUMBER() OVER (ORDER BY gas_fecha ASC) AS numeracion,
   gas_id,
   gas_proveedor,
   gas_fecha,
@@ -849,14 +842,14 @@ if((isset($_POST['action'])) && $_POST['action']=='buscar_proveedorLista__Gastos
 FROM
   Gastos
 WHERE
-  gas_proveedor LIKE '".$_POST['buscar_proveedorLista__Gastos']."%' ORDER BY numeracion ASC;";
+  gas_proveedor LIKE '".$_POST['buscar_proveedorLista__Gastos']."%' ORDER BY numeracion DESC;";
   $datos= mysqli_query ($conexion,$consulta);
 
   $busqueda = new stdClass();
   while ($fila =mysqli_fetch_assoc($datos)){
+    //<th class="col-1 text-center">'.$fila ["numeracion"].'</th>
     echo'
       <tr>
-        <th class="col-1 text-center">'.$fila ["numeracion"].'</th>
         <th>'.$fila ["gas_concepto"].'</th>
         <th>'.$fila ["gas_proveedor"].'</th>
         <th class="col-2 text-center">'.$fila ["gas_fecha"].'</th>
@@ -1035,4 +1028,76 @@ if(isset($_POST['action']) && $_POST['action'] == 'insertar_cantidadStock'){
 
 //Termina --- Insertar stock con lo recibido del formulario
 
+//Empieza --- Consultar Articulos de Categoria Seleccionada
+if (
+  isset($_POST['action']) && $_POST['action'] == 'seleccionaCategoria'
+) {
+  include('./../js/bd.php');
+  if ($_POST['seleccionaCategoria'] == '') {
+    $consultaCategoria ="SELECT articulos.*, categorias.*, primera_imagen.ruta_img AS art_imagen
+    FROM articulos 
+    INNER JOIN categorias ON articulos.art_categoria = categorias.cat_id 
+    LEFT JOIN (
+      SELECT art_id, ruta_img
+      FROM art_imagenes
+      GROUP BY art_id
+    ) AS primera_imagen ON articulos.art_id = primera_imagen.art_id ORDER BY art_id DESC;";
+  }else{
+    $consultaCategoria ="SELECT articulos.*, categorias.*, primera_imagen.ruta_img AS art_imagen
+    FROM articulos 
+    INNER JOIN categorias ON articulos.art_categoria = categorias.cat_id 
+    LEFT JOIN (
+      SELECT art_id, ruta_img
+      FROM art_imagenes
+      GROUP BY art_id
+    ) AS primera_imagen ON articulos.art_id = primera_imagen.art_id 
+     WHERE art_categoria =".$_POST['seleccionaCategoria']." ORDER BY art_id DESC;";
+  }
+  
+
+  $datosCategoria = mysqli_query($conexion, $consultaCategoria);
+
+  $fila_cat = mysqli_num_rows($datosCategoria);
+  
+  if ($fila_cat  > 0) {
+    while ($fila_cat = mysqli_fetch_array($datosCategoria)) {
+      echo '<div class="ProductsList_Card" id="art_Ecommerce" onclick="redireccionArticulo(' . $fila_cat["art_id"] . ')">
+                <div class="contain-imgCard">
+                <img src="';
+      if (!empty($fila_cat['art_imagen'])) {
+        echo '' . $fila_cat["art_imagen"] . '" alt="error al cargar imagen" class="ProductsList_Card-Img">
+                  </div>
+                  <div class="ProductsList_Card-Content">
+                  <span class="ProductsList_Card-Cat">' . $fila_cat["cat_nom"] . '</span>
+                  <div class="ProductsList_Card-Name_Container">
+                  <h5 class="ProductsList_Card-Name">' . $fila_cat["art_nom"] . '</h5>
+                  </div>
+                  <div class="text-center"> Disponibles: <span style="color: red; font-size: large;">' . $fila_cat["art_stock"] . '</span> </div>
+                  <h4 class="ProductsList_Card-Price">$' . $fila_cat["art_precio"] . '</h4>
+                  </div>
+              </div>';
+      } else {
+        echo './../assets/images/default.png" alt="error al cargar imagen" class="ProductsList_Card-Img">
+                </div>
+                <div class="ProductsList_Card-Content">
+                  <span class="ProductsList_Card-Cat">' . $fila_cat["cat_nom"] . '</span>
+                    <div class="ProductsList_Card-Name_Container">
+                      <h5 class="ProductsList_Card-Name">' . $fila_cat["art_nom"] . '</h5>
+                    </div>
+                    <div class="text-center">Disponibles:<span style="color: red; font-size: large;">' . $fila["art_stock"] . '</span></div>
+                      <h4 class="ProductsList_Card-Price">$' . $fila_cat["art_precio"] . '</h4>
+                    </div>
+                </div>';
+      }
+    }
+
+  
+  } else {
+    echo 'No hay resultados';
+  }
+  mysqli_close($conexion);
+  exit;
+}
+
+//Termina --- Consultar Articulos de Categoria Seleccionada
 ?>

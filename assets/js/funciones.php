@@ -15,7 +15,39 @@ function comprobarUsuario()
   }
 }
 
+function mostrarCategorias()
+{
+  include('./../assets/js/bd.php');
+  $consulta = "SELECT * FROM categorias where cat_id <> 1;";
+  $datos = mysqli_query($conexion, $consulta);
 
+  $i = 1;
+  if ($fila = mysqli_num_rows($datos) > 0) {
+    while ($fila = mysqli_fetch_array($datos)) {
+      //<th scope="col-1">'.$i++.'</th>
+      echo '
+                <tr>
+                    <th class="align-middle p-0 text-center">' . $fila["cat_id"] . '</th>
+                    <th class="align-middle p-0 text-center">' . $fila["cat_nom"] . '</th>
+                    <th class="align-middle p-0 text-center">' . $fila["cat_obs"] . '</th>
+                    <th class="align-middle text-center">
+                    
+                    <a role="button" id="modificar__Categoria' . $fila["cat_id"] . '" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_modificarCategoria" data-art_id=' . $fila["cat_id"] . ' >
+                    <i class="bi bi-pencil-fill"></i>
+                    </a>
+                   
+                    <a role="button" id="eliminar__Categoria' . $fila["cat_id"] . '" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_eliminarCategoria" data-art_id=' . $fila["cat_id"] . '>
+                    <i class="bi bi-x-square"></i>
+                    </a>
+                  </th>
+                </tr>';
+    }
+  } else {
+    echo 'No se encontraron resultados..';
+  }
+
+  mysqli_close($conexion);
+}
 function mostrarArticulos()
 {
   include('./../assets/js/bd.php');
@@ -70,6 +102,7 @@ function mostrarArticulos()
 
   mysqli_close($conexion);
 }
+
 function mostrarArticulos_Ecommerce()
 {
   include('./../assets/js/bd.php');
@@ -119,7 +152,7 @@ function mostrarArticulos_Ecommerce()
                   <div class="ProductsList_Card-Name_Container">
                   <h5 class="ProductsList_Card-Name">' . $fila["art_nom"] . '</h5>
                   </div>
-                  <div class="text-center">Disponibles:' . $fila["art_stock"] . '</div>
+                  <div class="text-center">Disponibles:<span style="color: red; font-size: large;">' . $fila["art_stock"] . '</span></div>
                     <h4 class="ProductsList_Card-Price">$' . $fila["art_precio"] . '</h4>
                   </div>
                 </div>';
@@ -159,7 +192,7 @@ function cargarCategorias()
   mysqli_close($conexion);
 }
 
-//Buscar articulos en ...
+//Comienza --- Buscar articulos en Facturacion
 
 if (isset($_POST['idAction']) && $_POST['idAction'] == 'searchIdArticulo') {
   if (!empty($_POST['idArticulo'])) {
@@ -193,51 +226,7 @@ if (isset($_POST['idAction']) && $_POST['idAction'] == 'searchIdArticulo') {
     echo json_encode($articulo, JSON_UNESCAPED_UNICODE);
   }
 }
-/* 
-if (isset($_POST['action']) && $_POST['action'] == 'procesarVenta') {
-
-  $formated_DATE = date('Y-m-d');
-
-  include('./../assets/js/bd.php');
-  $consulta = "SELECT max(noFactura) FROM `facturas`";
-  $db = mysqli_select_db($conexion, $nombreBD) or die("Upps! Pues va a ser que no se ha podido conectar a la base de datos");
-
-
-  $datos = mysqli_query($conexion, $consulta);
-
-  if ($datos !== 0) {
-    $resultado = mysqli_fetch_assoc($datos);
-    $idFactura = $resultado['max(noFactura)'];
-
-    if ($idFactura > 0) {
-
-      $arrayVenta = $_POST['detalleF'];
-      for ($i = 0; $i < count($arrayVenta); $i++) {
-        echo "<br>";
-        include('./../assets/js/bd.php');
-        $consulta = "INSERT INTO `detalle_factura`(`nroRenglon`, `id_factura`, `id_articulo`, `cantidad`, `precio`) VALUES (" . $arrayVenta[$i]['nroRenglon'] . "," . $idFactura . "," . $arrayVenta[$i]['id_articulo'] . "," . $arrayVenta[$i]['cantidad'] . "," . $arrayVenta[$i]['precioTotal'] . ")";
-
-        $db = mysqli_select_db($conexion, $nombreBD) or die("Upps! Pues va a ser que no se ha podido conectar a la base de datos");
-        $datos = mysqli_query($conexion, $consulta);
-
-        mysqli_close($conexion);
-      }
-      $data='<div class="alert alert-success text-center" role="alert">generando factura!..</div>';
-      echo json_encode($data,JSON_UNESCAPED_UNICODE);
-    } else {
-      $data='<div class="alert alert-danger text-center" role="alert">no se pudo!..</div>';
-      echo json_encode($data,JSON_UNESCAPED_UNICODE);
-    }
-    exit;
-  }
-
-
-
-  ///////////
-}
- */
-
-////////------------------------------////////////////
+//Termina --- Buscar articulos en Facturacion
 
 
 
@@ -286,10 +275,10 @@ function mostrarGastos()
   $i = 1;
   while ($fila = mysqli_fetch_array($datos)) {
     //<th scope="col-1">'.$i++.'</th>
+    //<th class="col-1 text-center">' . $fila["numeracion"] . '</th>
 
     echo '
                       <tr>
-                          <th class="col-1 text-center">' . $fila["numeracion"] . '</th>
                           <th>' . $fila["gas_concepto"] . '</th>
                           <th>' . $fila["gas_proveedor"] . '</th>
                           <th class="col-2 text-center">' . $fila["gas_fecha"] . '</th>
@@ -413,13 +402,13 @@ function mostrarArticulosMismaCategoria()
   if (isset($_GET['articleID'])) {
     include('./../assets/js/bd.php');
     // 2) Preparar la orden SQL
-    $art_categoria = 'SELECT art_categoria FROM `articulos` WHERE art_id = "' . $_GET["articleID"] . '" ';
+    $art_categoria = 'SELECT art_categoria FROM `articulos` WHERE art_id = "' . $_GET["articleID"] . '"';
 
     $query_categoria = mysqli_query($conexion, $art_categoria);
 
     $resultado_categoria = mysqli_fetch_array($query_categoria);
 
-    $query_relacionados = 'SELECT a.*, primera_imagen.ruta_img
+    $query_relacionados = 'SELECT a.*, c.cat_nom AS nombre_categoria, primera_imagen.ruta_img
     FROM articulos a
     INNER JOIN categorias c ON c.cat_id = a.art_categoria
     LEFT JOIN (
@@ -435,7 +424,9 @@ function mostrarArticulosMismaCategoria()
         WHERE art_categoria = ' . $resultado_categoria[0] . '
         AND art_id = "' . $_GET['articleID'] . '"
     )
-    ORDER BY a.art_id DESC;';
+    ORDER BY RAND() Limit 5';
+
+   
 
 
     $articulos_relacionados = mysqli_query($conexion, $query_relacionados);
@@ -453,7 +444,7 @@ function mostrarArticulosMismaCategoria()
           echo '' . $art_rel["ruta_img"] . '" alt="error al cargar imagen" class="ProductsList_Card-Img">
           </div>
           <div class="ProductsList_Card-Content">
-            <span class="ProductsList_Card-Cat"></span>
+            <span class="ProductsList_Card-Cat">' . $art_rel["nombre_categoria"] . '</span>
               <div class="ProductsList_Card-Name_Container">
                 <h5 class="ProductsList_Card-Name">' . $art_rel["art_nom"] . '</h5>
               </div>
@@ -464,7 +455,7 @@ function mostrarArticulosMismaCategoria()
           echo
           './../assets/images/default.png" alt="error al cargar imagen" class="ProductsList_Card-Img"></div>
             <div class="ProductsList_Card-Content">
-                <span class="ProductsList_Card-Cat">' . $art_rel["art_categoria"] . '</span>
+                <span class="ProductsList_Card-Cat">' . $art_rel["nombre_categoria"] . '</span>
                 <div class="ProductsList_Card-Name_Container">
                   <h5 class="ProductsList_Card-Name">' . $art_rel["art_nom"] . '</h5>
                 </div>

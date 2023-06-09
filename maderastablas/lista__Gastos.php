@@ -26,7 +26,7 @@
     <link rel="stylesheet" href="./../jQueryUI/jquery-ui.structure.css">
     <link rel="stylesheet" href="./../jQueryUI/jquery-ui.theme.css">
 
-    <title>Listado Facturas</title>
+    <title>Listado Gastos</title>
 </head>
 
 <body>
@@ -86,7 +86,7 @@
             <thead>
                 <tr class="table-dark align-middle">
                     <!-- <th scope="col">#</th> -->
-                    <th class="text-center" scope="col">Numeracion</th>
+                    <!-- <th class="text-center" scope="col">Numeracion</th> -->
                     <th class="text-center" scope="col">Concepto</th>
                     <th class="text-center" scope="col">Proveedor</th>
                     <th class="text-center" scope="col">Fecha</th>

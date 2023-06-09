@@ -92,10 +92,10 @@
                     <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
                 </div>
             </a>
-            <a href="actualizar_articulo.php" class="FuntionCard">
+            <a href="categorias.php" class="FuntionCard">
                 <div class="FunctionCard-Content">
-                    <p class="FuntionCard_Title">Insertar Stock</p>
-                    <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                    <p class="FuntionCard_Title">Categorias</p>
+                    <p class="FunctionCard_Description">Administra las categorias de tus articulos</p>
                 </div>
                 <div class="FuntionCard_Icon-Container">
                     <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 04-06-2023 a las 05:51:52
+-- Tiempo de generación: 09-06-2023 a las 02:43:21
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -38,7 +38,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `mostrar_Gastos` ()   SELECT
   gas_concepto,
   gas_total
 FROM
-  Gastos$$
+  Gastos ORDER BY gas_fecha DESC$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `precioTotal_Factura` (IN `idFactura` INT)   select sum(df.dfact_precio) as total from detalle_factura as df where df.fact_id = idFactura$$
 
@@ -66,21 +66,21 @@ CREATE TABLE `articulos` (
   `art_costo` int(20) NOT NULL,
   `art_vendible` varchar(1) NOT NULL DEFAULT 'S',
   `art_deshabilitado` varchar(1) DEFAULT NULL,
-  `art_categoria` int(20) DEFAULT NULL,
+  `art_categoria` int(20) DEFAULT 1,
   `art_materiales` varchar(50) NOT NULL,
   `art_notas` text NOT NULL
-) ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `articulos`
 --
 
 INSERT INTO `articulos` (`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_deshabilitado`, `art_categoria`, `art_materiales`, `art_notas`) VALUES
-(77, 'aaa', 'aasdasd', 'asdasd', 424, 17, 424, '', '', 2, 'asdasda', ''),
-(78, 'vvv', 'fsafdas', 'asdasd', 14214, 4214, 424, '', '', 2, 'asdasd', ''),
+(77, 'aaa', 'aasdasd', 'asdasd', 424, 17, 424, '', '', NULL, 'asdasda', ''),
 (79, 'ggg', 'asdasd', 'asdasd', 4214, 20, 4124, '', '', 2, 'asdasd', ''),
-(80, 'hhhh', 'ggdf', 'asdasd', 2424, 24, 424, '', '', 2, 'gggg', ''),
-(81, 'asvv', 'Una silla super comoda para que te sientes', 'asdasd', 424, 603, 4242, '', '', 1, 'asdasd', '');
+(81, 'asvv', 'Una silla super comoda para que te sientes', 'asdasd', 424, 602, 4242, '', '', 2, 'asdasd', ''),
+(82, 'XXX', 'xzczxc', 'zxcqwrq', 42, 24, 42, 'S', NULL, 2, 'asdasd', 'asda'),
+(83, 'XXaaX', 'a', 'a', 1, 1, 1, '', '', 1, 'a', 'a');
 
 -- --------------------------------------------------------
 
@@ -110,18 +110,31 @@ CREATE TABLE `categorias` (
 --
 
 INSERT INTO `categorias` (`cat_id`, `cat_nom`, `cat_obs`) VALUES
-(1, 'Sillas', '---'),
+(1, 'Sin Categoria', 'Articulo sin categoria'),
 (2, 'Materas', '---'),
 (3, 'Mesas', '---'),
 (4, 'Percheros', '---'),
 (7, 'Llaveros', '---'),
 (8, 'Estanterias', '---'),
+(10, 'Sillas', '---'),
 (11, 'Descuentos', NULL),
 (12, 'Marcos', NULL),
 (14, 'Tablas y Cuencos', 'tablas de picar y de asado, cuencos para servir'),
 (15, 'Pinos Navidad', 'Tamaños varios'),
 (26, 'Navidad', 'cosas de navidad'),
 (27, 'cosas de navidad', '');
+
+--
+-- Disparadores `categorias`
+--
+DELIMITER $$
+CREATE TRIGGER `trg_noborrarCategoria1` BEFORE DELETE ON `categorias` FOR EACH ROW BEGIN
+    IF OLD.cat_id = 1 THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'No se puede eliminar la categoría con ID igual a 1.';
+    END IF;
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -266,7 +279,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  MODIFY `art_id` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `art_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`

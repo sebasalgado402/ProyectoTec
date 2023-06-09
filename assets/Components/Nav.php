@@ -14,7 +14,7 @@ if (isset($_SESSION["usuarioActivo"]) && $_SESSION['usu_rol'] == 1) {
             <!--Categories List-->
             <div class="dropdown">
             <select name="categoria" id="select__categoria" class="form-select border-2 text-black Nav-DropdownButton">
-                            <option value="none">Categorias</option>';
+                            <option class="text-center" value="none">Categorias</option>';
                            cargarCategorias();
               echo'</select>
             </div>
@@ -39,7 +39,7 @@ if (isset($_SESSION["usuarioActivo"]) && $_SESSION['usu_rol'] == 1) {
                 <!--Categories List-->
                 <div class="dropdown">
                 <select name="categoria" id="select__categoria" class="form-select border-2 text-black Nav-DropdownButton">
-                <option value="none">Categorias</option>';
+                <option class="text-center" value="none">Categorias</option>';
                cargarCategorias();
         echo'</select>
                 </div>
@@ -66,7 +66,7 @@ if (isset($_SESSION["usuarioActivo"]) && $_SESSION['usu_rol'] == 1) {
                 <!--Categories List-->
                 <div class="dropdown">
                 <select name="categoria" id="select__categoria" class="form-select border-2 text-black Nav-DropdownButton">
-                <option value="none">Categorias</option>';
+                <option class="text-center" value="none">Categorias</option>';
                cargarCategorias();
         echo'</select>
                 </div>

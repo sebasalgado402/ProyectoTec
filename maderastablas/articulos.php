@@ -33,7 +33,7 @@
 
     <title>Articulos</title>
 </head>
-<body>
+<body id='myBody'>
 <!-- MODAL Insertar Stock-->
         
 <div class="modal fade" id="modal_insertarStock" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="" aria-hidden="true">
