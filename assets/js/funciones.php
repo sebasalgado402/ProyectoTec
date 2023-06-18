@@ -32,11 +32,11 @@ function mostrarCategorias()
                     <th class="align-middle p-0 text-center">' . $fila["cat_obs"] . '</th>
                     <th class="align-middle text-center">
                     
-                    <a role="button" id="modificar__Categoria' . $fila["cat_id"] . '" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_modificarCategoria" data-art_id=' . $fila["cat_id"] . ' >
+                    <a role="button" id="modificar__Categoria' . $fila["cat_id"] . '" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_modificarCategoria" data-cat_id=' . $fila["cat_id"] . ' >
                     <i class="bi bi-pencil-fill"></i>
                     </a>
                    
-                    <a role="button" id="eliminar__Categoria' . $fila["cat_id"] . '" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_eliminarCategoria" data-art_id=' . $fila["cat_id"] . '>
+                    <a role="button" id="eliminar__Categoria' . $fila["cat_id"] . '" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_eliminarCategoria" data-cat_id=' . $fila["cat_id"] . '>
                     <i class="bi bi-x-square"></i>
                     </a>
                   </th>
@@ -170,7 +170,7 @@ function mostrarArticulos_Ecommerce()
 function cargarCategorias()
 {
   include('./../assets/js/bd.php');
-  $consulta = "SELECT `cat_id`, `cat_nom`, `cat_obs` FROM `categorias` ORDER BY cat_nom";
+  $consulta = "SELECT `cat_id`, `cat_nom`, `cat_obs` FROM `categorias` ORDER BY cat_id";
 
   //$db = mysqli_select_db( $conexion, $nombreBD) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
 
@@ -324,21 +324,21 @@ function mostrarArticuloSeleccionado()
       echo '
       <!--Product Content-->
       <main class="ProductDetails">
-          <div id="carouselExampleAutoplaying" class="carousel slide ProductDetails_Main" data-bs-ride="carousel">
+          <div id="carouselExampleAutoplaying" class="carousel slide ProductDetails_Main carousel-dark" data-bs-ride="carousel">
               <div class="carousel-inner">
-                  <div class="carousel-item active">
-                      <img src="' . $filaPrimer_IMG['ruta_img'] . '" class="ProductDetails_Main-Img " alt="...">
+                  <div class="carousel-item active" id="ProductsList_Card_Image-Container">
+                      <img src="' . $filaPrimer_IMG['ruta_img'] . '" class="ProductDetails_Main-Img " alt="..." id="ProductsList_Card_Image">
                   </div>';
       while ($imagenRecibida = mysqli_fetch_array($datosIMG)) {
         echo ' 
                         <div class="carousel-item">
-                            <img src="' . $imagenRecibida['ruta_img'] . '" class="ProductDetails_Main-Img" alt="...">
+                            <img src="' . $imagenRecibida['ruta_img'] . '" class="ProductDetails_Main-Img" alt="..." id="ProductsList_Card_Image">
                         </div>';
       }
 
       echo '
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="carousel-control-prev-icon color-dark" aria-hidden="true"></span>
                   <span class="visually-hidden">Previous</span>
               </button>
               <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
@@ -353,7 +353,7 @@ function mostrarArticuloSeleccionado()
               <p class="ProductDetails_Main-Description">' . $fila["art_desc"] . '</p>
               <p class="ProductDetails_Main-Price">$' . $fila["art_precio"] . '</p>
               <p class="ProductDetails_Main-Price">Stock:' . $fila["art_stock"] . '</p>
-              <a href="https://wa.me/573001112233?text=Hola!%20Estoy%20interesado%20en%20'.$fila["art_nom"].'" class="ProductDetails_Main-Button" target="_blank">
+              <a href="https://wa.me/573001112233?text=Hola!%20Estoy%20interesado%20en%20' . $fila["art_nom"] . '" class="ProductDetails_Main-Button" target="_blank">
                   Consultar Producto
               </a>
           </div>
@@ -385,7 +385,7 @@ function mostrarArticuloSeleccionado()
             <p class="ProductDetails_Main-Description">' . $fila["art_desc"] . '</p>
             <p class="ProductDetails_Main-Price">$' . $fila["art_precio"] . '</p>
             <p class="ProductDetails_Main-Price">Stock:' . $fila["art_stock"] . '</p>
-            <a href=https://wa.me/573001112233?text=Hola!%20Estoy%20interesado%20en%20'.$fila["art_nom"].' class="ProductDetails_Main-Button" target="_blank">
+            <a href=https://wa.me/573001112233?text=Hola!%20Estoy%20interesado%20en%20' . $fila["art_nom"] . ' class="ProductDetails_Main-Button" target="_blank">
                 Consultar Producto
             </a>
         </div>
@@ -515,7 +515,87 @@ function imagenes_articuloSeleccionado()
   }
 }
 //
+//Comienza --- Cargar Banner con Imagenes 
 
+function cargarBanner()
+{
+  include("bd.php");
+
+  $consultaPrimeraImagenBanner = 'SELECT * FROM banner LIMIT 1';
+  
+  $consultaimagenesBanner = 'SELECT * FROM banner LIMIT 99999';
+
+  $primeraImagenBanner = mysqli_query($conexion, $consultaPrimeraImagenBanner);
+
+  $imagenesBanner = mysqli_query($conexion, $consultaimagenesBanner);
+
+  $filaPrimer_IMG = mysqli_fetch_array($primeraImagenBanner);
+  $filaIMG = mysqli_fetch_array($imagenesBanner);
+
+  if ($filaPrimer_IMG) {
+    echo '
+          <!--Banner-->
+          <div id="carouselExampleAutoplaying" class="carousel slide Banners container-fluid mt-2" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="' . $filaPrimer_IMG['banner_ruta'] . '" class="d-block w-100 BannerImg rounded-2" alt="...">
+              </div>';
+              while ($imagenesBannerRecibida = mysqli_fetch_array($imagenesBanner)) {
+                echo '
+                <div class="carousel-item">
+                  <img src="'. $imagenesBannerRecibida['banner_ruta'] .'" class="d-block w-100 BannerImg rounded-2" alt="...">
+                </div>';
+              }
+            echo '</div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+        </div>';
+  }
+  mysqli_close($conexion);
+}
+
+//Termina --- Cargar Banner con Imagenes 
+
+//Comienza --- Cargar Imagenes al Banner 
+
+function imagenes_banner()
+{
+  include('./../assets/js/bd.php');
+
+  $consulta = "SELECT * FROM banner";
+
+  $datos = mysqli_query($conexion, $consulta);
+
+  if (mysqli_num_rows($datos) == 0) {
+    echo '<div style="
+      display: flex;
+      margin: auto;
+      font-size: 20px;"> No se encontraron imágenes </div>';
+  } else {
+    $contador = 1;
+    while ($fila = mysqli_fetch_array($datos)) {
+      $ruta_img = $fila['banner_ruta'];
+      echo '
+          <div class="AddProductImage_Carrousel-Card">
+              <img src="' . $ruta_img . '" class="AddProductImage_Carrousel-Card-Img" />
+              <button id="btn_eliminarImagen_Seleccionada' . $contador . '" type="button" class="AddProductImage_Carrousel-Card-Button"  data="' . $ruta_img . '" />
+                <img src="../assets/icons/basura.png" class="AddProductImage_Carrousel-Card-Button-Icon" />
+              </button>
+          </div>';
+      $contador = $contador + 1;
+    }
+  }
+
+  mysqli_close($conexion);
+}
+
+//Comienza --- Cargar Imagenes al Banner 
 
 
 

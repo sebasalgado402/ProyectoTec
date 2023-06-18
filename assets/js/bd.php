@@ -1,12 +1,25 @@
 <?php
     $nombreBD = 'barredadb';
     //$nombreBD = 'id19677335_barredadb';
-    $conexion = mysqli_connect("localhost", "root", "","$nombreBD");
-        if(!$conexion){
+       /*  if(!$conexion || !$conexionIp){
             echo "no se ha conectado a la base de datos";
         }
+ */
         
+    try {
+        $conexion = mysqli_connect("localhost", "root", "","$nombreBD");
+        
+    } catch(\Throwable $th) {
     
+        try {
+            $conexionIp = mysqli_connect("192.168.1.234", "root", "","$nombreBD");
+            
+        
+        } catch(\Throwable $th) {
+            echo 'Error al conectar a ambas bases de datos: ' . $e->getMessage();
+        }
+    }
+   
         /* 
            $host = "localhost";
             $username="id19677335_barredadb";

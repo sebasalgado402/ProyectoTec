@@ -30,7 +30,7 @@
     <link rel="stylesheet" href="./../jQueryUI/jquery-ui.theme.css">
 
 
-    <title>Cambiar imagen Articulo</title>
+    <title>Administrar categorias</title>
 </head>
 
 
@@ -38,8 +38,8 @@
 <section>
         <?php
          include("./../assets/Components/Nav_articulo.php");
-         echo '<p class="AddProduct_FormTitle">Listado de articulos</p>';
-         include("./../assets/js/buscador_listaCategorias.php");
+         echo '<p class="AddProduct_FormTitle">Administrar categorias</p>';
+         //include("./../assets/js/buscador_listaCategorias.php");
         ?>
 </section>
     <!-- MODAL MODIFICAR Categoria-->
@@ -64,7 +64,7 @@
                 </div>
                 <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary" id="modalModificar">Modificar Categoria</button>
+                <button type="button" class="btn btn-primary" id="modalModificar_btnModificar">Modificar Categoria</button>
             </div>
         </div>
             
@@ -89,7 +89,7 @@
             
                 <div class="modal-footer">
                 <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-danger" id="modalEliminar">Eliminar Categoria</button>
+                <button type="button" class="btn btn-danger" id="modalEliminar_btnEliminar">Eliminar Categoria</button>
             </div>
             </div>
             

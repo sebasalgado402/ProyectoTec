@@ -1,5 +1,45 @@
 <?php 
-     
+     //Carga la categoria en el modal a modificar
+     if(isset($_POST['action']) && $_POST['action'] == 'modificar__Categoria'){
+      $modificar__Categoria = $_POST['modificar__Categoria'];
+        if(!empty($modificar__Categoria)){
+          
+          include('./../js/bd.php');
+            $consulta = "SELECT * FROM `categorias` WHERE cat_id = ".$modificar__Categoria."";
+        
+            $datos= mysqli_query ($conexion,$consulta);
+            
+            $categoria = new stdClass();
+            
+            mysqli_close($conexion);
+            // 4) Ir Imprimiendo las filas resultantes
+            while ($fila =mysqli_fetch_array($datos)){
+              $cat_id = $fila['cat_id'];
+              $cat_nom = $fila['cat_nom'];
+              $cat_obs = $fila['cat_obs'];
+              
+              $categoria->cat_id =$cat_id;
+              $categoria->cat_nom =$cat_nom;
+              $categoria->cat_obs =$cat_obs;
+              
+            }
+
+            
+
+            if($categoria){
+                  $data = $categoria;
+                }else{
+                  $data = 0;
+                }
+
+                echo json_encode($data,JSON_UNESCAPED_UNICODE);
+                exit;
+            }
+          
+            
+          }        
+
+//Termina Carga la categoria en el modal a modificar
 
     //Carga el producto al modal modificar
         if(isset($_POST['action']) && $_POST['action'] == 'modificarArticulo'){
@@ -148,7 +188,7 @@
     }
     //Termina - ingresar nuevo articulo
 
-    //Carga id para ELIMINAR en MODAL
+    //Carga id para ELIMINAR en MODAL de articulos
     if(isset($_POST['action']) && $_POST['action'] == 'eliminarArticulo'){
       $eliminarArticulo = $_POST['eliminar__Articulo'];
         if(!empty($eliminarArticulo)){
@@ -183,7 +223,7 @@
           
           }        
 
-    //Termina Carga id para ELIMINAR en MODAL
+    //Termina Carga id para ELIMINAR en MODAL de articulos
 
     //Elimina el articulo seleccionado
 if(isset($_POST['action']) && $_POST['action'] == 'modalEliminar_Articulo'){
@@ -1061,36 +1101,36 @@ if (
   
   if ($fila_cat  > 0) {
     while ($fila_cat = mysqli_fetch_array($datosCategoria)) {
+      //<th scope="col-1">'.$i++.'</th>
       echo '<div class="ProductsList_Card" id="art_Ecommerce" onclick="redireccionArticulo(' . $fila_cat["art_id"] . ')">
-                <div class="contain-imgCard">
+              <div class="contain-imgCard">
                 <img src="';
       if (!empty($fila_cat['art_imagen'])) {
         echo '' . $fila_cat["art_imagen"] . '" alt="error al cargar imagen" class="ProductsList_Card-Img">
+              </div>
+              <div class="ProductsList_Card-Content">
+                <span class="ProductsList_Card-Cat">' . $fila_cat["cat_nom"] . '</span>
+                  <div class="ProductsList_Card-Name_Container">
+                    <h5 class="ProductsList_Card-Name">' . $fila_cat["art_nom"] . '</h5>
                   </div>
+                <div class="text-center"> Disponibles: <span style="color: red; font-size: large;">' . $fila_cat["art_stock"] . '</span> </div>
+                <h4 class="ProductsList_Card-Price">$' . $fila_cat["art_precio"] . '</h4>
+              </div>
+            </div>';
+      } else {
+        echo './../assets/images/default.png" alt="error al cargar imagen" class="ProductsList_Card-Img">
+                </div>
                   <div class="ProductsList_Card-Content">
                   <span class="ProductsList_Card-Cat">' . $fila_cat["cat_nom"] . '</span>
                   <div class="ProductsList_Card-Name_Container">
                   <h5 class="ProductsList_Card-Name">' . $fila_cat["art_nom"] . '</h5>
                   </div>
-                  <div class="text-center"> Disponibles: <span style="color: red; font-size: large;">' . $fila_cat["art_stock"] . '</span> </div>
-                  <h4 class="ProductsList_Card-Price">$' . $fila_cat["art_precio"] . '</h4>
+                  <div class="text-center">Disponibles:<span style="color: red; font-size: large;">' . $fila_cat["art_stock"] . '</span></div>
+                    <h4 class="ProductsList_Card-Price">$' . $fila_cat["art_precio"] . '</h4>
                   </div>
-              </div>';
-      } else {
-        echo './../assets/images/default.png" alt="error al cargar imagen" class="ProductsList_Card-Img">
-                </div>
-                <div class="ProductsList_Card-Content">
-                  <span class="ProductsList_Card-Cat">' . $fila_cat["cat_nom"] . '</span>
-                    <div class="ProductsList_Card-Name_Container">
-                      <h5 class="ProductsList_Card-Name">' . $fila_cat["art_nom"] . '</h5>
-                    </div>
-                    <div class="text-center">Disponibles:<span style="color: red; font-size: large;">' . $fila["art_stock"] . '</span></div>
-                      <h4 class="ProductsList_Card-Price">$' . $fila_cat["art_precio"] . '</h4>
-                    </div>
                 </div>';
       }
     }
-
   
   } else {
     echo 'No hay resultados';
@@ -1100,4 +1140,167 @@ if (
 }
 
 //Termina --- Consultar Articulos de Categoria Seleccionada
+//Empieza --- Maximizar Imagen Seleccionada
+
+if (isset($_POST['action']) && $_POST['action'] == 'imagenSeleccionada') {
+
+  echo '<img src="' . $_POST["imagenSeleccionada"] . '" class="ModalMaxImageContainer-Img" />';
+}
+
+//Termina --- Maximizar Imagen Seleccionada
+
+
+//Empieza --- Cargar Imagenes de Banner 
+
+if (isset($_FILES['bannerimages'])) {
+  //include('./../js/bd.php');
+  $archivos = $_FILES['bannerimages'];
+
+  foreach ($archivos['name'] as $indice => $nombre) {
+    $tipo = $archivos['type'][$indice];
+    $ruta_temporal = $archivos['tmp_name'][$indice];
+    $error = $archivos['error'][$indice];
+    $tamano = $archivos['size'][$indice];
+
+    $extension = pathinfo($nombre, PATHINFO_EXTENSION);
+
+    $nuevo_nombre = md5($nombre) . '.' . $extension;
+
+    $destino = './../../assets/images/' . $nuevo_nombre;
+    $destinoQuery = './../assets/images/' . $nuevo_nombre;
+    if (move_uploaded_file($ruta_temporal, $destino)) {
+      include('./../js/bd.php');
+      $consulta = "INSERT INTO `banner` (`banner_ruta`) VALUES ('" . $destinoQuery . "')";
+      $datos = mysqli_query($conexion, $consulta);
+      mysqli_close($conexion);
+
+      // El archivo se ha subido exitosamente con el nuevo nombre y la extensión
+      echo "¡La imagen $nombre se ha subido correctamente con el nuevo nombre $nuevo_nombre!";
+    } else {
+      // Ocurrió un error al mover el archivo
+      echo "Error al subir la imagen $nombre. Inténtalo de nuevo.";
+    }
+  }
+} else {
+      
+}
+
+//Termina --- Cargar Imagenes de Banner 
+
+//Comienza --- Eliminar Imagen Seleccionada de Banner 
+
+if ((isset($_POST['action'])) && $_POST['action'] == 'eliminar_imgSeleccionadaBanner') {
+  //SELECT * FROM articulos WHERE articulos.art_nom LIKE ('%', palabra , '%');
+  include('bd.php');
+
+  $consulta = "DELETE FROM `banner` WHERE banner_ruta ='" . $_POST['eliminar_imgSeleccionadaBanner'] . "'";
+  $datos = mysqli_query($conexion, $consulta) or die($mysqli->error);
+
+  mysqli_close($conexion);
+
+  if ($datos) {
+    $data = 'Se eliminó correctamente';
+  } else {
+    $data = 0;
+  }
+
+  echo json_encode($data, JSON_UNESCAPED_UNICODE);
+  exit;
+}
+
+//Termina --- Eliminar Imagen Seleccionada de Banner 
+
+//Modifica la categoria del modal
+    
+if(isset($_POST['action']) && $_POST['action'] == 'modalModificar_Categoria'){
+  $modalModificar_Categoria = $_POST['modalModificar_Categoria'];
+    if(!empty($modalModificar_Categoria)){  
+              include('./../js/bd.php');
+             
+                $consulta = "UPDATE `categorias` SET `cat_nom`='".$modalModificar_Categoria[1]."',`cat_obs`='".$modalModificar_Categoria[2]."' where `cat_id` = '".$modalModificar_Categoria[0]."' ";
+                //$db = mysqli_select_db( $conexion, $nombreBD ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
+                $datos= mysqli_query ($conexion,$consulta);
+      
+                mysqli_close($conexion);
+
+
+                if(isset($datos)){
+                  $data = 1;
+                }else{
+                  $data = 'error';
+                }
+            
+            
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+            exit; 
+        
+    }
+  }
+
+//Termina- Modifica la categoria modal
+
+//Carga id para ELIMINAR en MODAL de Categorias
+if(isset($_POST['action']) && $_POST['action'] == 'eliminarCategoria'){
+  $eliminarCategoria = $_POST['eliminar__Categoria'];
+    if(!empty($eliminarCategoria)){
+      
+      include('./../js/bd.php');
+        $consulta = "SELECT * FROM `categorias` WHERE cat_id = ".$eliminarCategoria."";
+    
+        $datos= mysqli_query ($conexion,$consulta);
+        
+        $categoria = new stdClass();
+        
+        mysqli_close($conexion);
+        // 4) Ir Imprimiendo las filas resultantes
+        while ($fila =mysqli_fetch_array($datos)){
+          $cat_nom = $fila['cat_nom'];
+          
+          $categoria->cat_nom =$cat_nom;
+          
+        }
+
+        
+
+        if($categoria){
+              $data = $categoria->cat_nom;
+            }else{
+              $data = 0;
+            }
+
+            echo json_encode($data,JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+      
+      }        
+
+//Termina Carga id para ELIMINAR en MODAL de Categorias
+
+  //Elimina categoria seleccionada dentro de modal eliminar
+   if(isset($_POST['action']) && $_POST['action'] == 'modal_eliminarCategoria'){
+    $eliminarCategoria = $_POST['modal_eliminarCategoria'];
+      if(!empty($eliminarCategoria)){  
+                include('./../js/bd.php');
+                
+                $id = $eliminarCategoria;
+                  $queryReset = "UPDATE articulos SET art_categoria = 1 WHERE art_categoria = $id;";
+                  $consulta = "DELETE FROM `categorias` WHERE `categorias`.`cat_id` = $id";
+                  
+                  $resultadoRest= mysqli_query ($conexion,$queryReset) or die($mysqli->error);
+                  $resultado= mysqli_query ($conexion,$consulta) or die($mysqli->error);
+  
+                  mysqli_close($conexion);
+  
+              if($resultado){
+                $data = $resultado;
+              }else{
+                $data= 0 ;
+              }
+              
+              echo json_encode($data,JSON_UNESCAPED_UNICODE);
+              exit; 
+          
+      }
+    }
+      //Termina --- Elimina categoria seleccionada dentro de modal eliminar
 ?>

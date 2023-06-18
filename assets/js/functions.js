@@ -1,6 +1,7 @@
 let imgProductoID;
 let i = 1;
 let art_id;
+
 //Ir a la pagina anterior
 function irPaginaAnterior() {
     history.back();
@@ -51,6 +52,34 @@ $(".AddProductImage_Carrousel-Card-Button").click(function() {
     var ruta_img = boton.attr("data");
     eliminar_imgSeleccionada(boton);
   });
+ 
+  function eliminar_imgSeleccionadaBanner(objet) {
+    let dataValue = $(objet).attr("data");
+    let action = "eliminar_imgSeleccionadaBanner";
+    console.log("esto es " + dataValue);
+    $.ajax({
+      url: "./../assets/js/ajax.php",
+      type: "POST",
+      async: true,
+      data: { action: action, eliminar_imgSeleccionadaBanner: dataValue },
+  
+      success: function (response) {
+        console.log(response);
+        //data = $.parseJSON(response);
+  
+        if (response !== 0) {
+         // location.reload();
+         console.log(response);
+        } else {
+          alert("Hubo un error al eliminar");
+        }
+      },
+      error: function (error) {},
+    });
+  }
+ 
+  
+  //Termina --- Borrar Imagen Seleccionada de Banner
 
 //Parte balance - fechas
 let fechaInicio = $("#date_Inicio-balance");
@@ -63,7 +92,7 @@ function subirImagen_articulo(){
     parametros.append('idArt_imagen', idArt_imagen);
    
     $.ajax({
-        data:parametros,
+        data: parametros,
         url: './../assets/js/ajax.php',
         type: "POST",
         contentType: false,
@@ -76,6 +105,35 @@ function subirImagen_articulo(){
         }
     })
 }
+
+//Termina subir imagenes de articulo
+
+//Comienza --- Insertar Imagenes de Banner
+
+function subirImagen_Banner() {
+    let parametros = new FormData($("#form_subirImagenesBanner")[0]);
+  
+    $.ajax({
+        data: parametros,
+        url: './../assets/js/ajax.php',
+        type: "POST",
+        contentType: false,
+        processData: false,
+        beforesend: function(response) {
+        },
+        success: function(response) {
+            alert('Se subieron las fotos correctamente');
+            location.reload();
+        }
+    });
+  }
+  
+  //Termina--- Insertar Imagenes de Banner
+  $(".AddProductImage_Carrousel-Card-Button").click(function() {
+    var boton = $(this);
+    var ruta_img = boton.attr("data");
+    eliminar_imgSeleccionadaBanner(boton);
+  });
 
 
 function mostrarLista_gastosFechas_parametros(fecha1,fecha2) {
@@ -162,9 +220,9 @@ function mostrarLista_ventasFechas_parametros(fecha1,fecha2) {
                 
                 $('#recibeResultados_Ventas').html('');
                 $.each(data, function(index, objeto) {
+                    //<th>${objeto.ventas_num}</th>
                     const ventas = `
                       <tr>
-                        <th>${objeto.ventas_num}</th>
                         <th>${objeto.ventas_id}</th>
                         <th>${objeto.ventas_fecha}</th>
                         <th class='text-success'>$${objeto.ventas_total}</th>
@@ -552,7 +610,7 @@ $(function () {
     });
     //Termina - Botón de nuevo Artículo
 
-    //MODAL FORMULARIO ELIMINAR POR ID
+    //MODAL FORMULARIO ELIMINAR POR ID EN LISTA DE ARTICULOS
     $('#myBody').on('click', "[id^='eliminar__Articulo']", function(e) {
         e.preventDefault();
         art_id = $(this).attr('data-art_id');
@@ -589,7 +647,7 @@ $(function () {
         });
 
     });
-    //Termina - MODAL FORMULARIO ELIMINAR POR ID
+    //Termina - MODAL FORMULARIO ELIMINAR POR ID EN LISTA DE ARTICULOS
 
     //Boton que ELIMINA ARTICULO EN MODAL
     $("#modalEliminar").click(function (e) {
@@ -1750,6 +1808,293 @@ if (document.querySelector(".Nav_Menu-Open")) {
 }
 
 /*---------------------------------*/
+
+//Comienza --- Cargar datos al modal "modificar categoria seleccionada"
+$('#myBody').on('click', "[id^='modificar__Categoria']", function(e) {
+    e.preventDefault();
+    let cat_id;
+    cat_id = $(this).attr('data-cat_id');
+    
+    let action = 'modificar__Categoria';
+
+    $.ajax({
+        url: './../assets/js/ajax.php',
+        type: "POST",
+        async: true,
+        data: { action: action, modificar__Categoria: cat_id },
+
+
+        success: function (response) {
+
+
+            if (response == 0) {
+                
+            }
+            let data = $.parseJSON(response);
+            let innerHTML;
+            if (data.cat_obs == null) {
+                innerHTML = `
+            <form class="col-12">
+            
+            <div class="row">
+            
+                <div class="col-12 text-center">
+                    <label class="form-label" >Id categoría:<span id="idCategoria">${data.cat_id}</span></label>
+                </div>
+            
+                <div class="col-12">
+                    <label for="nomCategoria" class="form-label">Nombre:</label>
+                    <input type="text" class="form-control" name="nomCategoria" id="modalArt__modificarCatNom" value="${data.cat_nom}" required />
+                </div>
+
+                <div class="col-12">
+                    <label for="obsCategoria" class="form-label">Observacion:</label>
+                    <textarea class="form-control" name="obsCategoria" rows="4" cols="20" id="modalArt__modificarCatObs"></textarea>
+                </div>
+            
+            </div>
+            
+            </form>
+            `;
+            }else{
+                innerHTML = `
+                <form class="col-12">
+                
+                <div class="row">
+                
+                    <div class="col-12 text-center">
+                        <label class="form-label" >Id categoría:<span id="idCategoria">${data.cat_id}</span></label>
+                    </div>
+                
+                    <div class="col-12">
+                        <label for="nomCategoria" class="form-label">Nombre:</label>
+                        <input type="text" class="form-control" name="nomCategoria" id="modalArt__modificarCatNom" value="${data.cat_nom}" required />
+                    </div>
+    
+                    <div class="col-12">
+                        <label for="obsCategoria" class="form-label">Observacion:</label>
+                        <textarea class="form-control" name="obsCategoria" rows="4" cols="20" id="modalArt__modificarCatObs">${data.cat_obs}</textarea>
+                    </div>
+                
+                </div>
+                
+                </form>
+                `;
+            }
+            
+
+            imagenActual = data.art_imagen;
+
+            $('.cargaModal').html(innerHTML);
+            $('#categoria').html(data.cat_nom);
+
+
+
+
+        },
+        error: function (error) {
+
+        }
+    });
+
+});
+//Termina --- Cargar datos al modal "modificar categoria seleccionada"
+
+ //MODAL FORMULARIO ELIMINAR POR ID EN LISTA DE ARTICULOS
+ $('#myBody').on('click', "[id^='eliminar__Categoria']", function(e) {
+    e.preventDefault();
+    let cat_id = $(this).attr('data-cat_id');
+  
+    let action = 'eliminar__Categoria';
+
+    $.ajax({
+        url: './../assets/js/ajax.php',
+        type: "POST",
+        async: true,
+        data: { action: action, eliminar__Categoria: cat_id },
+
+
+        success: function (response) {
+
+
+            if (response == 0) {
+                
+            }
+            let data = $.parseJSON(response);
+            
+            let innerHTML = `
+            <h4 class="text-center m-5"> ¿Seguro desea eliminar ${data}? </h4> 
+            `
+            $('#datos_modalEliminar').html(innerHTML);
+
+        },
+        error: function (error) {
+
+        }
+    });
+
+});
+//Termina - MODAL FORMULARIO ELIMINAR POR ID EN LISTA DE ARTICULOS
+
+//Boton que Categoria seleccionada
+$("#modalEliminar_btnEliminar").on('click',function (e) {
+    e.preventDefault();
+console.log(art_id);
+    let action = 'modal_eliminarCategoria';
+
+    $.ajax({
+        url: './../assets/js/ajax.php',
+        type: "POST",
+        async: true,
+        data: { action: action, modal_eliminarCategoria: art_id },
+
+
+        success: function (response) {
+
+
+            if (response == 0) {
+                alert('Húbo un error al Eliminar');
+            }
+            data = $.parseJSON(response);
+           
+            if (data == true) {
+                location.reload();
+            } else {
+                alert('Húbo un error al Eliminar');
+            }
+
+
+        },
+        error: function (error) {
+
+        }
+    });
+
+});
+
+//Termina---Boton que Categoria seleccionada
+//Empieza --- Maximizar Imagen Seleccionada
+
+$(document).on("click", "#ProductsList_Card_Image", function () {
+    let image = $(this).attr("src");
+
+    let action = "imagenSeleccionada";
+
+    $.ajax({
+      type: "POST",
+      async: true,
+      url: "./../assets/js/ajax.php",
+      data: { action: action, imagenSeleccionada: image },
+      success: function (response) {
+        if (response == 0) {
+          // Aquí puedes agregar el código que deseas ejecutar cuando la respuesta es 0
+        } else {
+          let resultado = response;
+          $(".ModalMaxImageContainer").html(resultado);
+          $(".ModalMaxImageContainer")
+            .removeClass()
+            .addClass("ModalMaxImageContainer-Active");
+        }
+        console.log("funciona");
+      },
+      error: function (error) {
+        console.error(error);
+      },
+    });
+  });
+
+  //Cerrar Modal
+
+  $("#ModalMaxImageContainer").click(() => {
+    $("#ModalMaxImageContainer")
+      .removeClass("ModalMaxImageContainer-Active")
+      .addClass("ModalMaxImageContainer");
+  });
+
+  //Termina --- Maximizar Imagen Seleccionada
+
+  //Boton que modifica la categoria en el modal
+  $("#modalModificar_btnModificar").on('click',function (e) {
+    e.preventDefault();
+ 
+    let arrModificar = [];
+    let id = $('#idCategoria').html();
+    let nombre = $('#modalArt__modificarCatNom').val();
+    let observacion = $('#modalArt__modificarCatObs').val();
+
+    arrModificar.push(id,nombre,observacion);
+
+    let action = 'modalModificar_Categoria';
+
+    $.ajax({
+        url: './../assets/js/ajax.php',
+        type: "POST",
+        async: true,
+        data: { action: action, modalModificar_Categoria: arrModificar },
+
+
+        success: function (response) {
+
+
+            if (response == 0) {
+                alert('Húbo un error al modificar');
+            }
+            data = $.parseJSON(response);
+           
+            if (data == 1) {
+                location.reload();
+            }
+
+
+        },
+        error: function (error) {
+
+        }
+    });
+
+});
+
+//Termina---Boton que modifica la categoria en el modal
+
+ //MODAL FORMULARIO ELIMINAR POR ID EN LISTA DE ARTICULOS
+ $('#myBody').on('click', "[id^='eliminar__Categoria']", function(e) {
+    e.preventDefault();
+    art_id = $(this).attr('data-cat_id');
+  
+
+    let action = 'eliminarCategoria';
+
+    $.ajax({
+        url: './../assets/js/ajax.php',
+        type: "POST",
+        async: true,
+        data: { action: action, eliminar__Categoria: art_id },
+
+
+        success: function (response) {
+
+
+            if (response == 0) {
+                
+            }
+            let data = $.parseJSON(response);
+            
+            let innerHTML = `
+            <h4 class="text-center m-5"> ¿Seguro desea eliminar ${data}? </h4> 
+            `
+            $('#datos_modalEliminar').html(innerHTML);
+
+
+
+        },
+        error: function (error) {
+
+        }
+    });
+
+});
+//Termina - MODAL FORMULARIO ELIMINAR POR ID EN LISTA DE ARTICULOS
+
 
 
 });

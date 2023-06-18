@@ -30,7 +30,7 @@
     <?php 
         include ('./../assets/Components/Nav.php');
         include ('./../assets/Components/Menu.php');
-        include ('./../assets/js/banner.php');
+        cargarBanner();
     ?>
    
 

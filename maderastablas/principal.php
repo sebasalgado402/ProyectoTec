@@ -41,7 +41,7 @@
         <a href="articulos.php" class="FuntionCard">
             <div class="FunctionCard-Content">
                 <p class="FuntionCard_Title">Lista de Articulos</p>
-                <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <p class="FunctionCard_Description">Aqui podras administrar cada uno de los aspectos de tu articulo</p>
             </div>
             <div class="FuntionCard_Icon-Container">
                 <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
@@ -50,12 +50,30 @@
         <a href="nuevo_articulo.php" class="FuntionCard">
             <div class="FunctionCard-Content">
                 <p class="FuntionCard_Title">Nuevo Articulo</p>
-                <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                <p class="FunctionCard_Description">Ingreso de nuevo articulo </p>
             </div>
             <div class="FuntionCard_Icon-Container">
                 <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
             </div>
         </a>
+        <a href="banner_imagenes.php" class="FuntionCard">
+                <div class="FunctionCard-Content">
+                    <p class="FuntionCard_Title">Imagenes de Banner</p>
+                    <p class="FunctionCard_Description">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+                </div>
+                <div class="FuntionCard_Icon-Container">
+                    <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
+                </div>
+            </a>
+        <a href="categorias.php" class="FuntionCard">
+                <div class="FunctionCard-Content">
+                    <p class="FuntionCard_Title">Categorias</p>
+                    <p class="FunctionCard_Description">Administra las categorias de tus articulos</p>
+                </div>
+                <div class="FuntionCard_Icon-Container">
+                    <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
+                </div>
+            </a>
         <a href="facturar.php" class="FuntionCard">
                 <div class="FunctionCard-Content">
                     <p class="FuntionCard_Title">Facturacion</p>
@@ -92,15 +110,8 @@
                     <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
                 </div>
             </a>
-            <a href="categorias.php" class="FuntionCard">
-                <div class="FunctionCard-Content">
-                    <p class="FuntionCard_Title">Categorias</p>
-                    <p class="FunctionCard_Description">Administra las categorias de tus articulos</p>
-                </div>
-                <div class="FuntionCard_Icon-Container">
-                    <img src="./../assets/icons/arrow.svg" class="FuntionCard_Icon">
-                </div>
-            </a>
+            
+            
             
         </main>
     </div>
