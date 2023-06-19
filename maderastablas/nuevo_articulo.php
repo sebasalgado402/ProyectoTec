@@ -28,7 +28,7 @@
         <title>Ingresar Nuevo Articulo</title>
     </head>
 
-    <body>
+    <body id='myBody'>
         <?php
         include("./../assets/Components/Nav_articulo.php");
         ?>
@@ -82,7 +82,7 @@
                     Crear Nueva Categoria
                 </button>
             </div>
-
+            
             <!--Descripcion Articulo-->
             <label for="DescArt">Descripción de Articulo:</label>
             <input type="text" name="descripcionArticulo" id="txt__descripcionArticulo" class="AddProduct_Input">
@@ -91,6 +91,14 @@
             <label for="MatsArt">Materiales de Articulo:</label>
             <input type="text" name="MaterialesArticulo" id="txt__materialesArticulo" class="AddProduct_Input">
 
+            <h3 class="text-center">¿Desea visualizar este producto?</h3>
+            <div class="container-fluid col-1">
+                <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                    <input type="checkbox" class="btn-check" id="btncheck_visualizarProducto" autocomplete="off">
+                    <label class="btn btn-outline-primary" for="btncheck_visualizarProducto" id="recibeVisualizar">No</label>
+                </div>
+            </div>
+        
             <!--Proveedor-->
             <label for="MatsArt">Proveedor:</label>
             <input type="text" name="proveedor" id="txt__proveedor" class="AddProduct_Input">

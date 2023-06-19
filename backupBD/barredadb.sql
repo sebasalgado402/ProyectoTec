@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 09-06-2023 a las 02:43:21
+-- Tiempo de generación: 19-06-2023 a las 04:10:18
 -- Versión del servidor: 10.4.25-MariaDB
 -- Versión de PHP: 8.1.10
 
@@ -65,7 +65,7 @@ CREATE TABLE `articulos` (
   `art_stock` int(20) NOT NULL,
   `art_costo` int(20) NOT NULL,
   `art_vendible` varchar(1) NOT NULL DEFAULT 'S',
-  `art_deshabilitado` varchar(1) DEFAULT NULL,
+  `art_deshabilitado` varchar(1) DEFAULT 'N',
   `art_categoria` int(20) DEFAULT 1,
   `art_materiales` varchar(50) NOT NULL,
   `art_notas` text NOT NULL
@@ -76,11 +76,10 @@ CREATE TABLE `articulos` (
 --
 
 INSERT INTO `articulos` (`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_deshabilitado`, `art_categoria`, `art_materiales`, `art_notas`) VALUES
-(77, 'aaa', 'aasdasd', 'asdasd', 424, 17, 424, '', '', NULL, 'asdasda', ''),
-(79, 'ggg', 'asdasd', 'asdasd', 4214, 20, 4124, '', '', 2, 'asdasd', ''),
-(81, 'asvv', 'Una silla super comoda para que te sientes', 'asdasd', 424, 602, 4242, '', '', 2, 'asdasd', ''),
-(82, 'XXX', 'xzczxc', 'zxcqwrq', 42, 24, 42, 'S', NULL, 2, 'asdasd', 'asda'),
-(83, 'XXaaX', 'a', 'a', 1, 1, 1, '', '', 1, 'a', 'a');
+(87, 'a', 'habilitadoa', 'a', 4, 0, 4, '', 'S', 8, 'a', ''),
+(88, 'b', 'b', 'a', 2, 2, 2, '', 'S', 8, 'a', ''),
+(89, 'g', 'g', 'asd', 4, 5, 4, '', 'S', 1, 'asdasd', ''),
+(90, 'sdsa', 'deshabilitadoa', 'asdasd', 412421, 1, 42, '', 'S', 8, 'asdasd', '');
 
 -- --------------------------------------------------------
 
@@ -91,6 +90,25 @@ INSERT INTO `articulos` (`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio
 CREATE TABLE `art_imagenes` (
   `art_id` int(11) NOT NULL,
   `ruta_img` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `art_imagenes`
+--
+
+INSERT INTO `art_imagenes` (`art_id`, `ruta_img`) VALUES
+(90, './../assets/images/4a47a0db6e60853dedfcfdf08a5ca249.png'),
+(89, './../assets/images/4a47a0db6e60853dedfcfdf08a5ca249.png');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `banner`
+--
+
+CREATE TABLE `banner` (
+  `banner_id` int(11) NOT NULL,
+  `banner_ruta` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -111,18 +129,13 @@ CREATE TABLE `categorias` (
 
 INSERT INTO `categorias` (`cat_id`, `cat_nom`, `cat_obs`) VALUES
 (1, 'Sin Categoria', 'Articulo sin categoria'),
-(2, 'Materas', '---'),
 (3, 'Mesas', '---'),
 (4, 'Percheros', '---'),
 (7, 'Llaveros', '---'),
 (8, 'Estanterias', '---'),
 (10, 'Sillas', '---'),
 (11, 'Descuentos', NULL),
-(12, 'Marcos', NULL),
-(14, 'Tablas y Cuencos', 'tablas de picar y de asado, cuencos para servir'),
-(15, 'Pinos Navidad', 'Tamaños varios'),
-(26, 'Navidad', 'cosas de navidad'),
-(27, 'cosas de navidad', '');
+(12, 'Marcos', 'cosas');
 
 --
 -- Disparadores `categorias`
@@ -150,6 +163,20 @@ CREATE TABLE `detalle_factura` (
   `dfact_precio` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `detalle_factura`
+--
+
+INSERT INTO `detalle_factura` (`dfact_renglon`, `fact_id`, `art_id`, `dfact_cantidad`, `dfact_precio`) VALUES
+(0, 136, 77, 5, 2120),
+(1, 136, 79, 20, 84280),
+(0, 137, 77, 12, 5088),
+(0, 138, 81, 25, 10600),
+(0, 139, 87, 4, 16),
+(1, 139, 90, 4124, 1700820000),
+(0, 140, 90, 90, 37117900),
+(1, 140, 87, 10, 40);
+
 -- --------------------------------------------------------
 
 --
@@ -160,6 +187,17 @@ CREATE TABLE `factura` (
   `fact_id` int(11) NOT NULL,
   `fact_fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `factura`
+--
+
+INSERT INTO `factura` (`fact_id`, `fact_fecha`) VALUES
+(136, '2023-06-16'),
+(137, '2023-06-16'),
+(138, '2023-06-17'),
+(139, '2023-06-19'),
+(140, '2023-06-19');
 
 -- --------------------------------------------------------
 
@@ -193,7 +231,22 @@ INSERT INTO `gastos` (`gas_id`, `gas_fecha`, `gas_proveedor`, `gas_concepto`, `g
 (40, '0000-00-00', 'asdasd', 'asdasd', 0, 4124120),
 (41, '2023-06-04', 'mi madre', 'le puse ggdf', 0, 10000),
 (42, '2023-06-04', 'dasd', '    s', 0, 1244),
-(43, '2023-06-04', 'asdoa', 'ssoda', 0, 100);
+(43, '2023-06-04', 'asdoa', 'ssoda', 0, 100),
+(44, '2023-06-18', 'dasdasd', 'asdasd', 42, 4244),
+(45, '2023-06-18', 'asdasd', 'fasff', 424, 2424),
+(46, '2023-06-18', 'asdasdas', 'asdasda', 424, 214124),
+(47, '2023-06-18', 'asdasd', 'asdasd', 24, 241241),
+(48, '2023-06-18', 'a', 'a', 4, 1),
+(49, '2023-06-18', 'a', 'a', 2, 21),
+(50, '2023-06-18', 'asdasd', 'asdasd', 4, 4214),
+(51, '2023-06-18', '4214', 'asd', 4214, 42424),
+(52, '2023-06-19', 'sadas', 'adasd', 0, 242),
+(53, '2023-06-19', 'prueba', 'prueba', 0, 1000),
+(54, '2023-06-19', 'prueba', 'prueba', 0, 1111),
+(55, '2023-06-19', 'asdasd', 'asdoaisd', 0, 1000),
+(56, '2023-06-19', 'aaa', 'aaa', 0, 4214),
+(57, '2023-06-19', 'asdasd', 'asdas', 0, 2424),
+(58, '2023-06-19', 'asdasd', 'prueba en 0', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -241,6 +294,12 @@ ALTER TABLE `art_imagenes`
   ADD KEY `art_id` (`art_id`);
 
 --
+-- Indices de la tabla `banner`
+--
+ALTER TABLE `banner`
+  ADD PRIMARY KEY (`banner_id`);
+
+--
 -- Indices de la tabla `categorias`
 --
 ALTER TABLE `categorias`
@@ -279,7 +338,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `articulos`
 --
 ALTER TABLE `articulos`
-  MODIFY `art_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+  MODIFY `art_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+
+--
+-- AUTO_INCREMENT de la tabla `banner`
+--
+ALTER TABLE `banner`
+  MODIFY `banner_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
@@ -291,13 +356,13 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `factura`
 --
 ALTER TABLE `factura`
-  MODIFY `fact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=136;
+  MODIFY `fact_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT de la tabla `gastos`
 --
 ALTER TABLE `gastos`
-  MODIFY `gas_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `gas_id` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`

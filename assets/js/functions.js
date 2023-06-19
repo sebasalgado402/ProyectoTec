@@ -2,6 +2,11 @@ let imgProductoID;
 let i = 1;
 let art_id;
 
+let deshabilitado;
+
+//nuevo articulo
+let visualizarArticulo = false;
+
 //Ir a la pagina anterior
 function irPaginaAnterior() {
     history.back();
@@ -426,7 +431,16 @@ $(function () {
         let materiales = $('#modalArt__modificarMateriales').val();
         let notas = $('#modalArt__modificarNotas').val();
 
-        arrModificar.push(id, categoria, nombre, precio, stock, costo, descripcion, materiales,notas);
+        
+        if (visualizarArticulo == true) {
+            deshabilitado = visualizarArticulo;
+            visualizarArticulo = 'S';
+        }else{
+            deshabilitado = visualizarArticulo;
+            visualizarArticulo = 'N';
+        }
+
+        arrModificar.push(id, categoria, nombre, precio, stock, costo, descripcion, materiales,notas,visualizarArticulo);
 
 
 
@@ -465,6 +479,7 @@ $(function () {
     //MODAL FORMULARIO MODIFICAR POR ID
 
     let imagenActual;
+    
     $('#myBody').on('click', "[id^='modificar__Articulo']", function(e) {
         e.preventDefault();
         art_id = $(this).attr('data-art_id');
@@ -487,7 +502,14 @@ $(function () {
                     
                 }
                 let data = $.parseJSON(response);
-                
+                if (data.art_deshabilitado == 'S') {
+                    visualizarArticulo = true
+                    data.art_deshabilitado = 'Si';
+                    
+                }else{
+                    visualizarArticulo = false;
+                    data.art_deshabilitado = 'No';
+                }
                 let innerHTML = `
                 <form action="articulos.php" method="post" class="col-12">
                 
@@ -513,6 +535,16 @@ $(function () {
                         <input type="number" class="form-control" name="costoCreacionArticulo" id="modalArt__modificarCosto" value="${data.art_costo}">
                     </div>
                 </div>
+
+                <h3 class="text-center pt-5">¿Desea visualizar este producto?</h3>
+                    <div class="container-fluid modal-body p-5 pt-1 pb-1">
+                        <div class="text-center">
+                            <div class="btn-group" role="group" aria-label="Basic checkbox toggle button group">
+                                <input type="checkbox" class="btn-check" id="btncheck_visualizarProducto" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btncheck_visualizarProducto" id="recibeVisualizar">${data.art_deshabilitado}</label>
+                            </div>
+                        </div>
+                    </div>
                 
                 
                 
@@ -570,7 +602,13 @@ $(function () {
         let concepto = $('#txt__provConcepto').val();
         let gastoTotal = $('#txt__gastoTotal').val();
 
-        producto.push(codigo, nombre, descripcion, precio, stock, costo, categoria, materiales, proveedor, concepto, gastoTotal);
+        if (visualizarArticulo == true) {
+            visualizarArticulo = 'S';
+        }else{
+            visualizarArticulo = 'N';
+        }
+
+        producto.push(codigo, nombre, descripcion, precio, stock, costo, categoria, materiales, proveedor, concepto, gastoTotal,visualizarArticulo);
 
         let action = 'nuevoArticulo'
 
@@ -2095,6 +2133,55 @@ $(document).on("click", "#ProductsList_Card_Image", function () {
 });
 //Termina - MODAL FORMULARIO ELIMINAR POR ID EN LISTA DE ARTICULOS
 
+//Checkeador de visualizar articulo en Nuevo articulo
+
+$('#myBody').on('change','#btncheck_visualizarProducto',function(e) {
+    if ($(this).is(':checked')) {
+        $('#recibeVisualizar').text('Si');
+        visualizarArticulo = true;
+    } else if (!$(this).is(':checked')){
+        $('#recibeVisualizar').text('No');
+        visualizarArticulo = false;
+    }
+});
+//Termina - Checkeador de visualizar articulo en Nuevo articulo
+
+//Comienza ---  
+
+$("#myBody").on('click','#btn_insertarGasto',function (e) {
+    e.preventDefault();
+    if ($("#insertarGasto_Concepto").val().trim() !== "" && $("#insertarGasto_Proveedor").val().trim() !== ""  && $("#insertarGasto_gastoTotal").val().trim() !== "" ) {
+        
+        let concepto = $("#insertarGasto_Concepto").val();
+        let proveedor= $("#insertarGasto_Proveedor").val();
+        let gasto = $("#insertarGasto_gastoTotal").val();
+
+        let action = 'insertar_cantidadGasto';
+        let arrayInsertarGasto = [];
+        arrayInsertarGasto.push(concepto,proveedor,gasto);
+        
+        $.ajax({
+            url: './../assets/js/ajax.php',
+            type: "POST",
+            async: true,
+            data: { action: action, insertar_cantidadGasto: arrayInsertarGasto},
+            success: function (response) {
+                data = $.parseJSON(response);
+                if (data == 'exito') {
+                    location.reload();
+                } else {
+                    alert('Húbo un error al Insertar gasto');
+                }
+            },
+            error: function (error) {
+            }
+        });
+    }else{
+        alert('Debe completar todos los campos');
+    }
+});
+
+//Termina ---
 
 
 });

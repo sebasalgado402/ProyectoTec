@@ -29,12 +29,34 @@
     <title>Listado Gastos</title>
 </head>
 
-<body>
+<body id='myBody'>
     <section>
         <?php
         include("./../assets/Components/Nav_articulo.php");
         ?>
     </section>
+
+    <form class="container-fluid col-lg-6 col-sm-12 table-responsive mt-2 mb-2">
+        <h3 class="text-center">¿Desea ingresar un gasto adicional?</h3>
+          <div class="mb-3">
+          <label for="MatsArt">Concepto:</label>
+          <input type="text" name="Concepto" id="insertarGasto_Concepto" class="form-control" required>
+          <div class="AddProduct_FormContainer-Row">
+          <!--Concepto Articulo-->
+              <div class="AddProduct_InputContainer">
+                    <label for="MatsArt">Proveedor:</label>
+                    <input type="text" name="proveedor" id="insertarGasto_Proveedor" class="form-control" required>
+              </div>
+              <div class="AddProduct_InputContainer">
+                  <!--Gasto Total-->
+                  <label for="MatsArt">Gasto Total:</label>
+                  <input type="number" name="gastoTotal" id="insertarGasto_gastoTotal" class="form-control" required>
+              </div>
+          </div>
+          </div>
+          <button class="btn btn-success col-12" type="button" id='btn_insertarGasto'>Insertar Gasto Adicional</button>
+        </form>
+        <hr>
 
     <div class="dropdown-center row justify-content-center">
         <button class="btn btn-info dropdown-toggle col-6" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -47,6 +69,7 @@
         </ul>
     
     </div>
+    
     <!-- Contenedor de los buscadores-->
     <div class="container-fluid" id='contieneBuscador'>
         <div class="container-search d-none mt-4 mb-3 col-sm-12 col-lg-8 m-auto" id='buscadorConcepto'>

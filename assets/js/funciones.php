@@ -39,6 +39,9 @@ function mostrarCategorias()
                     <a role="button" id="eliminar__Categoria' . $fila["cat_id"] . '" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_eliminarCategoria" data-cat_id=' . $fila["cat_id"] . '>
                     <i class="bi bi-x-square"></i>
                     </a>
+                    <a role="button" id="impresion__Categoria' . $fila["cat_id"] . '" class="btn btn-secondary" data-cat_id=' . $fila["cat_id"] . '>
+                    <i class="bi bi-printer"></i>
+                    </a>
                   </th>
                 </tr>';
     }
@@ -52,7 +55,7 @@ function mostrarArticulos()
 {
   include('./../assets/js/bd.php');
   // 2) Preparar la orden SQL
-  $consulta = "SELECT * FROM articulos INNER JOIN categorias on articulos.art_categoria = categorias.cat_id ORDER BY art_id DESC";
+  $consulta = "SELECT * FROM articulos INNER JOIN categorias on articulos.art_categoria = categorias.cat_id ORDER BY art_id DESC ";
 
   // puedo seleccionar de DB
   $db = mysqli_select_db($conexion, $nombreBD) or die("Upps! Pues va a ser que no se ha podido conectar a la base de datos");
@@ -76,6 +79,7 @@ function mostrarArticulos()
                     <th class="align-middle p-0 text-center">$' . $fila["art_precio"] . '</th>
                     <th class="align-middle p-0 text-center">' . $fila["art_stock"] . '</th>
                     <th class="align-middle p-0 text-center">$' . $fila["art_costo"] . '</th>
+                    <th class="align-middle p-0 text-center">' . $fila["art_deshabilitado"] . '</th>
                     
                     
                     <th class="align-middle p-0 text-center">' . $fila["cat_nom"] . '</th>
@@ -92,6 +96,9 @@ function mostrarArticulos()
                     </a>
                     <a role="button" id="eliminar__Articulo' . $fila["art_id"] . '" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal_eliminarArticulo" data-art_id=' . $fila['art_id'] . '>
                     <i class="bi bi-x-square"></i>
+                    </a>
+                    <a role="button" id="btn_imprimirArt' . $fila["art_id"] . '" class="btn btn-secondary" data-art_id=' . $fila['art_id'] . '>
+                    <i class="bi bi-printer"></i>
                     </a>
                   </th>
                 </tr>';
@@ -114,7 +121,7 @@ function mostrarArticulos_Ecommerce()
     SELECT art_id, ruta_img
     FROM art_imagenes
     GROUP BY art_id
-  ) AS primera_imagen ON articulos.art_id = primera_imagen.art_id
+  ) AS primera_imagen ON articulos.art_id = primera_imagen.art_id where art_deshabilitado <> 'N' and art_stock <> 0
   ORDER BY articulos.art_id DESC;
   ";
 
@@ -354,7 +361,8 @@ function mostrarArticuloSeleccionado()
               <p class="ProductDetails_Main-Price">$' . $fila["art_precio"] . '</p>
               <p class="ProductDetails_Main-Price">Stock:' . $fila["art_stock"] . '</p>
               <a href="https://wa.me/573001112233?text=Hola!%20Estoy%20interesado%20en%20' . $fila["art_nom"] . '" class="ProductDetails_Main-Button" target="_blank">
-                  Consultar Producto
+              <img src="./../assets/icons/whats.svg" class="ProductDetails_Main-Button-Icon" />       
+              Consultar Producto
               </a>
           </div>
       </main>';
@@ -386,7 +394,8 @@ function mostrarArticuloSeleccionado()
             <p class="ProductDetails_Main-Price">$' . $fila["art_precio"] . '</p>
             <p class="ProductDetails_Main-Price">Stock:' . $fila["art_stock"] . '</p>
             <a href=https://wa.me/573001112233?text=Hola!%20Estoy%20interesado%20en%20' . $fila["art_nom"] . ' class="ProductDetails_Main-Button" target="_blank">
-                Consultar Producto
+            <img src="./../assets/icons/whats.svg" class="ProductDetails_Main-Button-Icon" />       
+            Consultar Producto
             </a>
         </div>
     </main>';
@@ -417,7 +426,7 @@ function mostrarArticulosMismaCategoria()
         GROUP BY art_id
     ) AS primera_imagen ON a.art_id = primera_imagen.art_id
     WHERE c.cat_id = ' . $resultado_categoria[0] . '
-    AND a.art_id <> "' . $_GET['articleID'] . '"
+    AND a.art_id <> "' . $_GET['articleID'] . '" and art_deshabilitado <> "N"
     AND a.art_id NOT IN (
         SELECT art_id
         FROM articulos
