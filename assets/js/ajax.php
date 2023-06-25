@@ -551,7 +551,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'buscar_idArticulo') {
   if (!empty($buscar_idArticulo)) {
     include('./../js/bd.php');
 
-    $consulta = "SELECT art_cod from articulos where art_cod LIKE '" . $_POST['buscar_idArticulo'] . "%';";
+    $consulta = "SELECT art_cod from articulos where art_cod LIKE '" . $_POST['buscar_idArticulo'] . "';";
     //$db = mysqli_select_db( $conexion, $nombreBD ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
     $datos = mysqli_query($conexion, $consulta);
     $resultado = mysqli_fetch_array($datos);
@@ -579,7 +579,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'buscar_nombreArticulo') {
   if (!empty($buscar_nombreArticulo)) {
     include('./../js/bd.php');
 
-    $consulta = "SELECT art_nom from articulos where art_nom LIKE '" . $_POST['buscar_nombreArticulo'] . "%';";
+    $consulta = "SELECT art_nom from articulos where art_nom LIKE '" . $_POST['buscar_nombreArticulo'] . "';";
     //$db = mysqli_select_db( $conexion, $nombreBD ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
     $datos = mysqli_query($conexion, $consulta);
     $resultado = mysqli_fetch_array($datos);
