@@ -247,23 +247,28 @@ function mostrarFacturas()
   $datos = mysqli_query($conexion, $consulta);
 
 
-  $i = 1;
-  while ($fila = mysqli_fetch_array($datos)) {
-    //<th scope="col-1">'.$i++.'</th>
+  if ($fila = mysqli_num_rows($datos) > 0) {
+    while ($fila = mysqli_fetch_array($datos)) {
+      //<th scope="col-1">'.$i++.'</th>
 
-    echo '
-  <tr>
-      <th class="text-center">' . $fila["fact_id"] . '</th>
-      <th class="text-center">' . $fila["fact_fecha"] . '</th>
-      <th class="text-center">$' . $fila["precioTotal"] . '</th>
-  <th class="align-middle text-center">
-    <a role="button" id="imprimir_Factura' . $fila["fact_id"] . '" class="btn btn-secondary" data-fact_id=' . $fila['fact_id'] . '>
-    <i class="bi bi-printer-fill"></i>
-    </a>
-  </th>
-</tr>';
+      echo '
+    <tr>
+        <th class="text-center">' . $fila["fact_id"] . '</th>
+        <th class="text-center">' . $fila["fact_fecha"] . '</th>
+        <th class="text-center">$' . $fila["precioTotal"] . '</th>
+    <th class="align-middle text-center">
+      <a role="button" id="imprimir_Factura' . $fila["fact_id"] . '" class="btn btn-secondary" data-fact_id=' . $fila['fact_id'] . '>
+      <i class="bi bi-printer-fill"></i>
+      </a>
+      <a role="button" id="verPDF_Factura' . $fila["fact_id"] . '" class="btn btn-success" data-fact_id=' . $fila['fact_id'] . '>
+      <i class="bi bi-eye"></i>
+      </a>
+    </th>
+  </tr>';
+    }
+  }else{
+    echo 'No se encontraron resultados';
   }
-
 
   mysqli_close($conexion);
 }
@@ -278,19 +283,21 @@ function mostrarGastos()
 
   $datos = mysqli_query($conexion, $consulta);
 
+  if ($fila = mysqli_num_rows($datos) > 0) {
+    while ($fila = mysqli_fetch_array($datos)) {
+      //<th scope="col-1">'.$i++.'</th>
+      //<th class="col-1 text-center">' . $fila["numeracion"] . '</th>
 
-  $i = 1;
-  while ($fila = mysqli_fetch_array($datos)) {
-    //<th scope="col-1">'.$i++.'</th>
-    //<th class="col-1 text-center">' . $fila["numeracion"] . '</th>
-
-    echo '
-                      <tr>
-                          <th>' . $fila["gas_concepto"] . '</th>
-                          <th>' . $fila["gas_proveedor"] . '</th>
-                          <th class="col-2 text-center">' . $fila["gas_fecha"] . '</th>
-                          <th class="text-center">$' . $fila["gas_total"] . '</th>
-                      </tr>';
+      echo '
+                        <tr>
+                            <th>' . $fila["gas_concepto"] . '</th>
+                            <th>' . $fila["gas_proveedor"] . '</th>
+                            <th class="col-2 text-center">' . $fila["gas_fecha"] . '</th>
+                            <th class="text-center">$' . $fila["gas_total"] . '</th>
+                        </tr>';
+    }
+  }else{
+    echo 'No se encontraron resultados';
   }
 
 
@@ -360,7 +367,7 @@ function mostrarArticuloSeleccionado()
               <p class="ProductDetails_Main-Description">' . $fila["art_desc"] . '</p>
               <p class="ProductDetails_Main-Price">$' . $fila["art_precio"] . '</p>
               <p class="ProductDetails_Main-Price">Stock:' . $fila["art_stock"] . '</p>
-              <a href="https://wa.me/573001112233?text=Hola!%20Estoy%20interesado%20en%20' . $fila["art_nom"] . '" class="ProductDetails_Main-Button" target="_blank">
+              <a href="https://wa.me/+59892051774?text=Hola!%20Estoy%20interesado%20en%20' . $fila["art_nom"] . '" class="ProductDetails_Main-Button" target="_blank">
               <img src="./../assets/icons/whats.svg" class="ProductDetails_Main-Button-Icon" />       
               Consultar Producto
               </a>
@@ -393,7 +400,7 @@ function mostrarArticuloSeleccionado()
             <p class="ProductDetails_Main-Description">' . $fila["art_desc"] . '</p>
             <p class="ProductDetails_Main-Price">$' . $fila["art_precio"] . '</p>
             <p class="ProductDetails_Main-Price">Stock:' . $fila["art_stock"] . '</p>
-            <a href=https://wa.me/573001112233?text=Hola!%20Estoy%20interesado%20en%20' . $fila["art_nom"] . ' class="ProductDetails_Main-Button" target="_blank">
+            <a href=https://wa.me/+59892051774?text=Hola!%20Estoy%20interesado%20en%20' . $fila["art_nom"] . ' class="ProductDetails_Main-Button" target="_blank">
             <img src="./../assets/icons/whats.svg" class="ProductDetails_Main-Button-Icon" />       
             Consultar Producto
             </a>

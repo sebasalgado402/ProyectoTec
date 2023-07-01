@@ -404,6 +404,7 @@ function imprimir_factura(objet) { //funcion de redireccion de articulos
         }
     }); 
 }
+
 $('#myBody').on('click', "[id^='imprimir_Factura']", function(e) {
     e.preventDefault();
     let fact_id = $(this).attr('data-fact_id');
@@ -411,6 +412,41 @@ $('#myBody').on('click', "[id^='imprimir_Factura']", function(e) {
     imprimir_factura(fact_id);
 });
 //termina --- Imprimir factura
+
+//Comienza --- Generar pdf Factura
+function factura_pdf(objet) { //funcion de redireccion de articulos
+ 
+    let action = 'pdf_Factura';
+    $.ajax({
+        url: './../maderastablas/pdf/ver_factura.php',
+        type: "POST",
+        async: true,
+        data: { action: action, pdf_Factura : objet },
+
+        success: function (response) {
+            data = $.parseJSON(response);
+           
+            if (data == 'exito') {
+                alert('Imprimiendo..');
+                //location.reload();
+            } else {
+                alert(data);
+            }
+
+        },
+        error: function (error) {
+
+        }
+    }); 
+}
+
+$('#myBody').on('click', "[id^='verPDF_Factura']", function(e) {
+    e.preventDefault();
+    let fact_id = $(this).attr('data-fact_id');
+    console.log(fact_id);
+    factura_pdf(fact_id);
+});
+//termina --- Generar pdf Factura
 
 //Comienza --- Imprimir los articulos segun la categoria
 function imprimirArt_categoria(objet) { //funcion de redireccion de articulos
