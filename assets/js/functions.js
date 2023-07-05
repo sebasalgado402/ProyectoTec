@@ -414,37 +414,13 @@ $('#myBody').on('click', "[id^='imprimir_Factura']", function(e) {
 //termina --- Imprimir factura
 
 //Comienza --- Generar pdf Factura
-function factura_pdf(objet) { //funcion de redireccion de articulos
- 
-    let action = 'pdf_Factura';
-    $.ajax({
-        url: './../maderastablas/pdf/ver_factura.php',
-        type: "POST",
-        async: true,
-        data: { action: action, pdf_Factura : objet },
-
-        success: function (response) {
-            data = $.parseJSON(response);
-           
-            if (data == 'exito') {
-                alert('Imprimiendo..');
-                //location.reload();
-            } else {
-                alert(data);
-            }
-
-        },
-        error: function (error) {
-
-        }
-    }); 
+function redireccionPDF_factura(id) { //funcion de redireccion de articulos
+    window.location.href = './../maderastablas/pdf/ver_factura.php?pdf_fact=' + id;
 }
-
 $('#myBody').on('click', "[id^='verPDF_Factura']", function(e) {
     e.preventDefault();
-    let fact_id = $(this).attr('data-fact_id');
-    console.log(fact_id);
-    factura_pdf(fact_id);
+    let pdfArt_id = $(this).attr('data-fact_id');
+    redireccionPDF_factura(pdfArt_id);
 });
 //termina --- Generar pdf Factura
 
@@ -2149,7 +2125,7 @@ console.log(art_id);
 //Termina---Boton que Categoria seleccionada
 //Empieza --- Maximizar Imagen Seleccionada
 
-$(document).on("click", "#ProductsList_Card_Image", function () {
+$('#myBody').on("click", "#ProductsList_Card_Image", function () {
     let image = $(this).attr("src");
 
     let action = "imagenSeleccionada";
@@ -2160,14 +2136,15 @@ $(document).on("click", "#ProductsList_Card_Image", function () {
       url: "./../assets/js/ajax.php",
       data: { action: action, imagenSeleccionada: image },
       success: function (response) {
-        if (response == 0) {
-          // Aquí puedes agregar el código que deseas ejecutar cuando la respuesta es 0
-        } else {
-          let resultado = response;
-          $(".ModalMaxImageContainer").html(resultado);
-          $(".ModalMaxImageContainer")
-            .removeClass()
-            .addClass("ModalMaxImageContainer-Active");
+          if (response == 0) {
+              // Aquí puedes agregar el código que deseas ejecutar cuando la respuesta es 0
+            } else {
+                let resultado = response;
+                $(".ModalMaxImageContainer").html(resultado);
+                $(".ModalMaxImageContainer")
+                .removeClass()
+                .addClass("ModalMaxImageContainer-Active");
+                console.log(response);
         }
         console.log("funciona");
       },

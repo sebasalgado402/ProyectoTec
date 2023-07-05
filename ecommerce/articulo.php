@@ -27,7 +27,7 @@
     <title>De Maderas Tablas</title>
 </head>
 
-<body>
+<body id="myBody">
     <!--Modal de Imagen Seleccionada para Maximiar-->
     <div class="ModalMaxImageContainer" id="ModalMaxImageContainer"></div>
 

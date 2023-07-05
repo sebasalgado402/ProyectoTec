@@ -125,9 +125,7 @@ function mostrarArticulos_Ecommerce()
   ORDER BY articulos.art_id DESC;
   ";
 
-  // puedo seleccionar de DB
-  $db = mysqli_select_db($conexion, $nombreBD) or die("Upps! Pues va a ser que no se ha podido conectar a la base de datos");
-
+ 
   // 3) Ejecutar la orden y obtener datos
   $datos = mysqli_query($conexion, $consulta);
 

@@ -13,7 +13,7 @@ try {
 		$printer = new Printer($connector);
 			$printer -> initialize();
 			$printer -> setJustification(Printer::JUSTIFY_CENTER);
-			//$logo = EscposImage::load("./images/logo-nuevo-jpg.jpg", false);
+			//$logo = EscposImage::load("./images/nike.jpg", false);
 			//$printer -> bitImage($logo);
 			$printer -> text("Rodrigo Javier Barreda Machado\n");
 			$printer -> text("RUT ".RUT."\n");

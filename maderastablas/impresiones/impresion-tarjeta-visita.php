@@ -15,8 +15,15 @@ $connector = new NetworkPrintConnector(IPIMPRESORA, 9100);
 $printer = new Printer($connector);
 $printer -> initialize();
 $printer -> setJustification(Printer::JUSTIFY_CENTER);
-$logo = EscposImage::load("./images/logo-nuevo-jpg.jpg", false);
-$printer -> bitImage($logo);
+/* $logo = EscposImage::load("./images/favicon.png", false);
+$printer -> bitImage($logo); */
+// Cargar la imagen
+$image = EscposImage::load('./images/icon.png', true); // Reemplaza 'path/to/image.png' con la ruta de tu imagen
+
+// Imprimir la imagen
+$printer->bitImage($image);
+$printer->feed();
+
 $printer -> text("Rodrigo Javier Barreda Machado\n");
 $printer -> text("RUT ".RUT."\n");
 $printer -> text(DIRECCION."\n");
