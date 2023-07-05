@@ -154,7 +154,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'nuevoArticulo') {
 
       if ($siExiste == 0) {
         include('./../js/bd.php');
-        $insertarArticulo = "INSERT INTO `articulos`(`art_id`, `art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_deshabilitado`, `art_categoria`, `art_materiales`) VALUES (NULL,'" . $articulo->codigo . "','" . $articulo->nombre . "','" . $articulo->descripcion . "'," . $articulo->precio . "," . $articulo->stock . "," . $articulo->costo . ",'S','" . $articulo->deshabilitado . "','" . $articulo->categoria . "','" . $articulo->materiales . "')";
+        $insertarArticulo = "INSERT INTO `articulos`(`art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_deshabilitado`, `art_categoria`, `art_materiales`) VALUES ('" . $articulo->codigo . "','" . $articulo->nombre . "','" . $articulo->descripcion . "'," . $articulo->precio . "," . $articulo->stock . "," . $articulo->costo . ",'S','" . $articulo->deshabilitado . "','" . $articulo->categoria . "','" . $articulo->materiales . "')";
 
         $insertarGasto = "INSERT INTO `gastos` (`gas_id`, `gas_fecha`, `gas_proveedor`, `gas_concepto`, `gas_cantidad`, `gas_total`) VALUES (NULL, '" . $fechaActual . "', '" . $articulo->proveedor . "','" . $articulo->concepto . "', '" . $articulo->stock . "', '" . $articulo->gastoTotal . "')";
 
@@ -250,7 +250,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'modalnueva_Categoria') {
     include('./../js/bd.php');
 
 
-    $consulta = "INSERT INTO `categorias`(`cat_id`, `cat_nom`, `cat_obs`) VALUES ('','$categoria->nombre','$categoria->observacion')";
+    $consulta = "INSERT INTO `categorias`( `cat_nom`, `cat_obs`) VALUES ('$categoria->nombre','$categoria->observacion')";
     //$db = mysqli_select_db( $conexion, $nombreBD ) or die ( "Upps! Pues va a ser que no se ha podido conectar a la base de datos" );
 
     if (mysqli_query($conexion, $consulta)) {
@@ -439,7 +439,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'procesarVenta') {
 
     $formated_DATE = date('Y-m-d');
 
-    $consulta = "INSERT INTO `factura`(`fact_id`, `fact_fecha`) VALUES (null,'$formated_DATE')";
+    $consulta = "INSERT INTO `factura`( `fact_fecha`) VALUES ('$formated_DATE')";
     $insertFactura = mysqli_query($conexion, $consulta) or die($mysqli->error);
 
     if ($insertFactura) {
