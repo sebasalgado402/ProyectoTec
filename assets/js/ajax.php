@@ -156,7 +156,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'nuevoArticulo') {
         include('./../js/bd.php');
         $insertarArticulo = "INSERT INTO `articulos`(`art_cod`, `art_nom`, `art_desc`, `art_precio`, `art_stock`, `art_costo`, `art_vendible`, `art_deshabilitado`, `art_categoria`, `art_materiales`) VALUES ('" . $articulo->codigo . "','" . $articulo->nombre . "','" . $articulo->descripcion . "'," . $articulo->precio . "," . $articulo->stock . "," . $articulo->costo . ",'S','" . $articulo->deshabilitado . "','" . $articulo->categoria . "','" . $articulo->materiales . "')";
 
-        $insertarGasto = "INSERT INTO `gastos` (`gas_id`, `gas_fecha`, `gas_proveedor`, `gas_concepto`, `gas_cantidad`, `gas_total`) VALUES (NULL, '" . $fechaActual . "', '" . $articulo->proveedor . "','" . $articulo->concepto . "', '" . $articulo->stock . "', '" . $articulo->gastoTotal . "')";
+        $insertarGasto = "INSERT INTO `gastos` ( `gas_fecha`, `gas_proveedor`, `gas_concepto`, `gas_total`) VALUES ('" . $fechaActual . "', '" . $articulo->proveedor . "','" . $articulo->concepto . "', '" . $articulo->gastoTotal . "')";
 
         if (mysqli_query($conexion, $insertarGasto) && mysqli_query($conexion, $insertarArticulo)) {
           $data = 'exito';
@@ -669,7 +669,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'busqueda_Fecha_Gastos') {
                 gas_concepto,
                 gas_total
                 FROM
-                Gastos where gas_fecha BETWEEN '" . $busqueda_Fecha_Gastos[0] . "' AND '" . $busqueda_Fecha_Gastos[1] . " ORDER BY numeracion ASC'";
+                gastos where gas_fecha BETWEEN '" . $busqueda_Fecha_Gastos[0] . "' AND '" . $busqueda_Fecha_Gastos[1] . " ORDER BY numeracion ASC'";
     } else {
       $consulta = "SELECT
                 ROW_NUMBER() OVER (ORDER BY gas_fecha) AS numeracion,
@@ -679,7 +679,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'busqueda_Fecha_Gastos') {
                 gas_concepto,
                 gas_total
                 FROM
-                Gastos where gas_fecha= '" . $busqueda_Fecha_Gastos[0] . " ORDER BY numeracion'";
+                gastos where gas_fecha= '" . $busqueda_Fecha_Gastos[0] . " ORDER BY numeracion'";
     }
 
 
@@ -817,7 +817,7 @@ if ((isset($_POST['action'])) && $_POST['action'] == 'buscar_conceptoLista__Gast
   gas_concepto,
   gas_total
 FROM
-  Gastos
+  gastos
 WHERE
   gas_concepto LIKE '" . $_POST['buscar_conceptoLista__Gastos'] . "%' ORDER BY numeracion DESC;";
   $datos = mysqli_query($conexion, $consulta);
@@ -852,7 +852,7 @@ if ((isset($_POST['action'])) && $_POST['action'] == 'buscar_proveedorLista__Gas
   gas_concepto,
   gas_total
 FROM
-  Gastos
+  gastos
 WHERE
   gas_proveedor LIKE '" . $_POST['buscar_proveedorLista__Gastos'] . "%' ORDER BY numeracion DESC;";
   $datos = mysqli_query($conexion, $consulta);

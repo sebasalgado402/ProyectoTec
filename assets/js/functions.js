@@ -1,6 +1,9 @@
 let imgProductoID;
 let i = 1;
 let art_id;
+//Parte balance - fechas
+let fechaInicio = $("#date_Inicio-balance");
+let fechaFinal = $("#date_Final-balance");
 
 let deshabilitado;
 
@@ -86,9 +89,6 @@ $(".AddProductImage_Carrousel-Card-Button").click(function() {
   
   //Termina --- Borrar Imagen Seleccionada de Banner
 
-//Parte balance - fechas
-let fechaInicio = $("#date_Inicio-balance");
-let fechaFinal = $("#date_Final-balance");
 
 //Parte subir imagenes
 function subirImagen_articulo(){
@@ -184,6 +184,7 @@ function mostrarLista_gastosFechas_parametros(fecha1,fecha2) {
                   });
 
             } else {
+                console.log(data);
                 $('#recibeResultados_Gastos').html("No se encontraron resultados");
             }
 
@@ -414,9 +415,10 @@ $('#myBody').on('click', "[id^='imprimir_Factura']", function(e) {
 //termina --- Imprimir factura
 
 //Comienza --- Generar pdf Factura
-function redireccionPDF_factura(id) { //funcion de redireccion de articulos
-    window.location.href = './../maderastablas/pdf/ver_factura.php?pdf_fact=' + id;
+function redireccionPDF_factura(id) {
+    window.open('./../maderastablas/pdfnuevo/ver_factura.php?pdf_fact=' + id, '_blank');
 }
+
 $('#myBody').on('click', "[id^='verPDF_Factura']", function(e) {
     e.preventDefault();
     let pdfArt_id = $(this).attr('data-fact_id');

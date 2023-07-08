@@ -15,8 +15,8 @@ try {
 			$printer -> setJustification(Printer::JUSTIFY_CENTER);
 			//$logo = EscposImage::load("./images/nike.jpg", false);
 			//$printer -> bitImage($logo);
-			$printer -> text("Rodrigo Javier Barreda Machado\n");
 			$printer -> text("RUT ".RUT."\n");
+			$printer -> text("Rodrigo Javier Barreda Machado\n");
 			$printer -> text(DIRECCION."\n");
 			$printer -> setLineSpacing(5);
 			$printer -> setTextSize(1, 2);
